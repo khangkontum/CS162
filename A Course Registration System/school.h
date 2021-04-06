@@ -15,7 +15,7 @@ struct Student{
 
 struct Class{
     char* className;
-    Student * studentList;  // Dynamic array
+    Student* studentList;  // Dynamic array
 };
 
 struct SchoolYear{
