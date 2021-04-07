@@ -1,4 +1,5 @@
-#include <iostream>
+#include "school.h"
+#include <bits/stdc++.h>
 
 using namespace std;
 
