@@ -10,21 +10,27 @@ struct DateOfBirth{
 struct Student{
     char* firstName,* lastName,* No,* studentID,* Gender,* socialID;
     DateOfBirth birth;
+    Student* pNext, *pPrev;
+
+    Student(): pPrev(nullptr), pNext(nullptr) {}
 
 };
 
 struct Class{
     char* className;
-    Student* studentList;  // Dynamic array
+    Student* studentList;  
+    Class* pNext, *pPrev;
+
+    Class(): pNext(nullptr), pPrev(nullptr) {}
 };
 
 struct SchoolYear{
     int year;
-    Class* classList;   //Dynamic array
-};
+    Class* classList;   
+    SchoolYear* pNext, *pPrev;
 
-struct school{
-    SchoolYear* yearList;   //Dynamic array
+    SchoolYear() : pNext(nullptr), pPrev(nullptr) {}
+    SchoolYear(SchoolYear* prev_school_year, int x) : pNext(nullptr), pPrev(prev_school_year), year(x) {}
 };
 
 #endif // _School_
