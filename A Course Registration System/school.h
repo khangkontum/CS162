@@ -6,6 +6,8 @@ struct User{
     char * password;
     char * username;
     char * Name;
+    char * phoneNumber;
+     char * email;
     int flag =0 ;
     User*uNext, *uPre;
 };
