@@ -71,6 +71,7 @@ struct Semester{
     char * start;
     char * end;
     int no;
+    Course * courseList;
     Semester *nextSem,*preSem;
 };
 struct SchoolYear{
