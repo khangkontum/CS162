@@ -68,8 +68,6 @@ void createSchoolYear(SchoolYearList &schoolYearList, string path) {
 		return;
 	}
 	fout.close();
-
-	
 }
 void displaySchoolYears(SchoolYearList schoolYearList) {
 	if (schoolYearList.schoolyearL == nullptr) return;
