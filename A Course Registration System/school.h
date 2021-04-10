@@ -107,4 +107,6 @@ void loadClasses(SchoolYear schoolYear);
 bool schoolYearExists(SchoolYearList schoolYearList);
 void adjustSchoolYear(SchoolYear *&schoolYear);
 SchoolYear *findSchoolYear(SchoolYearList schoolYearList, char year[]);
+
+
 #endif // _School_

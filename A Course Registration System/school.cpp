@@ -11,39 +11,67 @@ void displayCommandMenu()
 		cout << "2. Modify School Year." << endl;
 		cout << "3. ......" << endl;
 		cin >> option;
-		switch (option) {
-		case 1: {
+
+		if(option== 1) {
 			system("CLS");
 			string path = "SchoolYear\\SchoolYear.txt";
 			cout << "Create a new school year:" << endl;
 			createSchoolYear(schoolYearList, path);
 			displaySchoolYears(schoolYearList);
 			Sleep(1000);
+			system("CLS");
 		}
-		case 2: {
+		if(option ==2) {
 			system("CLS");
 			if (schoolYearList.schoolyearL == nullptr) {
 				cout << "No school year was created" << endl;
+				Sleep(1000);
 			}
-			else if (schoolYearList.schoolyearL->pNext == nullptr){
-				adjustSchoolYear(schoolYearList.schoolyearL);
-			}
-
-			// lam sau
 			else {
+				if (schoolYearList.schoolyearL->pNext == nullptr) {
+					adjustSchoolYear(schoolYearList.schoolyearL);
+				}
+				else {
+					displaySchoolYears(schoolYearList);
+					cout << "Input the year following the format (Start-End): ";
+					char input[1000];
+					cin.width(1000);
+					cin >> input;
+					while (strlen(input) != 9 && input[4] != '-') {
+						cout << "Wrong format, please try again: ";
+						cin.width(1000);
+						cin >> input;
+					}
+
+					SchoolYear *adjust = findSchoolYear(schoolYearList, input);
+					if (adjust == nullptr) {
+						cout << "School year not existed, please create it first..." << endl;
+						Sleep(1000);
+					} else adjustSchoolYear(adjust);
+				}
 
 			}
 
 		}
-
-		}
+		system("CLS");
+		
 	}
 	
 
 }
 
+
+
+
 void adjustSchoolYear(SchoolYear *&schoolYear) {
-	cout << "1. Add new class" << endl;
+	int option = 100;
+	
+	while (option != 0) {
+		cout << "ADJUSTMENT FOR SCHOOL YEAR " << schoolYear->year << endl;
+		cout << "1. Add new class" << endl;
+		cin >> option;
+	}
+	
 }
 
 
@@ -114,6 +142,7 @@ void createSchoolYear(SchoolYearList &schoolYearList, string path) {
 
 		cout << "School Year Created !!!!" << endl;
 		Sleep(500);
+		return;
 	}
 	else {
 		cout << "Cannot find or open SchoolYear.txt..." << endl;
@@ -123,6 +152,8 @@ void createSchoolYear(SchoolYearList &schoolYearList, string path) {
 
 	
 }
+
+
 
 SchoolYear *findSchoolYear(SchoolYearList schoolYearList, char year[]) {
 	if (schoolYearList.schoolyearL == nullptr) return nullptr;
