@@ -29,19 +29,19 @@ struct Student{
     Student(): pPrev(nullptr), pNext(nullptr) {}
 
 };
-struct Day{
-    Day *nextDay, *preDay;
-	char* dayName;
-	char* mor1;
-	char* mor2;
-	char* aft1;
-	char* aft2;
-};
-struct Schedule{
-    Day *dateList;
-    char* className;
-     Schedule(): dateList(nullptr) {}
-};
+// struct Day{
+//     Day *nextDay, *preDay;
+// 	char* dayName;
+// 	char* mor1;
+// 	char* mor2;
+// 	char* aft1;
+// 	char* aft2;
+// };
+// struct Schedule{
+//     Day *dateList;
+//     char* className;
+//      Schedule(): dateList(nullptr) {}
+// };
 struct Class{
     char* className;
     int noStudent;
