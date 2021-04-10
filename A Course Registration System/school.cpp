@@ -4,7 +4,9 @@ void displayCommandMenu()
 {
     int option =100;
     SchoolYearList schoolYearList;
+	classList classList;
     loadSchoolYearList(schoolYearList);
+	//loadClassList(classList);
 	while (option != 0) {
 		cout << "---------------------------------------" << endl;
 		cout << "1. Create a school year." << endl;
@@ -22,7 +24,7 @@ void displayCommandMenu()
 			system("CLS");
 		} else if (option == 2) {
 			system("CLS");
-			string path = "SchoolYear\\SchoolYear.txt";
+			string path = "Class\\Classes.txt";
 			cout << "Create a new class:" << endl;
 			Sleep(1000);
 			system("CLS");
@@ -35,8 +37,37 @@ void displayCommandMenu()
 
 }
 
+void loadClassList(classList &classList) {
+	ifstream fin;
+	string path = "Classes\\Classes.txt";
+	fin.open(path);
+
+	if (fin.is_open()) {
+
+		char dummy[10000];
+		while (!fin.eof()) {
+			fin >> dummy;
+			Class *newClass = new Class;
+			newClass->className = new char[strlen(dummy) + 1];
+			strcpy(newClass->className, dummy);
+			int noStudent = loadStudent(newClass);
+			
+		}
+	}
+	else {
+		cout << "Cannot open SchoolYear.txt" << endl;
+		return;
+	}
+	fin.close();
+}
+int loadStudent(Class *&cl) {
+	ifstream fin;
+	string path = "Classes\\";
+	path.append(cl->className);
+	path += ".csv";
 
 
+}
 
 
 
@@ -93,14 +124,15 @@ void createSchoolYear(SchoolYearList &schoolYearList, string path) {
 		if (schoolYearList.schoolyearL != nullptr) schoolYearList.schoolyearL->pPrev = newSchoolYear;
 		schoolYearList.schoolyearL = newSchoolYear;
 		fout << newSchoolYear->year << endl;
-		
+
+		/*
 		string path2 = "SchoolYear\\";
 		path2.append(newSchoolYear->year);
 		path2 += ".csv";
 		ofstream fout2;
 		fout2.open(path2);
 		fout2.close();
-
+		*/
 		cout << "School Year Created !!!!" << endl;
 		Sleep(500);
 		return;

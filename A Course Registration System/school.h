@@ -9,8 +9,6 @@
 
 using namespace std;
 
-
-
 struct User{
     char * password;
     char * username;
@@ -56,6 +54,9 @@ struct Class{
     Class* pNext, *pPrev;
     Class(): pNext(nullptr), pPrev(nullptr) {}
 };
+struct classList {
+	Class* classL = nullptr;
+};
 // struct Score{
 //     char* name;
 //     char * studentID;
@@ -85,7 +86,7 @@ struct Class{
 // };
 struct SchoolYear{
 	char * year = nullptr;
-    Class* classList = nullptr;   
+  //  Class* classList = nullptr;   
     SchoolYear* pNext, *pPrev;
    // Semester* semesterList = nullptr;
     SchoolYear() : pNext(nullptr), pPrev(nullptr) {}
@@ -102,10 +103,9 @@ void displayCommandMenu();
 void loadSchoolYearList(SchoolYearList &schoolYearList);
 void createSchoolYear(SchoolYearList &schoolYearList, string path);
 void displaySchoolYears(SchoolYearList schoolYearList);
-void createClasses(SchoolYear &schoolYear, int startYear, int endYear);
-void loadClasses(SchoolYear schoolYear);
-void adjustSchoolYear(SchoolYear *&schoolYear);
 SchoolYear *findSchoolYear(SchoolYearList schoolYearList, char year[]);
-
-
+// Class
+void createClasses(classList &classList);
+void loadClassList(classList &classList);
+int loadStudent(Class *&cl);
 #endif // _School_
