@@ -104,7 +104,6 @@ void createSchoolYear(SchoolYearList &schoolYearList, string path);
 void displaySchoolYears(SchoolYearList schoolYearList);
 void createClasses(SchoolYear &schoolYear, int startYear, int endYear);
 void loadClasses(SchoolYear schoolYear);
-bool schoolYearExists(SchoolYearList schoolYearList);
 void adjustSchoolYear(SchoolYear *&schoolYear);
 SchoolYear *findSchoolYear(SchoolYearList schoolYearList, char year[]);
 

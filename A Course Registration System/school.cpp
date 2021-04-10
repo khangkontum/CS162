@@ -8,7 +8,7 @@ void displayCommandMenu()
 	while (option != 0) {
 		cout << "---------------------------------------" << endl;
 		cout << "1. Create a school year." << endl;
-		cout << "2. Modify School Year." << endl;
+		cout << "2. Create new class." << endl;
 		cout << "3. ......" << endl;
 		cin >> option;
 
@@ -20,39 +20,14 @@ void displayCommandMenu()
 			displaySchoolYears(schoolYearList);
 			Sleep(1000);
 			system("CLS");
-		}
-		if(option ==2) {
+		} else if (option == 2) {
 			system("CLS");
-			if (schoolYearList.schoolyearL == nullptr) {
-				cout << "No school year was created" << endl;
-				Sleep(1000);
-			}
-			else {
-				if (schoolYearList.schoolyearL->pNext == nullptr) {
-					adjustSchoolYear(schoolYearList.schoolyearL);
-				}
-				else {
-					displaySchoolYears(schoolYearList);
-					cout << "Input the year following the format (Start-End): ";
-					char input[1000];
-					cin.width(1000);
-					cin >> input;
-					while (strlen(input) != 9 && input[4] != '-') {
-						cout << "Wrong format, please try again: ";
-						cin.width(1000);
-						cin >> input;
-					}
-
-					SchoolYear *adjust = findSchoolYear(schoolYearList, input);
-					if (adjust == nullptr) {
-						cout << "School year not existed, please create it first..." << endl;
-						Sleep(1000);
-					} else adjustSchoolYear(adjust);
-				}
-
-			}
-
+			string path = "SchoolYear\\SchoolYear.txt";
+			cout << "Create a new class:" << endl;
+			Sleep(1000);
+			system("CLS");
 		}
+		
 		system("CLS");
 		
 	}
@@ -62,17 +37,6 @@ void displayCommandMenu()
 
 
 
-
-void adjustSchoolYear(SchoolYear *&schoolYear) {
-	int option = 100;
-	
-	while (option != 0) {
-		cout << "ADJUSTMENT FOR SCHOOL YEAR " << schoolYear->year << endl;
-		cout << "1. Add new class" << endl;
-		cin >> option;
-	}
-	
-}
 
 
 
@@ -90,9 +54,6 @@ void loadSchoolYearList(SchoolYearList &schoolYearList){
 			newSchoolYear->year = new char[strlen(dummy) + 1];
 			strcpy(newSchoolYear->year,dummy);
 			
-			// load them class list 
-			// load semester
-		
 			newSchoolYear->pNext = schoolYearList.schoolyearL;
 			if (schoolYearList.schoolyearL != nullptr) schoolYearList.schoolyearL->pPrev = newSchoolYear;
 			schoolYearList.schoolyearL = newSchoolYear;
