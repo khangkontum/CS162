@@ -2,8 +2,12 @@
 #define _School_
 #include<iostream>
 #include <fstream>
-
+#include<string.h>
+#include<string>
 using namespace std;
+
+
+
 struct User{
     char * password;
     char * username;
@@ -77,13 +81,13 @@ struct Class{
 //     Semester *nextSem,*preSem;
 // };
 struct SchoolYear{
-    int startYear;
-    int endYear;
+    string startYear;
+	string endYear;
     Class* classList;   
     SchoolYear* pNext, *pPrev;
    // Semester* semesterList = nullptr;
     SchoolYear() : pNext(nullptr), pPrev(nullptr) {}
-    SchoolYear(SchoolYear* prev_school_year, int x,int y) : pNext(nullptr), pPrev(prev_school_year), startYear(x), endYear(y) {}
+   // SchoolYear(SchoolYear* prev_school_year, int x,int y) : pNext(nullptr), pPrev(prev_school_year), startYear(x), endYear(y) {}
 };
 struct SchoolYearList{
  
@@ -94,6 +98,8 @@ void displayCommandMenu();
 
 //school Year
 void loadSchoolYearList(SchoolYearList &schoolYearList);
-void createSchoolYear(SchoolYearList &schoolYearList);
+void createSchoolYear(SchoolYearList &schoolYearList, string path);
+void displaySchoolYears(SchoolYearList schoolYearList);
 void createClasses(SchoolYear &schoolYear, int startYear, int endYear);
+bool schoolYearExists(SchoolYearList schoolYearList);
 #endif // _School_
