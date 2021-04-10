@@ -1,5 +1,7 @@
 #ifndef _School_
 #define _School_
+#include<iostream>
+#include <fstream>
 
 using namespace std;
 struct User{
@@ -47,40 +49,51 @@ struct Class{
     Class* pNext, *pPrev;
     Class(): pNext(nullptr), pPrev(nullptr) {}
 };
-struct Score{
-    char* name;
-    char * studentID;
-	float mid, fnal, lb, bnus;
-	Score*nextScore= nullptr, *preScore = nullptr;
-};
-struct ScoreList{
-    Score *fScore = nullptr;
+// struct Score{
+//     char* name;
+//     char * studentID;
+// 	float mid, fnal, lb, bnus;
+// 	Score*nextScore= nullptr, *preScore = nullptr;
+// };
+// struct ScoreList{
+//     Score *fScore = nullptr;
 
-};
-struct Course{
-    char *courseId;
-    char * courseName;
-    char* lecturer;
-    int noStudent;
-    int noCredits;
-    int dayOfWeek;
-    Course* courseNext, *coursePre;
-    ScoreList scoreList;
-};
-struct Semester{
-    char * start;
-    char * end;
-    int no;
-    Course * courseList;
-    Semester *nextSem,*preSem;
-};
+// };
+// struct Course{
+//     char *courseId;
+//     char * courseName;
+//     char* lecturer;
+//     int noStudent;
+//     int noCredits;
+//     int dayOfWeek;
+//     Course* courseNext, *coursePre;
+//     ScoreList scoreList;
+// };
+// struct Semester{
+//     char * start;
+//     char * end;
+//     int no;
+//     Course * courseList;
+//     Semester *nextSem,*preSem;
+// };
 struct SchoolYear{
-    int year;
+    int startYear;
+    int endYear;
     Class* classList;   
     SchoolYear* pNext, *pPrev;
-    Semester* semesterList = nullptr;
+   // Semester* semesterList = nullptr;
     SchoolYear() : pNext(nullptr), pPrev(nullptr) {}
-    SchoolYear(SchoolYear* prev_school_year, int x) : pNext(nullptr), pPrev(prev_school_year), year(x) {}
+    SchoolYear(SchoolYear* prev_school_year, int x,int y) : pNext(nullptr), pPrev(prev_school_year), startYear(x), endYear(y) {}
+};
+struct SchoolYearList{
+ 
+    SchoolYear* schoolyearL = nullptr;
 };
 
+void displayCommandMenu();
+
+//school Year
+void loadSchoolYearList(SchoolYearList &schoolYearList);
+void createSchoolYear(SchoolYearList &schoolYearList);
+void createClasses(SchoolYear &schoolYear, int startYear, int endYear);
 #endif // _School_

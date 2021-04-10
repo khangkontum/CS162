@@ -1,10 +1,7 @@
 #include "school.h"
-#include <bits/stdc++.h>
-
-using namespace std;
-
 int main()
 {
     cout << "Hello world!" << endl;
+    displayCommandMenu();
     return 0;
 }
