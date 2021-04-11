@@ -1,9 +1,12 @@
+#define _CRT_SECURE_NO_DEPRECATE
 #ifndef _School_
 #define _School_
 #include<iostream>
 #include <fstream>
 #include<string.h>
 #include<string>
+#include <Windows.h>
+
 using namespace std;
 
 
@@ -81,9 +84,8 @@ struct Class{
 //     Semester *nextSem,*preSem;
 // };
 struct SchoolYear{
-    string startYear;
-	string endYear;
-    Class* classList;   
+	char * year = nullptr;
+    Class* classList = nullptr;   
     SchoolYear* pNext, *pPrev;
    // Semester* semesterList = nullptr;
     SchoolYear() : pNext(nullptr), pPrev(nullptr) {}
@@ -101,5 +103,10 @@ void loadSchoolYearList(SchoolYearList &schoolYearList);
 void createSchoolYear(SchoolYearList &schoolYearList, string path);
 void displaySchoolYears(SchoolYearList schoolYearList);
 void createClasses(SchoolYear &schoolYear, int startYear, int endYear);
+void loadClasses(SchoolYear schoolYear);
 bool schoolYearExists(SchoolYearList schoolYearList);
+void adjustSchoolYear(SchoolYear *&schoolYear);
+SchoolYear *findSchoolYear(SchoolYearList schoolYearList, char year[]);
+
+
 #endif // _School_
