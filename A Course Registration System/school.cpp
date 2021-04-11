@@ -4,11 +4,13 @@ void displayCommandMenu()
 {
     int option =100;
     SchoolYearList schoolYearList;
+	classList classList;
     loadSchoolYearList(schoolYearList);
+	//loadClassList(classList);
 	while (option != 0) {
 		cout << "---------------------------------------" << endl;
 		cout << "1. Create a school year." << endl;
-		cout << "2. Modify School Year." << endl;
+		cout << "2. Create new class." << endl;
 		cout << "3. ......" << endl;
 		cin >> option;
 
@@ -20,39 +22,14 @@ void displayCommandMenu()
 			displaySchoolYears(schoolYearList);
 			Sleep(1000);
 			system("CLS");
-		}
-		if(option ==2) {
+		} else if (option == 2) {
 			system("CLS");
-			if (schoolYearList.schoolyearL == nullptr) {
-				cout << "No school year was created" << endl;
-				Sleep(1000);
-			}
-			else {
-				if (schoolYearList.schoolyearL->pNext == nullptr) {
-					adjustSchoolYear(schoolYearList.schoolyearL);
-				}
-				else {
-					displaySchoolYears(schoolYearList);
-					cout << "Input the year following the format (Start-End): ";
-					char input[1000];
-					cin.width(1000);
-					cin >> input;
-					while (strlen(input) != 9 && input[4] != '-') {
-						cout << "Wrong format, please try again: ";
-						cin.width(1000);
-						cin >> input;
-					}
-
-					SchoolYear *adjust = findSchoolYear(schoolYearList, input);
-					if (adjust == nullptr) {
-						cout << "School year not existed, please create it first..." << endl;
-						Sleep(1000);
-					} else adjustSchoolYear(adjust);
-				}
-
-			}
-
+			string path = "Class\\Classes.txt";
+			cout << "Create a new class:" << endl;
+			Sleep(1000);
+			system("CLS");
 		}
+		
 		system("CLS");
 		
 	}
@@ -60,18 +37,36 @@ void displayCommandMenu()
 
 }
 
+void loadClassList(classList &classList) {
+	ifstream fin;
+	string path = "Classes\\Classes.txt";
+	fin.open(path);
 
+	if (fin.is_open()) {
 
-
-void adjustSchoolYear(SchoolYear *&schoolYear) {
-	int option = 100;
-	
-	while (option != 0) {
-		cout << "ADJUSTMENT FOR SCHOOL YEAR " << schoolYear->year << endl;
-		cout << "1. Add new class" << endl;
-		cin >> option;
+		char dummy[10000];
+		while (!fin.eof()) {
+			fin >> dummy;
+			Class *newClass = new Class;
+			newClass->className = new char[strlen(dummy) + 1];
+			strcpy(newClass->className, dummy);
+			int noStudent = loadStudent(newClass);
+			
+		}
 	}
-	
+	else {
+		cout << "Cannot open SchoolYear.txt" << endl;
+		return;
+	}
+	fin.close();
+}
+int loadStudent(Class *&cl) {
+	ifstream fin;
+	string path = "Classes\\";
+	path.append(cl->className);
+	path += ".csv";
+	return 0;
+
 }
 
 
@@ -90,9 +85,6 @@ void loadSchoolYearList(SchoolYearList &schoolYearList){
 			newSchoolYear->year = new char[strlen(dummy) + 1];
 			strcpy(newSchoolYear->year,dummy);
 			
-			// load them class list 
-			// load semester
-		
 			newSchoolYear->pNext = schoolYearList.schoolyearL;
 			if (schoolYearList.schoolyearL != nullptr) schoolYearList.schoolyearL->pPrev = newSchoolYear;
 			schoolYearList.schoolyearL = newSchoolYear;
@@ -108,12 +100,13 @@ void createSchoolYear(SchoolYearList &schoolYearList, string path) {
 	ofstream fout;
 	fout.open(path,std::ios_base::app);
 	if (fout.is_open()) {
-		cout << "Input the year following the format (Start-End): ";
+		cout << "Input the year following the format (Start-End and End minus Start must be 1): ";
 		char input[1000];
 		cin.width(1000);
 		cin >> input;
-		while (strlen(input) != 9 && input[4] != '-') {
-			cout << "Wrong format, please try again: ";
+		
+		while (!validSchoolYear(input)) {
+			cout << "Input the year following the format (Start-End and End minus Start must be 1): ";
 			cin.width(1000);
 			cin >> input;
 		}
@@ -132,14 +125,15 @@ void createSchoolYear(SchoolYearList &schoolYearList, string path) {
 		if (schoolYearList.schoolyearL != nullptr) schoolYearList.schoolyearL->pPrev = newSchoolYear;
 		schoolYearList.schoolyearL = newSchoolYear;
 		fout << newSchoolYear->year << endl;
-		
+
+		/*
 		string path2 = "SchoolYear\\";
 		path2.append(newSchoolYear->year);
 		path2 += ".csv";
 		ofstream fout2;
 		fout2.open(path2);
 		fout2.close();
-
+		*/
 		cout << "School Year Created !!!!" << endl;
 		Sleep(500);
 		return;
@@ -151,6 +145,20 @@ void createSchoolYear(SchoolYearList &schoolYearList, string path) {
 	fout.close();
 }
 
+bool validSchoolYear(char input[]) {
+	if (strlen(input) != 9 && input[4] != '-') {
+		return false;
+	}
+	int yearlen = 4;
+	char *start = new char[yearlen], *end = new char[yearlen];
+	for (int i = 0; input[i] != '-'; i++) {
+		int j = i + yearlen +1;
+		start[i] = input[i];
+		end[i] = input[j];
+	}
+	if (atoi(end) - atoi(start) != 1) return false;
+	return true;
+}
 
 
 SchoolYear *findSchoolYear(SchoolYearList schoolYearList, char year[]) {

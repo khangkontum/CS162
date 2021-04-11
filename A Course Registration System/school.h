@@ -9,8 +9,6 @@
 
 using namespace std;
 
-
-
 struct User{
     char * password;
     char * username;
@@ -24,13 +22,13 @@ struct UserList{
     User* fUser;
     UserList(): fUser(nullptr){}
 };
-struct DateOfBirth{
+struct Date{
     int day, month, year;
 };
 
 struct Student{
     char* firstName,* lastName,* No,* studentID,* Gender,* socialID;
-    DateOfBirth birth;
+    Date birth;
     Student* pNext, *pPrev;
 
     Student(): pPrev(nullptr), pNext(nullptr) {}
@@ -55,6 +53,9 @@ struct Class{
     Student* studentList;  
     Class* pNext, *pPrev;
     Class(): pNext(nullptr), pPrev(nullptr) {}
+};
+struct classList {
+	Class* classL = nullptr;
 };
 // struct Score{
 //     char* name;
@@ -85,7 +86,7 @@ struct Class{
 // };
 struct SchoolYear{
 	char * year = nullptr;
-    Class* classList = nullptr;   
+  //  Class* classList = nullptr;   
     SchoolYear* pNext, *pPrev;
    // Semester* semesterList = nullptr;
     SchoolYear() : pNext(nullptr), pPrev(nullptr) {}
@@ -102,11 +103,10 @@ void displayCommandMenu();
 void loadSchoolYearList(SchoolYearList &schoolYearList);
 void createSchoolYear(SchoolYearList &schoolYearList, string path);
 void displaySchoolYears(SchoolYearList schoolYearList);
-void createClasses(SchoolYear &schoolYear, int startYear, int endYear);
-void loadClasses(SchoolYear schoolYear);
-bool schoolYearExists(SchoolYearList schoolYearList);
-void adjustSchoolYear(SchoolYear *&schoolYear);
 SchoolYear *findSchoolYear(SchoolYearList schoolYearList, char year[]);
-
-
+bool validSchoolYear(char input[]);
+// Class
+void createClasses(classList &classList);
+void loadClassList(classList &classList);
+int loadStudent(Class *&cl);
 #endif // _School_
