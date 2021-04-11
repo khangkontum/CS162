@@ -65,7 +65,7 @@ int loadStudent(Class *&cl) {
 	string path = "Classes\\";
 	path.append(cl->className);
 	path += ".csv";
-
+	return 0;
 
 }
 
@@ -100,12 +100,13 @@ void createSchoolYear(SchoolYearList &schoolYearList, string path) {
 	ofstream fout;
 	fout.open(path,std::ios_base::app);
 	if (fout.is_open()) {
-		cout << "Input the year following the format (Start-End): ";
+		cout << "Input the year following the format (Start-End and End minus Start must be 1): ";
 		char input[1000];
 		cin.width(1000);
 		cin >> input;
-		while (strlen(input) != 9 && input[4] != '-') {
-			cout << "Wrong format, please try again: ";
+		
+		while (!validSchoolYear(input)) {
+			cout << "Input the year following the format (Start-End and End minus Start must be 1): ";
 			cin.width(1000);
 			cin >> input;
 		}
@@ -146,6 +147,20 @@ void createSchoolYear(SchoolYearList &schoolYearList, string path) {
 	
 }
 
+bool validSchoolYear(char input[]) {
+	if (strlen(input) != 9 && input[4] != '-') {
+		return false;
+	}
+	int yearlen = 4;
+	char *start = new char[yearlen], *end = new char[yearlen];
+	for (int i = 0; input[i] != '-'; i++) {
+		int j = i + yearlen +1;
+		start[i] = input[i];
+		end[i] = input[j];
+	}
+	if (atoi(end) - atoi(start) != 1) return false;
+	return true;
+}
 
 
 SchoolYear *findSchoolYear(SchoolYearList schoolYearList, char year[]) {

@@ -104,6 +104,7 @@ void loadSchoolYearList(SchoolYearList &schoolYearList);
 void createSchoolYear(SchoolYearList &schoolYearList, string path);
 void displaySchoolYears(SchoolYearList schoolYearList);
 SchoolYear *findSchoolYear(SchoolYearList schoolYearList, char year[]);
+bool validSchoolYear(char input[]);
 // Class
 void createClasses(classList &classList);
 void loadClassList(classList &classList);
