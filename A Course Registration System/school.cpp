@@ -65,7 +65,12 @@ int loadStudent(Class *&cl) {
 	string path = "Classes\\";
 	path.append(cl->className);
 	path += ".csv";
-	return 0;
+	int noStudent = 0;
+	fin.open(path);
+	if (fin.is_open()) {
+
+	}
+	else return noStudent;
 
 }
 

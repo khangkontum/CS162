@@ -108,5 +108,6 @@ bool validSchoolYear(char input[]);
 // Class
 void createClasses(classList &classList);
 void loadClassList(classList &classList);
+Class* findClass(classList &classList, char className[]);
 int loadStudent(Class *&cl);
 #endif // _School_
