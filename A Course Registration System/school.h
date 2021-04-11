@@ -109,7 +109,7 @@ bool validSchoolYear(char input[]);
 void deleteSchoolYearList(SchoolYearList &schoolYearList);
 
 // Class
-void createClasses(classList &classList);
+void createClasses(classList &classList, string path);
 void loadClassList(classList &classList);
 Class* findClass(classList &classList, char className[]);
 int loadStudent(Class *&cl);
@@ -118,5 +118,6 @@ void dateCSVToInt(string s, Date &d);
 void displayStudent(Class* cl);
 void deleteClassList(classList &classList);
 void deleteStudentList(Class *&cl);
+
 
 #endif // _School_

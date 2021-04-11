@@ -11,7 +11,7 @@ void displayCommandMenu()
 		cout << "---------------------------------------" << endl;
 		cout << "1. Create a school year." << endl;
 		cout << "2. Create new class." << endl;
-		cout << "3. ......" << endl;
+		cout << "3. Add a student to a class" << endl;
 		cin >> option;
 
 		if(option== 1) {
@@ -23,8 +23,13 @@ void displayCommandMenu()
 			Sleep(1000);
 			system("CLS");
 		} else if (option == 2) {
+			system("CLS");
+			string path = "Classes\\Classes.txt";
+			cout << "Create a new class:" << endl;
+			createClasses(classList, path);
 			displayClasses(classList);
-			Sleep(20000);
+			Sleep(2000);
+			system("CLS");
 		}
 		
 		system("CLS");
@@ -44,6 +49,7 @@ void loadClassList(classList &classList) {
 		char dummy[10000];
 		while (!fin.eof()) {
 			fin >> dummy;
+			if (strlen(dummy)==0) return;
 			Class *newClass = new Class;
 			newClass->className = new char[strlen(dummy) + 1];
 			strcpy(newClass->className, dummy);
@@ -135,6 +141,7 @@ void loadSchoolYearList(SchoolYearList &schoolYearList){
 		char dummy[10000];
 		while (!fin.eof()) {
 			fin >> dummy;
+			if (strlen(dummy) == 0) return;
 			SchoolYear *newSchoolYear = new SchoolYear;
 			newSchoolYear->year = new char[strlen(dummy) + 1];
 			strcpy(newSchoolYear->year,dummy);
@@ -149,6 +156,52 @@ void loadSchoolYearList(SchoolYearList &schoolYearList){
     }
     fin.close();
 }
+
+void createClasses(classList &classList, string path) {
+	ofstream fout;
+	fout.open(path, std::ios_base::app);
+	if (fout.is_open()) {
+		cout << "Input the new class's name: ";
+		char input[1000];
+		cin.width(1000);
+		cin >> input;
+		if (findClass(classList, input) != nullptr) {
+			cout << "Class existed, no need to create more..." << endl;
+			Sleep(700);
+			return;
+		}
+
+		Class *newClass = new Class;
+		newClass->className = new char[strlen(input) + 1];
+		strcpy(newClass->className, input);
+
+		int noStudent = loadStudent(newClass);
+		if (noStudent == 0 || newClass->studentList == nullptr) {
+			cout << "Please add student to " << newClass->className << ".csv which is newly created in Classes folder" << endl;
+			string path2 = "Classes\\";
+			path2.append(newClass->className);
+			path2 += ".csv";
+			ofstream fout2;
+			fout2.open(path2);
+			fout2.close();
+		}
+		newClass->noStudent = noStudent;
+		newClass->pNext = classList.classL;
+		if (classList.classL != nullptr) classList.classL->pPrev = newClass;
+		classList.classL = newClass;
+		fout << newClass->className << endl;
+
+
+		
+		
+		cout << "Class Created !!!!" << endl;
+		Sleep(500);
+		return;
+
+	}
+	
+}
+
 void createSchoolYear(SchoolYearList &schoolYearList, string path) {
 	
 	ofstream fout;
@@ -180,14 +233,7 @@ void createSchoolYear(SchoolYearList &schoolYearList, string path) {
 		schoolYearList.schoolyearL = newSchoolYear;
 		fout << newSchoolYear->year << endl;
 
-		/*
-		string path2 = "SchoolYear\\";
-		path2.append(newSchoolYear->year);
-		path2 += ".csv";
-		ofstream fout2;
-		fout2.open(path2);
-		fout2.close();
-		*/
+	
 		cout << "School Year Created !!!!" << endl;
 		Sleep(500);
 		return;
@@ -221,6 +267,18 @@ SchoolYear *findSchoolYear(SchoolYearList schoolYearList, char year[]) {
 		SchoolYear *pCur = schoolYearList.schoolyearL;
 		while (pCur != nullptr) {
 			if (strcmp(pCur->year, year) == 0) return pCur;
+			else pCur = pCur->pNext;
+		}
+		return nullptr;
+	}
+}
+
+Class* findClass(classList &classList, char className[]) {
+	if (classList.classL == nullptr) return nullptr;
+	else {
+		Class *pCur = classList.classL;
+		while (pCur != nullptr) {
+			if (strcmp(pCur->className, className) == 0) return pCur;
 			else pCur = pCur->pNext;
 		}
 		return nullptr;
