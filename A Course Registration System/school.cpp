@@ -23,11 +23,7 @@ void displayCommandMenu()
 			Sleep(1000);
 			system("CLS");
 		} else if (option == 2) {
-			system("CLS");
-			string path = "Class\\Classes.txt";
-			cout << "Create a new class:" << endl;
-			Sleep(1000);
-			system("CLS");
+			displayClasses(classList);
 		}
 		
 		system("CLS");
@@ -36,7 +32,15 @@ void displayCommandMenu()
 	
 
 }
-
+void displayClasses(classList classList) {
+	if (classList.classL == nullptr) return;
+	cout << "List of School Years: " << endl;
+	Class *cur = classList.classL;
+	while (cur != nullptr) {
+		cout << cur->className << endl;
+		cur = cur->pNext;
+	}
+}
 void loadClassList(classList &classList) {
 	ifstream fin;
 	string path = "Classes\\Classes.txt";
@@ -68,7 +72,20 @@ int loadStudent(Class *&cl) {
 	int noStudent = 0;
 	fin.open(path);
 	if (fin.is_open()) {
-
+		string dummy;
+		while (getline(fin, dummy, ',')) {
+			Student * newStudent = new Student;
+			// first name
+			newStudent->firstName = dummy;
+			//last name
+			getline(fin, newStudent->lastName, ',');
+			//Student ID
+			getline(fin, newStudent->studentID, ',');
+			//Date of Birth
+			getline(fin, dummy, ',');
+			newStudent->birth = ;
+			
+		}
 	}
 	else return noStudent;
 

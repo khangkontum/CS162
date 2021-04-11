@@ -10,11 +10,11 @@
 using namespace std;
 
 struct User{
-    char * password;
-    char * username;
-    char * Name;
-    char * phoneNumber;
-     char * email;
+    string password;
+	string username;
+	string Name;
+	string phoneNumber;
+	string email;
     int flag =0 ;
     User*uNext, *uPre;
 };
@@ -27,7 +27,7 @@ struct Date{
 };
 
 struct Student{
-    char* firstName,* lastName,* No,* studentID,* Gender,* socialID;
+    string firstName, lastName, No, studentID, Gender, socialID;
     Date birth;
     Student* pNext, *pPrev;
 
@@ -110,4 +110,6 @@ void createClasses(classList &classList);
 void loadClassList(classList &classList);
 Class* findClass(classList &classList, char className[]);
 int loadStudent(Class *&cl);
+void displayClasses(classList classList);
+void dateCSVToInt(string s, Date &d);
 #endif // _School_
