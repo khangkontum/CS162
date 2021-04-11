@@ -27,7 +27,8 @@ struct Date{
 };
 
 struct Student{
-    string firstName, lastName, No, studentID, Gender, socialID;
+    string firstName, lastName, studentID, Gender, socialID;
+	int No;
     Date birth;
     Student* pNext, *pPrev;
 
@@ -50,7 +51,7 @@ struct Student{
 struct Class{
     char* className;
     int noStudent;
-    Student* studentList;  
+    Student* studentList = nullptr;  
     Class* pNext, *pPrev;
     Class(): pNext(nullptr), pPrev(nullptr) {}
 };
@@ -105,6 +106,8 @@ void createSchoolYear(SchoolYearList &schoolYearList, string path);
 void displaySchoolYears(SchoolYearList schoolYearList);
 SchoolYear *findSchoolYear(SchoolYearList schoolYearList, char year[]);
 bool validSchoolYear(char input[]);
+void deleteSchoolYearList(SchoolYearList &schoolYearList);
+
 // Class
 void createClasses(classList &classList);
 void loadClassList(classList &classList);
@@ -112,4 +115,8 @@ Class* findClass(classList &classList, char className[]);
 int loadStudent(Class *&cl);
 void displayClasses(classList classList);
 void dateCSVToInt(string s, Date &d);
+void displayStudent(Class* cl);
+void deleteClassList(classList &classList);
+void deleteStudentList(Class *&cl);
+
 #endif // _School_
