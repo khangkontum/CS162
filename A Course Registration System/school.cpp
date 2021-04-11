@@ -151,7 +151,7 @@ void createSchoolYear(SchoolYearList &schoolYearList, string path) {
 }
 
 bool validSchoolYear(char input[]) {
-	if (strlen(input) != 9 && input[4] != '-') {
+	if (strlen(input) != 9 || input[4] != '-') {
 		return false;
 	}
 	int yearlen = 4;
