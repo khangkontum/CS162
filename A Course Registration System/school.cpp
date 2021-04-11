@@ -29,7 +29,11 @@ void displayCommandMenu()
 			createClasses(classList, path);
 			displayClasses(classList);
 			Sleep(2000);
-			system("CLS");
+		}
+		else if (option == 3) {
+			addStudentsToClass(classList);
+			Sleep(2000);
+			
 		}
 		
 		system("CLS");
@@ -38,6 +42,34 @@ void displayCommandMenu()
 	
 	 deleteClassList(classList);
 	 deleteSchoolYearList(schoolYearList);
+}
+
+
+void addStudentsToClass(classList &classList) {
+	char input[1000];
+	cout << "Input the class name that you want to add student to: ";
+	cin.width(1000);
+	cin>> input;
+	Class * addClass = findClass(classList, input);
+	if (addClass == nullptr) {
+		cout << "Class does not exist...." << endl;
+	}
+	else {
+		int noStudent;
+		if (addClass->studentList == nullptr) {
+			 noStudent = loadStudent(addClass);
+			 addClass->noStudent = noStudent;
+		}
+		else {
+			deleteStudentList(addClass);
+			noStudent= loadStudent(addClass);
+			addClass->noStudent = noStudent;
+		}
+		if (noStudent == 0 || addClass->studentList == nullptr)
+			cout << "File not exists or empty, add student to " << addClass->className << ".csv file..." << endl;
+		else
+		cout << "Students Added to class " << addClass->className << endl;
+	}
 }
 
 void loadClassList(classList &classList) {
@@ -54,7 +86,7 @@ void loadClassList(classList &classList) {
 			newClass->className = new char[strlen(dummy) + 1];
 			strcpy(newClass->className, dummy);
 			int noStudent = loadStudent(newClass);
-			
+			newClass->noStudent = noStudent;
 			newClass->pNext = classList.classL;
 			if (classList.classL != nullptr) classList.classL->pPrev = newClass;
 			classList.classL = newClass;
@@ -71,11 +103,10 @@ int loadStudent(Class *&cl) {
 	string path = "Classes\\";
 	path.append(cl->className);
 	path += ".csv";
-	int noStudent = 0;
+	int count = 1;
 	fin.open(path);
 	if (fin.is_open()) {
 		string dummy;
-		int count = 1;
 		Student * pCur = cl->studentList;
 		while (getline(fin, dummy, ',')) {
 			Student * newStudent = new Student;
@@ -105,12 +136,11 @@ int loadStudent(Class *&cl) {
 				pCur = newStudent;
 			}
 			pCur->pNext = nullptr;
-
+			count++;
 		}
-		return count;
 	}
-	else return noStudent;
-
+	return count - 1;
+	
 }
 
 void dateCSVToInt(string s, Date &d) {
@@ -177,13 +207,7 @@ void createClasses(classList &classList, string path) {
 
 		int noStudent = loadStudent(newClass);
 		if (noStudent == 0 || newClass->studentList == nullptr) {
-			cout << "Please add student to " << newClass->className << ".csv which is newly created in Classes folder" << endl;
-			string path2 = "Classes\\";
-			path2.append(newClass->className);
-			path2 += ".csv";
-			ofstream fout2;
-			fout2.open(path2);
-			fout2.close();
+			cout << "Please add student to " << newClass->className << ".csv " << endl;
 		}
 		newClass->noStudent = noStudent;
 		newClass->pNext = classList.classL;
@@ -191,9 +215,6 @@ void createClasses(classList &classList, string path) {
 		classList.classL = newClass;
 		fout << newClass->className << endl;
 
-
-		
-		
 		cout << "Class Created !!!!" << endl;
 		Sleep(500);
 		return;
@@ -295,7 +316,7 @@ void displaySchoolYears(SchoolYearList schoolYearList) {
 }
 void displayStudent(Class *cl) {
 	if (cl->studentList == nullptr) return;
-	cout << "There are "<< cl->studentList <<" students in class "<< cl->className <<" :" << endl;
+	cout << "There are "<< cl->noStudent <<" students in class "<< cl->className <<" :" << endl;
 	Student *cur = cl->studentList;
 	while (cur != nullptr) {
 		

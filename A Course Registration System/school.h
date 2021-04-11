@@ -118,6 +118,6 @@ void dateCSVToInt(string s, Date &d);
 void displayStudent(Class* cl);
 void deleteClassList(classList &classList);
 void deleteStudentList(Class *&cl);
-
+void addStudentsToClass(classList &classList);
 
 #endif // _School_
