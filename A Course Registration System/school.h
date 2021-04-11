@@ -22,13 +22,13 @@ struct UserList{
     User* fUser;
     UserList(): fUser(nullptr){}
 };
-struct DateOfBirth{
+struct Date{
     int day, month, year;
 };
 
 struct Student{
     char* firstName,* lastName,* No,* studentID,* Gender,* socialID;
-    DateOfBirth birth;
+    Date birth;
     Student* pNext, *pPrev;
 
     Student(): pPrev(nullptr), pNext(nullptr) {}

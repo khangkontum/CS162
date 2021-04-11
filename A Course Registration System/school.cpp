@@ -148,8 +148,6 @@ void createSchoolYear(SchoolYearList &schoolYearList, string path) {
 		return;
 	}
 	fout.close();
-
-	
 }
 
 bool validSchoolYear(char input[]) {
