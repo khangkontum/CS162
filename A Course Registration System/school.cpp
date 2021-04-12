@@ -506,37 +506,85 @@ void loadCourse(istream& fin,Course*& course){
 
 // load a course list from file
 
-void loadCourseList(Semester*& semester,Course*& courseHead){
-	
+void loadCourseList(Semester*& smt){
+
+	// Create path
+	string path="";
+	for(int i=0;i<strlen(smt->schoolYear);++i)path+=smt->schoolYear[i];	// path = "2020-2021"
+	path+="_Semester"+to_string(smt->ordinal)+"_CourseList.csv";	// path = "2020-2021_Semester1_CourseList.csv"
+
+	// load all courses from file 2020-2021_Semester1_CourseList.csv
+	ifstream fin;
+	fin.open(path);
+	if(fin.is_open()){
+		Course* curC=smt->courseHead;
+		while(!fin.eof()){
+			if(!smt->courseHead){
+				smt->courseHead=new Course;
+				curC=smt->courseHead;
+			}
+			else{
+				curC->courseNext=new Course;
+				curC->courseNext->coursePrev=curC;
+				curC=curC->courseNext;
+			}
+			loadCourse(fin,curC);
+		}
+	}
+	fin.close();
 }
 
 // LOAD SEMESTER
 
-void loadSemester(istream& fin,Semester*& semester){
-	
-}
+void creatSemester(SchoolYear*& schlY){
+	Semester* curSmt=schlY->semesterHead;
 
+	// if schlY had 3 semesters: return
 
-void creatSemester(SchoolYear*& schoolYear){
-	Semester* curSmt=schoolYear->semesterHead;
-	if(!schoolYear->semesterHead){
-		schoolYear->semesterHead=new Semester;
-		curSmt=schoolYear->semesterHead
+	if(!schlY->semesterHead){	// if chlY doesn't have any semester
+		schlY->semesterHead=new Semester;
+		schlY->semesterHead->ordianl=1;
+		curSmt=schlY->semesterHead;
 	}
 	else{
 		int count=1;
-		while(curSmt->semesterNext){
+		while(curSmt->semesterNext){	// because semesterHead is not nullptr
 			++count;
 			curSmt=curSmt->semesterNext;
 		}
-		if(count==3){
-			cout<<schoolYear->year<<" had 3 semesters!\n";
+		if(count==3){	// schY had 3 semesters?
+			cout<<schlY->year<<" had 3 semesters!\n";
 			return;
 		}
 		else{
 			curSmt->semesterNext=new Semester;
+			curSmt->semesterNext->ordinal=curSmt->ordinal+1;	// ordinal
+			curSmt->semesterNext->semesterPrev=curSmt;	// Previous semester
 			curSmt=curSmt->semesterNext;
 		}
 	}
-	
+
+	// schoolYear of semester
+	curSmt->schoolYear=schlY->year;
+
+	// Input start date
+	cout<<"Start date:\n";
+	cout<<"Day: ";
+	cin>>curSmt->startDate.day;
+	cout<<"Month: ";
+	cin>>curSmt->startDate.month;
+	cout<<"Year: ";
+	cin>>curSmt->startDate.year;
+
+	// Input end date
+	cout<<"End date:\n";
+	cout<<"Day: ";
+	cin>>curSmt->endDate.day;
+	cout<<"Month: ";
+	cin>>curSmt->endDate.month;
+	cout<<"Year: ";
+	cin>>curSmt->endDate.year;
+
+	// Load course list
+	loadCourseList(curSmt);
 }

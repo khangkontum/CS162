@@ -79,9 +79,7 @@ struct SchoolYear{
 
    // Phu Hung
    // Add Semester
-   Semester* semester1;
-   Semester* semester2;
-   Semester* semester3;
+   Semester* semesterHead=nullptr;
 };
 
 struct SchoolYearList{
@@ -132,8 +130,8 @@ struct Course{
     int numberOfCredits;
     int maximumNumberOfStudents;
     Session session1,session2;
-    Course* courseNext;
-    Course* coursePrev;
+    Course* courseNext=nullptr;
+    Course* coursePrev=nullptr;
 };
 
 
@@ -144,10 +142,11 @@ void loadCourse(istream& fin,Course*& course);
 
 struct Semester{
     Date startDate,endDate;
+    int ordinal;
     char* schoolYear;
-    Course* courseHead;
-    Semester* semesterNext;
-    Semester* semesterPrev;
+    Course* courseHead=nullptr;
+    Semester* semesterNext=nullptr;
+    Semester* semesterPrev=nullptr;
 };
 
 #endif // _School_
