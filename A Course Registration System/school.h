@@ -118,7 +118,7 @@ void addStudentsToClass(classList &classList);
 
 struct Session{
     char* dayOfWeek;
-    int ordinalNumberOfDay;
+    int ordinalSession;
 };
 
 void loadSession(istream& fin,Session& session);
@@ -142,7 +142,7 @@ void loadCourse(istream& fin,Course*& course);
 
 struct Semester{
     Date startDate,endDate;
-    int ordinal;
+    int ordinalSemester;
     char* schoolYear;
     Course* courseHead=nullptr;
     Semester* semesterNext=nullptr;

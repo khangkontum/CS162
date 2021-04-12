@@ -453,9 +453,10 @@ void deleteStudentList(Class *&cl)
 // load a session from file
 
 void loadSession(istream& fin,Session& session){
-	session->dayOfWeek=new char[4];
+	session.dayOfWeek=new char[4];
 	fin.ignore();
-	fin.get(session->dayOfWeek,4,',');
+	fin.get(session.dayOfWeek,4,',');
+	fin>>session.ordinalSession;
 }
 
 // load a course from file
@@ -534,6 +535,129 @@ void loadCourseList(Semester*& smt){
 	fin.close();
 }
 
+// display one course
+
+void viewCourse(Course* course){
+	cout<<"ID: "<<course->courseID;
+	cout<<"\nName: "<<course->courseName;
+	cout<<"\nTeacher name: "<<course->teacherName;
+	cout<<"\nThe number of credits: "<<course->numberOfCredits;
+	cout<<"\nThe maximum number of students: "<<course->maximumNumberOfStudents;
+
+	// Session 1
+	cout<<"\nSesson1: "<<course->session1.dayOfWeek<<", ";
+	if(course->session1.ordinalSession==1)cout<<"7:30";
+	else if(course->session1.ordinalSession==2)cout<<"9:30";
+	else if(course->session1.ordinalSession==3)cout<<"13:30";
+	else cout<<"15:30";
+
+	// Session 2
+	cout<<"\nSesson2: "<<course->session2.dayOfWeek<<", ";
+	if(course->session2.ordinalSession==1)cout<<"7:30\n";
+	else if(course->session2.ordinalSession==2)cout<<"9:30\n";
+	else if(course->session2.ordinalSession==3)cout<<"13:30\n";
+	else cout<<"15:30\n";
+}
+
+// display the course list
+
+void viewCourseList(Course* courseHead){
+	Course* curC=courseHead;
+	while(curC){
+		viewCourse(curC);
+		curC=curC->courseNext;
+	}
+}
+
+// update information of a course
+
+void updateCourse(Course*& course){
+	int option=0;
+	cout<<"What do want to update?\n";
+	cout<<"1. Course ID\n2. Course name\n3. Teacher's name";
+	cout<<"4. The number of credits\n5. The maximum number of students\n";
+	cout<<"6. Session 1\n7. Session 2\n";
+	cout<<"Answer: ";
+	cin>>option;
+	if(option==1){
+		delete[]course->courseID;
+		char tmp[101];
+		cout<<"New course ID: ";
+		cin.ignore();
+		cin.get(tmp,101);
+		course->couresID=new char[strlen(tmp)+1];
+		for(int i=0;i<strlen(tmp);++i)
+			course->courseID[i]=tmp[i];
+		course->courseID[strlen(tmp)]='\0';
+	}
+	else if(option==2){
+		delete[]course->courseName;
+		char tmp[101];
+		cout<<"New course name: ";
+		cin.ignore();
+		cin.get(tmp,101);
+		course->couresName=new char[strlen(tmp)+1];
+		for(int i=0;i<strlen(tmp);++i)
+			course->courseName[i]=tmp[i];
+		course->courseName[strlen(tmp)]='\0';
+	}
+	else if(option==3){
+		delete[]course->teacherName;
+		char tmp[101];
+		cout<<"New teacher's name: ";
+		cin.ignore();
+		cin.get(tmp,101,',');
+		course->teacherName=new char[strlen(tmp)+1];
+		for(int i=0;i<strlen(tmp);++i)
+			course->teacherName[i]=tmp[i];
+		course->teacherName[strlen(tmp)]='\0';
+	}
+	else if(option==4){
+		cout<<"New number of credits: ";
+		cin>>course->numberOfCredits;
+	}
+	else if(option==5){
+		cout<<"New maximum number of students: ";
+		cin>>course->maximumNumberOfStudents;
+	}
+	else if(option==6){
+		cout<<"What do you want to update in Session 1?\n";
+		cout<<"1. Day of the week\n2. Ordinal session\nAnswer: ";
+		cin>>option;
+		if(option==1){
+			delete[]course->session1.dayOfWeek;
+			course->session1.dayOfWeek=new char[4];
+			cout<<"New day of the week: ";
+			cin.ignore();
+			cin.get(course->session1.dayOfWeek,4);
+		}
+		else{
+			cout<<"New ordinal session: ";
+			cin>>course->session1.ordinalSession;
+		}
+	}
+	else{
+		cout<<"What do you want to update in Session 2?\n";
+		cout<<"1. Day of the week\n2. Ordinal session\nAnswer: ";
+		cin>>option;
+		if(option==1){
+			delete[]course->session2.dayOfWeek;
+			course->session2.dayOfWeek=new char[4];
+			cout<<"New day of the week: ";
+			cin.ignore();
+			cin.get(course->session2.dayOfWeek,4);
+		}
+		else{
+			cout<<"New ordinal session: ";
+			cin>>course->session2.ordinalSession;
+		}
+	}
+	cout<<"Do you want to change anything else?\n";
+	cout<<"1. Yes\n2. No\nAnswer: ";
+	cin>>option;
+	if(option==1)updateCourse(course);
+}
+
 // LOAD SEMESTER
 
 void creatSemester(SchoolYear*& schlY){
@@ -543,7 +667,7 @@ void creatSemester(SchoolYear*& schlY){
 
 	if(!schlY->semesterHead){	// if chlY doesn't have any semester
 		schlY->semesterHead=new Semester;
-		schlY->semesterHead->ordianl=1;
+		schlY->semesterHead->ordianlSemester=1;
 		curSmt=schlY->semesterHead;
 	}
 	else{
@@ -558,7 +682,7 @@ void creatSemester(SchoolYear*& schlY){
 		}
 		else{
 			curSmt->semesterNext=new Semester;
-			curSmt->semesterNext->ordinal=curSmt->ordinal+1;	// ordinal
+			curSmt->semesterNext->ordinalSemester=curSmt->ordinalSemester+1;	// ordinal
 			curSmt->semesterNext->semesterPrev=curSmt;	// Previous semester
 			curSmt=curSmt->semesterNext;
 		}
