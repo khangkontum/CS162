@@ -5,7 +5,6 @@
 #include <fstream>
 #include<string.h>
 #include<string>
-#include <Windows.h>
 
 using namespace std;
 
