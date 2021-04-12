@@ -143,10 +143,11 @@ void loadCourse(istream& fin,Course*& course);
 // Semester
 
 struct Semester{
-    int ordinalNumber;
     Date startDate,endDate;
-    int schoolYear;
+    char* schoolYear;
     Course* courseHead;
+    Semester* semesterNext;
+    Semester* semesterPrev;
 };
 
 #endif // _School_
