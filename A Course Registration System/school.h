@@ -14,7 +14,7 @@ struct User{
 	string Name;
 	string phoneNumber;
 	string email;
-    int flag =0 ;
+    int flag = 0 ;
     User*uNext, *uPre;
 };
 struct UserList{
