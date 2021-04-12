@@ -1,0 +1,14 @@
+# depslib dependency file v1.0
+1618148744 source:d:\github\cs162\a course registration system\main.cpp
+	"school.h"
+
+1618148744 d:\github\cs162\a course registration system\school.h
+	<iostream>
+	<fstream>
+	<string.h>
+	<string>
+	<Windows.h>
+
+1618148744 source:d:\github\cs162\a course registration system\school.cpp
+	"school.h"
+
