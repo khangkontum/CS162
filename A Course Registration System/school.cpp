@@ -139,6 +139,7 @@ int loadStudent(Class *&cl) {
 			count++;
 		}
 	}
+	fin.close();
 	return count - 1;
 	
 }
@@ -158,7 +159,6 @@ void dateCSVToInt(string s, Date &d) {
 	d.month = stoi(month);
 	d.year = stoi(year);
 	d.day = stoi(day);
-
 }
 
 void loadSchoolYearList(SchoolYearList &schoolYearList){
@@ -361,4 +361,99 @@ void deleteStudentList(Class *&cl) {
 		cl->studentList = cl->studentList->pNext;
 		delete tmp;
 	}
+}
+
+
+
+
+
+//PHU HUNG
+
+// LOAD COURSE
+
+// load a session from file
+
+void loadSession(istream& fin,Session& session){
+	session->dayOfWeek=new char[4];
+	fin.ignore();
+	fin.get(session->dayOfWeek,4,',');
+}
+
+// load a course from file
+
+void loadCourse(istream& fin,Course*& course){
+	char tmp[101];
+
+	// load course id
+
+	fin.ignore();
+	fin.get(tmp,101,',');
+	course->couresID=new char[strlen(tmp)+1];
+	for(int i=0;i<strlen(tmp);++i)
+		course->courseID[i]=tmp[i];
+	course->courseID[strlen(tmp)]='\0';
+
+	// load course name
+
+	fin.ignore();
+	fin.get(tmp,101,',');
+	course->couresName=new char[strlen(tmp)+1];
+	for(int i=0;i<strlen(tmp);++i)
+		course->courseName[i]=tmp[i];
+	course->courseName[strlen(tmp)]='\0';
+
+	// load teacher name
+
+	fin.ignore();
+	fin.get(tmp,101,',');
+	course->teacherName=new char[strlen(tmp)+1];
+	for(int i=0;i<strlen(tmp);++i)
+		course->teacherName[i]=tmp[i];
+	course->teacherName[strlen(tmp)]='\0';
+
+	// load the number of credits and the maximum number of students
+
+	fin>>course->numberOfCredits;
+	fin>>course->maximumNumberOfStudents;
+
+	// load 2 sessions
+
+	loadSession(fin,course->session1);
+	loadSession(fin,course->session2);
+
+	course->courseNext=nullptr;
+	course->coursePrev=nullptr;
+}
+
+// load a course list from file
+
+void loadCourseList(Semester*& semester,Course*& courseHead){
+	string path=semester->schoolYear->year; // school year, path = "2020-2021"
+	path+="\\"+"Semester "+to_string(semester->ordinalNumber); // semester, path = "2020-2021\Semester 1"
+	path+="\\CourseList.csv"; // path = "2020-2021\Semester 1\CourseList.csv"
+	ifstream fin;
+	fin.open(path);
+	if(fin.is_open()){
+		Course* c=courseHead;
+		while(!fin.eof()){
+			if(!courseHead){
+				courseHead=new Course;
+				loadCourse(fin,courseHead);
+				c=courseHead;
+			}
+			else{
+				c->courseNext=new Course;
+				loadCourse(c->courseNext;
+				c->courseNext->coursePrev=c;
+				c=c->courseNext;
+			}
+		}
+	}
+	fin.close();
+}
+
+// LOAD SEMESTER
+
+void loadSemester(istream& fin,Semester*& semester){
+	
 }

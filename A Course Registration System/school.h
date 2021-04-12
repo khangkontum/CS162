@@ -68,23 +68,7 @@ struct classList {
 //     Score *fScore = nullptr;
 
 // };
-// struct Course{
-//     char *courseId;
-//     char * courseName;
-//     char* lecturer;
-//     int noStudent;
-//     int noCredits;
-//     int dayOfWeek;
-//     Course* courseNext, *coursePre;
-//     ScoreList scoreList;
-// };
-// struct Semester{
-//     char * start;
-//     char * end;
-//     int no;
-//     Course * courseList;
-//     Semester *nextSem,*preSem;
-// };
+
 struct SchoolYear{
 	char * year = nullptr;
   //  Class* classList = nullptr;   
@@ -92,9 +76,15 @@ struct SchoolYear{
    // Semester* semesterList = nullptr;
     SchoolYear() : pNext(nullptr), pPrev(nullptr) {}
    // SchoolYear(SchoolYear* prev_school_year, int x,int y) : pNext(nullptr), pPrev(prev_school_year), startYear(x), endYear(y) {}
+
+   // Phu Hung
+   // Add Semester
+   Semester* semester1;
+   Semester* semester2;
+   Semester* semester3;
 };
+
 struct SchoolYearList{
- 
     SchoolYear* schoolyearL = nullptr;
 };
 
@@ -119,5 +109,44 @@ void displayStudent(Class* cl);
 void deleteClassList(classList &classList);
 void deleteStudentList(Class *&cl);
 void addStudentsToClass(classList &classList);
+
+
+
+
+
+// Phu Hung
+
+// Course
+
+struct Session{
+    char* dayOfWeek;
+    int ordinalNumberOfDay;
+};
+
+void loadSession(istream& fin,Session& session);
+
+struct Course{
+    char* courseID;
+    char* courseName;
+    char* teacherName;
+    int numberOfCredits;
+    int maximumNumberOfStudents;
+    Session session1,session2;
+    Course* courseNext;
+    Course* coursePrev;
+};
+
+
+void loadCourse(istream& fin,Course*& course);
+
+
+// Semester
+
+struct Semester{
+    int ordinalNumber;
+    Date startDate,endDate;
+    SchoolYear* schoolYear;
+    Course* courseHead;
+};
 
 #endif // _School_
