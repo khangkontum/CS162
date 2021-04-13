@@ -7,13 +7,57 @@
 #include<string>
 
 using namespace std;
+struct Class;
+struct classList;
+struct SchoolYear;
+struct SchoolYearList;
+struct Date;
+struct Student;
+struct User;
+struct UserList;
 
+struct Date{
+    int day, month, year;
+};
+struct SchoolYear{
+	char * year = nullptr;
+  //  Class* classList = nullptr;
+    SchoolYear* pNext, *pPrev;
+   // Semester* semesterList = nullptr;
+    SchoolYear() : pNext(nullptr), pPrev(nullptr) {}
+   // SchoolYear(SchoolYear* prev_school_year, int x,int y) : pNext(nullptr), pPrev(prev_school_year), startYear(x), endYear(y) {}
+};
+struct SchoolYearList{
+
+    SchoolYear* schoolyearL = nullptr;
+};
+struct Student{
+    string firstName, lastName, studentID, Gender, socialID;
+	int No;
+    Date birth;
+    Student* pNext, *pPrev;
+    Class* posClass;
+    Student(): pPrev(nullptr), pNext(nullptr) {}
+
+};
+struct Class{
+    char* className;
+    int noStudent;
+    Student* studentList = nullptr;
+    Class* pNext, *pPrev;
+    Class(): pNext(nullptr), pPrev(nullptr) {}
+};
+struct classList {
+	Class* classL = nullptr;
+	SchoolYear* posSchoolYear;
+};
 struct User{
     string password;
 	string username;
 	string Name;
 	string phoneNumber;
 	string email;
+	Student* posStudent;
     int flag = 0 ;
     User*uNext, *uPre;
 };
@@ -21,19 +65,7 @@ struct UserList{
     User* fUser;
     UserList(): fUser(nullptr){}
 };
-struct Date{
-    int day, month, year;
-};
 
-struct Student{
-    string firstName, lastName, studentID, Gender, socialID;
-	int No;
-    Date birth;
-    Student* pNext, *pPrev;
-
-    Student(): pPrev(nullptr), pNext(nullptr) {}
-
-};
 // struct Day{
 //     Day *nextDay, *preDay;
 // 	char* dayName;
@@ -47,16 +79,6 @@ struct Student{
 //     char* className;
 //      Schedule(): dateList(nullptr) {}
 // };
-struct Class{
-    char* className;
-    int noStudent;
-    Student* studentList = nullptr;  
-    Class* pNext, *pPrev;
-    Class(): pNext(nullptr), pPrev(nullptr) {}
-};
-struct classList {
-	Class* classL = nullptr;
-};
 // struct Score{
 //     char* name;
 //     char * studentID;
@@ -84,18 +106,7 @@ struct classList {
 //     Course * courseList;
 //     Semester *nextSem,*preSem;
 // };
-struct SchoolYear{
-	char * year = nullptr;
-  //  Class* classList = nullptr;   
-    SchoolYear* pNext, *pPrev;
-   // Semester* semesterList = nullptr;
-    SchoolYear() : pNext(nullptr), pPrev(nullptr) {}
-   // SchoolYear(SchoolYear* prev_school_year, int x,int y) : pNext(nullptr), pPrev(prev_school_year), startYear(x), endYear(y) {}
-};
-struct SchoolYearList{
- 
-    SchoolYear* schoolyearL = nullptr;
-};
+
 
 void displayCommandMenu();
 

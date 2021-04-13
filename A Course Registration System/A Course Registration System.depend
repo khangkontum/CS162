@@ -2,13 +2,20 @@
 1618148744 source:d:\github\cs162\a course registration system\main.cpp
 	"school.h"
 
-1618148744 d:\github\cs162\a course registration system\school.h
+1618327812 d:\github\cs162\a course registration system\school.h
 	<iostream>
 	<fstream>
 	<string.h>
 	<string>
-	<Windows.h>
 
-1618148744 source:d:\github\cs162\a course registration system\school.cpp
+1618327733 source:d:\github\cs162\a course registration system\school.cpp
+	"school.h"
+	<iostream>
+	<limits>
+
+1618197543 source:d:\github\cs162\a course registration system\login.cpp
+	"login.h"
+
+1618197241 d:\github\cs162\a course registration system\login.h
 	"school.h"
 

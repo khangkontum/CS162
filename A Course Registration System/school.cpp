@@ -178,7 +178,7 @@ void dateCSVToInt(string s, Date &d)
 {
 	int count = 0;
 	string day, month, year;
-	for (int i = 0; i < s.length() + 1; i++)
+	for (int i = 0; i < int(s.length()) + 1; i++)
 	{
 		if (s[i] == '/')
 			count++;
