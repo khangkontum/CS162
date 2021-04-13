@@ -565,6 +565,15 @@ void viewCourseListOfASemesterOfASchoolYear(SchoolYearList& schlYL){
 		schlY=schlYL.schoolyearL;
 		for(int i=0;i<option;++i)schlY=schlY->pNext;
 		viewCourseListOfASemester(schlY);
+		if(count>1){
+			cout<<"Do you want to view the course list in another school year?\n";
+			cout<<"1. Yes\n2. No\nAnswer: ";
+			cin>>option;
+			if(option==1){
+				clearScreen();
+				viewCourseListOfASemesterOfASchoolYear(schlYL);
+			}
+		}
 	}
 }
 
@@ -592,9 +601,18 @@ void viewCourseListOfASemester(SchoolYear* schlY){
 	else{
 		smt=schlY->semesterHead;
 		for(int i=0;i<option;++i)smt=smt->semesterNext;
+		viewCourseList(smt->courseHead);
+		if(count>1){
+			cout<<"Do you want to view the course list\n"
+			cout<<"\tof another semester in "<<schlY->year<<" school year?\n";
+			cout<<"1. Yes\n2. No\nAnswer: ";
+			cin>>option;
+			if(option==1){
+				clearScreen();
+				viewCourseListOfASemester(schlY);
+			}
+		}
 	}
-	
-	viewCourseList(->courseHead);
 }
 
 // display the course list
@@ -785,13 +803,92 @@ void creatSemester(SchoolYear*& schlY){
 	loadCourseList(curSmt);
 }
 
-// find a semester
-Semester* findSemester(SchoolYear* schlY,int n){
-	if(!schlY->semesterHead)return nullptr;
-	Semester* curSmt=schlY->semesterHead;
-	while(curSmt){
-		if(curSmt->ordinalSemester==n)return curSmt;
-		curSmt=curSmt->semesterNext;
+//	VIEW COURSE LIST, UPDATE AND DELETE A COURSE
+void view_update_delete_aCourse(SchoolYearList& schlYL){
+	cout<<"What do you want to do?\n";
+	cout<<"1. View a course list\n";
+	cout<<"2. Update a course\n";
+	cout<<"3. Delete a course\nAnswer: ";
+	int optionMain;
+	cin>>optionMain;
+	clearScreen();
+	if(optionMain<1||optionMain>3){
+		cout<<"Your choice is invalid!\nDo you want to try again?\n";
+		cout<<"1. Yes\n2. No\nAnswer: ";
+		cin>>optionMain;
+		if(optionMain==1)view_update_delete_aCourse(schlYL);
+		return;
 	}
-	return nullptr;
+	cout<<"School year:\n";
+	int count=0;
+	SchoolYear* schlY=schlYL.schoolyearL;
+	while{schlY}{
+		++count;
+		cout<<count<<". "<<schlY->year<<endl;
+		sclY=schY->pNext;
+	}
+	cout<<"Answer: ";
+	int option;
+	cin>>option;
+	while(option<1||option>count){
+		cout<<"Your choice is invalid!\nDo you want to try again?\n";
+		cout<<"1. Yes\n2. No\nAnswer : ";
+		cin>>option;
+		if(option==1){
+			clearScreen();
+			cout<<"School year:\n";
+			count=0;
+			schlY=schlYL.schoolyearL;
+			while{schlY}{
+				++count;
+				cout<<count<<". "<<schlY->year<<endl;
+				sclY=schY->pNext;
+			}
+			cout<<"Answer: ";
+			cin>>option;
+		}
+		else return;
+	}
+	schlY=schlYL.schoolyearL;
+	for(int i=0;i<option;++i)schlY=schlY->pNext;
+	clearScreen();
+	cout<<"Semester:\n";
+	count=0;
+	Semester* smt=schlY->semesterHead;
+	while(smt){
+		++count;
+		cout<<count<<". Semester "<<smt->ordinalSemester<<endl;
+	}
+	cout<<"Answer: ";
+	cin>>option;
+	while(option<0||option>count){
+		cout<<"Your choice is invalid!\nDoyou want to try again?\n";
+		cout<<"1. Yes\n2. No\nAnswer: ";
+		cin>>option;
+		if(option==1){
+			clearScreen();
+			cout<<"Semester:\n";
+			count=0;
+			Semester* smt=schlY->semesterHead;
+			while(smt){
+				++count;
+				cout<<count<<". Semester "<<smt->ordinalSemester<<endl;
+			}
+			cout<<"Answer: ";
+			cin>>option;
+		}
+		else return;
+	}
+	smt=schlY->semesterHead;
+	for(int i=0;i<option;++i)smt=smt->semesterNext;
+	if(optionMain==1){
+		clearScreen();
+		viewCourseList(smt->courseHead);
+	}
+	else if(optionMain==2){
+
+	}
+	else{
+
+	}
 }
