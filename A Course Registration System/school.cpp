@@ -448,19 +448,40 @@ void deleteStudentList(Class *&cl)
 
 //PHU HUNG
 
-// LOAD COURSE
 
-// load a session from file
 
-void loadSession(istream& fin,Session& session){
-	session.dayOfWeek=new char[4];
-	fin.ignore();
-	fin.get(session.dayOfWeek,4,',');
-	fin>>session.ordinalSession;
+// LOAD COURSE LIST
+
+// load a course list from file
+void loadCourseList(Semester*& smt){
+
+	// Create path
+	string path="";
+	for(int i=0;i<strlen(smt->schoolYear);++i)path+=smt->schoolYear[i];	// path = "2020-2021"
+	path+="_Semester"+to_string(smt->ordinal)+"_CourseList.csv";	// path = "2020-2021_Semester1_CourseList.csv"
+
+	// load all courses from file 2020-2021_Semester1_CourseList.csv
+	ifstream fin;
+	fin.open(path);
+	if(fin.is_open()){
+		Course* curC=smt->courseHead;
+		while(!fin.eof()){
+			if(!smt->courseHead){
+				smt->courseHead=new Course;
+				curC=smt->courseHead;
+			}
+			else{
+				curC->courseNext=new Course;
+				curC->courseNext->coursePrev=curC;
+				curC=curC->courseNext;
+			}
+			loadCourse(fin,curC);
+		}
+	}
+	fin.close();
 }
 
 // load a course from file
-
 void loadCourse(istream& fin,Course*& course){
 	char tmp[101];
 
@@ -505,38 +526,87 @@ void loadCourse(istream& fin,Course*& course){
 	course->coursePrev=nullptr;
 }
 
-// load a course list from file
+// load a session from file
+void loadSession(istream& fin,Session& session){
+	session.dayOfWeek=new char[4];
+	fin.ignore();
+	fin.get(session.dayOfWeek,4,',');
+	fin>>session.ordinalSession;
+}
 
-void loadCourseList(Semester*& smt){
 
-	// Create path
-	string path="";
-	for(int i=0;i<strlen(smt->schoolYear);++i)path+=smt->schoolYear[i];	// path = "2020-2021"
-	path+="_Semester"+to_string(smt->ordinal)+"_CourseList.csv";	// path = "2020-2021_Semester1_CourseList.csv"
 
-	// load all courses from file 2020-2021_Semester1_CourseList.csv
-	ifstream fin;
-	fin.open(path);
-	if(fin.is_open()){
-		Course* curC=smt->courseHead;
-		while(!fin.eof()){
-			if(!smt->courseHead){
-				smt->courseHead=new Course;
-				curC=smt->courseHead;
-			}
-			else{
-				curC->courseNext=new Course;
-				curC->courseNext->coursePrev=curC;
-				curC=curC->courseNext;
-			}
-			loadCourse(fin,curC);
+// DISPLAY A COURSE LIST
+// user can input school year and semester
+
+// display the course list of a semester of a school year 
+void viewCourseListOfASemesterOfASchoolYear(SchoolYearList& schlYL){
+	cout<<"School year:\n";
+	int count=0;
+	SchoolYear* schlY=schlYL.schoolyearL;
+	while{schlY}{
+		++count;
+		cout<<count<<". "<<schlY->year<<endl;
+		sclY=schY->pNext;
+	}
+	cout<<"Answer: ";
+	int option;
+	cin>>option;
+	if(option<0||option>count){
+		cout<<"Your choice is invalid!\nDoyou want to try again?\n";
+		cout<<"1. Yes\n2. No\nAnswer: ";
+		cin>>option;
+		if(option==1){
+			clearScreen();
+			viewCourseListOfASemesterOfASchoolYear(schlYL);
 		}
 	}
-	fin.close();
+	else{
+		schlY=schlYL.schoolyearL;
+		for(int i=0;i<option;++i)schlY=schlY->pNext;
+		viewCourseListOfASemester(schlY);
+	}
+}
+
+// display the course list of a semester
+void viewCourseListOfASemester(SchoolYear* schlY){
+	cout<<"Semester:\n";
+	int count=0;
+	Semester* smt=schlY->semesterHead;
+	while(smt){
+		++count;
+		cout<<count<<". Semester "<<smt->ordinalSemester<<endl;
+	}
+	cout<<"Answer: ";
+	int option;
+	cin>>option;
+	if(option<0||option>count){
+		cout<<"Your choice is invalid!\nDoyou want to try again?\n";
+		cout<<"1. Yes\n2. No\nAnswer: ";
+		cin>>option;
+		if(option==1){
+			clearScreen();
+			viewCourseListOfASemester(schlY);
+		}
+	}
+	else{
+		smt=schlY->semesterHead;
+		for(int i=0;i<option;++i)smt=smt->semesterNext;
+	}
+	
+	viewCourseList(->courseHead);
+}
+
+// display the course list
+void viewCourseList(Course* courseHead){
+	Course* curC=courseHead;
+	while(curC){
+		viewCourse(curC);
+		curC=curC->courseNext;
+	}
 }
 
 // display one course
-
 void viewCourse(Course* course){
 	cout<<"ID: "<<course->courseID;
 	cout<<"\nName: "<<course->courseName;
@@ -559,17 +629,9 @@ void viewCourse(Course* course){
 	else cout<<"15:30\n";
 }
 
-// display the course list
 
-void viewCourseList(Course* courseHead){
-	Course* curC=courseHead;
-	while(curC){
-		viewCourse(curC);
-		curC=curC->courseNext;
-	}
-}
 
-// update information of a course
+// UPDATE THE INFORMATION OF A COURSE
 
 void updateCourse(Course*& course){
 	int option=0;
@@ -652,14 +714,24 @@ void updateCourse(Course*& course){
 			cin>>course->session2.ordinalSession;
 		}
 	}
-	cout<<"Do you want to change anything else?\n";
+	cout<<"Do you want to update anything else?\n";
 	cout<<"1. Yes\n2. No\nAnswer: ";
 	cin>>option;
 	if(option==1)updateCourse(course);
 }
 
-// LOAD SEMESTER
 
+
+// DELETE A COURSE
+
+void deleteACourse(Course*& courseHead){
+
+}
+
+
+// CREATE SEMESTER
+
+// create a semester
 void creatSemester(SchoolYear*& schlY){
 	Semester* curSmt=schlY->semesterHead;
 
@@ -711,4 +783,15 @@ void creatSemester(SchoolYear*& schlY){
 
 	// Load course list
 	loadCourseList(curSmt);
+}
+
+// find a semester
+Semester* findSemester(SchoolYear* schlY,int n){
+	if(!schlY->semesterHead)return nullptr;
+	Semester* curSmt=schlY->semesterHead;
+	while(curSmt){
+		if(curSmt->ordinalSemester==n)return curSmt;
+		curSmt=curSmt->semesterNext;
+	}
+	return nullptr;
 }
