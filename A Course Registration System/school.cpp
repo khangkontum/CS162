@@ -26,7 +26,7 @@ void displayCommandMenu()
 		cout << "---------------------------------------" << endl;
 		cout << "1. Create a school year." << endl;
 		cout << "2. Create new class." << endl;
-		cout << "3. Add a student to a class" << endl;
+		cout << "3. import students from csv file to a class" << endl;
 		cin >> option;
 
 		if (option == 1)
@@ -128,7 +128,7 @@ void loadClassList(classList &classList)
 int loadStudent(Class *&cl)
 {
 	ifstream fin;
-	string path = "Classe/";
+	string path = "Classes/";
 	path.append(cl->className);
 	path += ".csv";
 	int count = 1;
@@ -247,11 +247,8 @@ void createClasses(classList &classList, string path)
 		newClass->className = new char[strlen(input) + 1];
 		strcpy(newClass->className, input);
 
-		int noStudent = loadStudent(newClass);
-		if (noStudent == 0 || newClass->studentList == nullptr)
-		{
-			cout << "Please add student to " << newClass->className << ".csv " << endl;
-		}
+		int noStudent = 0;
+		
 		newClass->noStudent = noStudent;
 		newClass->pNext = classList.classL;
 		if (classList.classL != nullptr)
@@ -259,7 +256,15 @@ void createClasses(classList &classList, string path)
 		classList.classL = newClass;
 		fout << newClass->className << endl;
 
-		cout << "Class Created !!!!" << endl;
+		string path2 = "Classes/";
+		path2.append(newClass->className);
+		path2 += ".csv";
+
+		ofstream fout2;
+		fout2.open(path2);
+		fout2.close();
+
+		cout << "Class Created, please add student to" << newClass->className <<".csv that is newly created in folder Classes !!!!" << endl;
 		return;
 	}
 }
