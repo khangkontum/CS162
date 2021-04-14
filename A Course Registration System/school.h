@@ -7,6 +7,7 @@
 #include<string>
 
 using namespace std;
+
 struct Class;
 struct classList;
 struct SchoolYear;
@@ -17,7 +18,7 @@ struct User;
 struct UserList;
 
 struct Date{
-    int day, month, year;
+    int day =0, month =0 , year = -1;
 };
 struct SchoolYear{
 	char * year = nullptr;
@@ -44,6 +45,7 @@ struct Class{
     char* className;
     int noStudent;
     Student* studentList = nullptr;
+	Student* studentLast = nullptr;
     Class* pNext, *pPrev;
     Class(): pNext(nullptr), pPrev(nullptr) {}
 };
@@ -129,5 +131,6 @@ void displayStudent(Class* cl);
 void deleteClassList(classList &classList);
 void deleteStudentList(Class *&cl);
 void addStudentsToClass(classList &classList);
-
+void addAStudentToClass(classList &classList);
+Student *inputStudent();
 #endif // _School_

@@ -27,6 +27,7 @@ void displayCommandMenu()
 		cout << "1. Create a school year." << endl;
 		cout << "2. Create new class." << endl;
 		cout << "3. import students from csv file to a class" << endl;
+		cout << "4. Add a Student to a Class" << endl;
 		cin >> option;
 
 		if (option == 1)
@@ -53,7 +54,10 @@ void displayCommandMenu()
 			addStudentsToClass(classList);
 			PressEnterToContinue();
 		}
-
+		else if (option == 4) {
+			addAStudentToClass(classList);
+			PressEnterToContinue();
+		}
 		clearScreen();
 	}
 
@@ -92,7 +96,96 @@ void addStudentsToClass(classList &classList)
 			cout << "Students Added to class " << addClass->className << endl;
 	}
 }
-
+void addAStudentToClass(classList &classList) {
+	char input[1000];
+	cout << "Input the class name that you want to add student to: ";
+	cin.width(1000);
+	cin >> input;
+	Class *addClass = findClass(classList, input);
+	if (addClass == nullptr)
+	{
+		cout << "Class does not exist...." << endl;
+	}
+	else
+	{
+		string path = "Classes/";
+		path.append(addClass->className);
+		path += ".csv";
+		ofstream fout;
+		fout.open(path, std::ios_base::app);
+		if (fout.is_open()) {
+			Student *x = inputStudent();
+			fout << x->firstName << ',';
+			fout << x->lastName << ',';
+			fout << x->studentID << ',';
+			string date = to_string(x->birth.day) + '/' + to_string(x->birth.month) + '/' + to_string(x->birth.year);
+			fout << date << ',';
+			fout << x->socialID << ",";
+			fout << x->Gender << endl;
+			
+			x->No = addClass->noStudent + 1;
+			if (addClass->studentList == nullptr) {
+				addClass->studentList = x;
+				x->pPrev = nullptr;
+				addClass->studentLast = addClass->studentList;
+			}
+			else {
+				x->pPrev = addClass->studentLast;
+				addClass->studentLast->pNext = x;
+				addClass->studentLast = x;
+			}
+			addClass->noStudent++;
+			addClass->studentLast->pNext = nullptr;
+		}
+		cout << "Successfully added new student...";
+		displayStudent(addClass);
+		system("pause");
+	}
+}
+Student *inputStudent() {
+	string firstName, lastName, studentID, Gender, socialID, date;
+	cout << "Please input student's firstname: ";
+	cin.get();
+	getline(cin, firstName);
+	cout << "Please input student's lastname: ";
+	getline(cin, lastName);
+	cout << "Please input Student ID (8 digits): ";
+	getline(cin, studentID);
+	while (studentID.length() != 8) {
+		cout << "Wrong format, please input Student ID (6 digits): ";
+		getline(cin, studentID);
+	}
+	cout << "Please input Student gender (male/female): ";
+	getline(cin, Gender);
+	while (Gender != "male" && Gender != "female") {
+		cout << "Wrong format, please input Student gender (male/female): ";
+		getline(cin, Gender);
+	}
+	cout << "Please input Student social ID : ";
+	getline(cin, socialID);
+	
+	Date d;
+	cout << "Please input Student Date of birth (dd/mm/yyyy): ";
+	getline(cin, date);
+	dateCSVToInt(date, d);
+	
+	while (d.day == 0 && d.month == 0 && d.year == -1) {
+		cout << "Wrong format, please input Student Date of birth (dd/mm/yyyy): ";
+		getline(cin, date);
+		dateCSVToInt(date, d);
+	}
+	
+	Student *x = new Student;
+	
+	x->firstName = firstName;
+	x->lastName = lastName;
+	x->Gender = Gender;
+	x->socialID = socialID;
+	x->studentID = studentID;
+	x->birth = d;
+	
+	return x;
+}
 void loadClassList(classList &classList)
 {
 	ifstream fin;
@@ -170,6 +263,7 @@ int loadStudent(Class *&cl)
 			pCur->pNext = nullptr;
 			count++;
 		}
+		cl->studentLast = pCur;
 	}
 	return count - 1;
 }
@@ -189,6 +283,10 @@ void dateCSVToInt(string s, Date &d)
 		else
 			year += s[i];
 	}
+	if (day == "" || month == "" || year == "")
+		return;
+	
+	
 	d.month = stoi(month);
 	d.year = stoi(year);
 	d.day = stoi(day);
