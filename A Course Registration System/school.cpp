@@ -524,6 +524,8 @@ void creatSemester(SchoolYear*& schlY){
 	loadCourseList(curSmt);
 }
 
+
+
 // LOAD COURSE LIST
 
 // load a course list from file
@@ -607,6 +609,74 @@ void loadSession(istream& fin,Session& session){
 	fin>>session.ordinalSession;
 }
 
+// if user (staff) wants to input a course from terminal
+void inputCourse_fromSchoolYearList(SchoolYearList& schlYL){
+	SchoolYear* schlY=chooseSchoolYear(schlYL);
+	if(!schlY)return;
+	Semester* smt=chooseSemester(schlY);
+	if(!smt)return;
+	Course* course=new Course;
+	inputCourse(course);
+	smt->courseHead->coursePrev=course;
+	course->courseNext=smt->courseHead;
+	smt->courseHead=course;
+}
+
+// input a course from terminal
+void inputCourse(Course*& course){
+	char tmp[101];
+
+	// load course id
+	cout<<"Course ID: ";
+	cin.ignore();
+	cin.get(tmp,101,',');
+	course->couresID=new char[strlen(tmp)+1];
+	for(int i=0;i<strlen(tmp);++i)
+		course->courseID[i]=tmp[i];
+	course->courseID[strlen(tmp)]='\0';
+
+	// load course name
+	cout<<"Course name: ";
+	cin.ignore();
+	cin.get(tmp,101,',');
+	course->couresName=new char[strlen(tmp)+1];
+	for(int i=0;i<strlen(tmp);++i)
+		course->courseName[i]=tmp[i];
+	course->courseName[strlen(tmp)]='\0';
+
+	// load teacher name
+	cout<<"Teacher name: ";
+	cin.ignore();
+	cin.get(tmp,101,',');
+	course->teacherName=new char[strlen(tmp)+1];
+	for(int i=0;i<strlen(tmp);++i)
+		course->teacherName[i]=tmp[i];
+	course->teacherName[strlen(tmp)]='\0';
+
+	// load the number of credits and the maximum number of students
+	cout<<"The number of credits: ";
+	cin>>course->numberOfCredits;
+	cout<<"The maximum number of students: ";
+	cin>>course->maximumNumberOfStudents;
+
+	// load 2 sessions
+	// this function is below
+	cout<<"Session 1:\n";
+	inputSession(course->session1);
+	cout<<"Session 2:\n";
+	inputSession(course->session2);
+}
+
+// input a session from terminal
+void inputSession(Session& session){
+	cout<<"Day of the week: ";
+	session.dayOfWeek=new char[4];
+	cin.ignore();
+	cin.get(session.dayOfWeek,4,',');
+	cout<<"Ordinal session: ";
+	cin>>session.ordinalSession;
+}
+
 // VIEW COURSE LIST, UPDATE AND DELETE A COURSE
 	// user chọn view a course list, update hoặc xoá 1 course
 void viewCourseList_updateCourse_deleteCourse(SchoolYearList& schlYL){
@@ -643,8 +713,9 @@ void viewCourseList_updateCourse_deleteCourse(SchoolYearList& schlYL){
 		
 }
 
+
+
 // DISPLAY A COURSE LIST
-// user can input school year and semester
 
 // search a course list from school year list and display it
 void viewCourseList_fromSchoolYearList(SchoolYearList& schlYL){
@@ -656,7 +727,7 @@ void viewCourseList_fromSchoolYearList(SchoolYearList& schlYL){
 }
 
 // display the course list
-void viewCourseList(Course* courseHead){
+void viewCourseList(Course*& courseHead){
 	Course* curC=courseHead;
 	while(curC){
 		viewCourse(curC);
@@ -665,7 +736,7 @@ void viewCourseList(Course* courseHead){
 }
 
 // display one course
-void viewCourse(Course* course){
+void viewCourse(Course*& course){
 	cout<<"ID: "<<course->courseID;
 	cout<<"\nName: "<<course->courseName;
 	cout<<"\nTeacher name: "<<course->teacherName;
@@ -689,6 +760,7 @@ void viewCourse(Course* course){
 
 // UPDATE THE INFORMATION OF A COURSE
 
+// sreach a course list from school year list and update it
 void updateCourse_fromSchoolYearList(SchoolYearList& schlYL){
 	SchoolYear* schlY=chooseSchoolYear(schlYL);
 	if(!schlY)return;
@@ -698,6 +770,8 @@ void updateCourse_fromSchoolYearList(SchoolYearList& schlYL){
 	if(!course)return;
 	updateCourse(course);
 }
+
+// update a course
 void updateCourse(Course*& course){
 	int option=0;
 	cout<<"What do want to update?\n";
@@ -785,7 +859,11 @@ void updateCourse(Course*& course){
 	if(option==1)updateCourse(course);
 }
 
+
+
 // DELETE A COURSE
+
+//sreach a course list from school year list and delete it
 void deleteCourse_fromSchoolYearList(SchoolYearList& schlYL){
 	SchoolYear* schlY=chooseSchoolYear(schlYL);
 	if(!schlY)return;
@@ -795,6 +873,8 @@ void deleteCourse_fromSchoolYearList(SchoolYearList& schlYL){
 	if(!course)return;
 	deleteCourse(smt->courseHead,course);
 }
+
+// delete a course
 void deleteCourse(Course*& courseHead,Course*& course){
 	Course* curC=courseHead;
 	while(curC&&curC!=course)curC=curC->courseNext;
@@ -806,7 +886,9 @@ void deleteCourse(Course*& courseHead,Course*& course){
 	}
 }
 
-// find course (user choose one course in the fucntion)
+
+
+// user chooses one course in a semester
 Course* chooseCourse(Semester*& smt){
 	Course* curC=smt->courseHead;
 	int count=0;
@@ -829,6 +911,7 @@ Course* chooseCourse(Semester*& smt){
 	return curC;
 }
 
+// user chooses one semester in a school year
 Semester* chooseSemester(SchoolYear*& schlY){
 	cout<<"Semester:\n";
 	int count=0;
@@ -853,6 +936,7 @@ Semester* chooseSemester(SchoolYear*& schlY){
 	return curSmt;
 }
 
+// user chooses one school year in school year list
 SchoolYear* chooseSchoolYear(SchoolYearList& schlYL){
 	cout<<"School year:\n";
 	int count=0;
@@ -879,3 +963,8 @@ SchoolYear* chooseSchoolYear(SchoolYearList& schlYL){
 
 
 
+// CREATE A COURSE REGISTRATION SESSION
+
+void createRegistrationSession(Semester*& smt){
+
+}

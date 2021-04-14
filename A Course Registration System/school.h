@@ -31,23 +31,9 @@ struct Student{
 	int No;
     Date birth;
     Student* pNext, *pPrev;
-
     Student(): pPrev(nullptr), pNext(nullptr) {}
 
 };
-// struct Day{
-//     Day *nextDay, *preDay;
-// 	char* dayName;
-// 	char* mor1;
-// 	char* mor2;
-// 	char* aft1;
-// 	char* aft2;
-// };
-// struct Schedule{
-//     Day *dateList;
-//     char* className;
-//      Schedule(): dateList(nullptr) {}
-// };
 struct Class{
     char* className;
     int noStudent;
@@ -58,17 +44,6 @@ struct Class{
 struct classList {
 	Class* classL = nullptr;
 };
-// struct Score{
-//     char* name;
-//     char * studentID;
-// 	float mid, fnal, lb, bnus;
-// 	Score*nextScore= nullptr, *preScore = nullptr;
-// };
-// struct ScoreList{
-//     Score *fScore = nullptr;
-
-// };
-
 struct SchoolYear{
 	char * year = nullptr;
   //  Class* classList = nullptr;   
@@ -114,14 +89,26 @@ void addStudentsToClass(classList &classList);
 
 // Phu Hung
 
-// Course
+// SEMESTER
+
+struct Semester{
+    Date startDate,endDate;
+    int ordinalSemester;
+    char* schoolYear;
+    Course* courseHead=nullptr;
+    Semester* semesterNext=nullptr;
+    Semester* semesterPrev=nullptr;
+};
+
+// create a semester
+void creatSemester(SchoolYear*& schlY);
+
+// COURSE
 
 struct Session{
     char* dayOfWeek;
     int ordinalSession;
 };
-
-void loadSession(istream& fin,Session& session);
 
 struct Course{
     char* courseID;
@@ -135,18 +122,73 @@ struct Course{
 };
 
 
+// LOAD COURSE LIST
+
+// load a course list from file
+void loadCourseList(Semester*& smt);
+
+// load a course from file
 void loadCourse(istream& fin,Course*& course);
 
+// load a session from file
+void loadSession(istream& fin,Session& session);
 
-// Semester
+// if user (staff) wants to input a course from terminal
+void inputCourse_fromSchoolYearList(SchoolYearList& schlYL);
 
-struct Semester{
-    Date startDate,endDate;
-    int ordinalSemester;
-    char* schoolYear;
-    Course* courseHead=nullptr;
-    Semester* semesterNext=nullptr;
-    Semester* semesterPrev=nullptr;
-};
+// input a course from terminal
+void inputCourse(Course*& course);
+
+// input a session from terminal
+void inputSession(Session& session);
+
+// VIEW COURSE LIST, UPDATE AND DELETE A COURSE
+	// user chọn view 1 course list, update hoặc xoá 1 course
+void viewCourseList_updateCourse_deleteCourse(SchoolYearList& schlYL);
+
+
+
+// DISPLAY A COURSE LIST
+
+// search a course list from school year list and display it
+void viewCourseList_fromSchoolYearList(SchoolYearList& schlYL);
+
+// display the course list
+void viewCourseList(Course*& courseHead);
+
+// display one course
+void viewCourse(Course*& course);
+
+
+
+// UPDATE THE INFORMATION OF A COURSE
+
+// sreach a course list from school year list and update it
+void updateCourse_fromSchoolYearList(SchoolYearList& schlYL);
+
+// update a course
+void updateCourse(Course*& course);
+
+
+
+// DELETE A COURSE
+
+//sreach a course list from school year list and delete it
+void deleteCourse_fromSchoolYearList(SchoolYearList& schl);
+
+// delete a course
+void deleteCourse(Course*& courseHead,Course*& course);
+
+
+
+// user chooses one course in a semester
+Course* chooseCourse(Semester*& smt);
+
+// user chooses one semester in a school year
+Semester* chooseSemester(SchoolYear*& schlY);
+
+// user chooses one school year in school year list
+SchoolYear* chooseSchoolYear(SchoolYearList& schlYL);
+
 
 #endif // _School_
