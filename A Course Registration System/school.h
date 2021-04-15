@@ -91,17 +91,22 @@ void addStudentsToClass(classList &classList);
 
 // SEMESTER
 
+struct RegistrationSession{
+    Date startDate,endDate;
+};
+
 struct Semester{
     Date startDate,endDate;
     int ordinalSemester;
     char* schoolYear;
     Course* courseHead=nullptr;
+    RegistrationSession registrationSession;
     Semester* semesterNext=nullptr;
     Semester* semesterPrev=nullptr;
 };
 
 // create a semester
-void creatSemester(SchoolYear*& schlY);
+void createSemester(SchoolYear*& schlY);
 
 // COURSE
 
@@ -124,22 +129,26 @@ struct Course{
 
 // LOAD COURSE LIST
 
-// load a course list from file
+// from FILE
+
+// load a course list
 void loadCourseList(Semester*& smt);
 
-// load a course from file
+// load a course
 void loadCourse(istream& fin,Course*& course);
 
-// load a session from file
+// load a session
 void loadSession(istream& fin,Session& session);
 
-// if user (staff) wants to input a course from terminal
+// from TERMINAL
+
+// choose school year and semester to insert a course
 void inputCourse_fromSchoolYearList(SchoolYearList& schlYL);
 
-// input a course from terminal
+// input a course
 void inputCourse(Course*& course);
 
-// input a session from terminal
+// input a session
 void inputSession(Session& session);
 
 // VIEW COURSE LIST, UPDATE AND DELETE A COURSE
