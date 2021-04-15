@@ -6,7 +6,6 @@
 #include<string.h>
 #include<string>
 #include<ctime>
-#include <Windows.h>
 
 using namespace std;
 
