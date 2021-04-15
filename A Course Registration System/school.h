@@ -5,6 +5,7 @@
 #include <fstream>
 #include<string.h>
 #include<string>
+#include<ctime>
 #include <Windows.h>
 
 using namespace std;
@@ -26,12 +27,13 @@ struct Date{
     int day, month, year;
 };
 
+
 struct Student{
     string firstName, lastName, studentID, Gender, socialID;
 	int No;
     Date birth;
     Student* pNext, *pPrev;
-    Student(): pPrev(nullptr), pNext(nullptr) {}
+    Student(): courseHead(nullptr),pPrev(nullptr), pNext(nullptr) {}
 
 };
 struct Class{
@@ -93,20 +95,20 @@ void addStudentsToClass(classList &classList);
 
 struct RegistrationSession{
     Date startDate,endDate;
+    RegistrationSession(): startDate.day(0),endDate.day(0){}
 };
 
 struct Semester{
     Date startDate,endDate;
     int ordinalSemester;
     char* schoolYear;
-    Course* courseHead=nullptr;
+    Course* courseHead;
     RegistrationSession registrationSession;
-    Semester* semesterNext=nullptr;
-    Semester* semesterPrev=nullptr;
+    Semester* semesterNext;
+    Semester* semesterPrev;
+    Semester(): courseHead(nullptr),semesterNext(nullptr),semesterPrev(nullptr){}
 };
 
-// create a semester
-void createSemester(SchoolYear*& schlY);
 
 // COURSE
 
@@ -121,10 +123,40 @@ struct Course{
     char* teacherName;
     int numberOfCredits;
     int maximumNumberOfStudents;
+    int numberOfStudents;
     Session session1,session2;
     Course* courseNext=nullptr;
     Course* coursePrev=nullptr;
+    Course(): numberOfStudents(0),courseNext(nullptr),coursePrev(nullptr){}
 };
+
+
+
+// DATE
+
+// input a date
+void inputDate(Date& d);
+// get the current date
+Date currentDate();
+// is the bigger day?
+bool isBiggerDate(Date& d1,Date& d2);
+
+
+
+// CREATE SEMESTER
+
+// create a semester
+void createSemester(SchoolYear*& schlY);
+
+
+
+// CREATE A COURSE REGISTRATION SESSION
+
+// choose a semester from school year list and create a course registration session
+void createRegistrationSession_fromSchoolYearList(SchoolYearList& schlYL);
+// create a registration session
+void createRegistrationSession(Semester*& smt);
+
 
 
 // LOAD COURSE LIST
@@ -133,10 +165,8 @@ struct Course{
 
 // load a course list
 void loadCourseList(Semester*& smt);
-
 // load a course
 void loadCourse(istream& fin,Course*& course);
-
 // load a session
 void loadSession(istream& fin,Session& session);
 
@@ -144,37 +174,25 @@ void loadSession(istream& fin,Session& session);
 
 // choose school year and semester to insert a course
 void inputCourse_fromSchoolYearList(SchoolYearList& schlYL);
-
 // input a course
 void inputCourse(Course*& course);
-
 // input a session
 void inputSession(Session& session);
-
-// VIEW COURSE LIST, UPDATE AND DELETE A COURSE
-	// user chọn view 1 course list, update hoặc xoá 1 course
-void viewCourseList_updateCourse_deleteCourse(SchoolYearList& schlYL);
 
 
 
 // DISPLAY A COURSE LIST
 
-// search a course list from school year list and display it
+// choose a course list from school year list and display it
 void viewCourseList_fromSchoolYearList(SchoolYearList& schlYL);
-
 // display the course list
 void viewCourseList(Course*& courseHead);
-
 // display one course
 void viewCourse(Course*& course);
-
-
-
 // UPDATE THE INFORMATION OF A COURSE
 
-// sreach a course list from school year list and update it
+// choose a course list from school year list and update it
 void updateCourse_fromSchoolYearList(SchoolYearList& schlYL);
-
 // update a course
 void updateCourse(Course*& course);
 
@@ -182,9 +200,8 @@ void updateCourse(Course*& course);
 
 // DELETE A COURSE
 
-//sreach a course list from school year list and delete it
-void deleteCourse_fromSchoolYearList(SchoolYearList& schl);
-
+// choose a course list from school year list and delete it
+void deleteCourse_fromSchoolYearList(SchoolYearList& schlYL);
 // delete a course
 void deleteCourse(Course*& courseHead,Course*& course);
 
@@ -192,12 +209,13 @@ void deleteCourse(Course*& courseHead,Course*& course);
 
 // user chooses one course in a semester
 Course* chooseCourse(Semester*& smt);
-
 // user chooses one semester in a school year
 Semester* chooseSemester(SchoolYear*& schlY);
-
 // user chooses one school year in school year list
 SchoolYear* chooseSchoolYear(SchoolYearList& schlYL);
+
+
+void doSomethingWithCourse(SchoolYearList& schlYL);
 
 
 #endif // _School_
