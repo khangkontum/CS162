@@ -17,17 +17,10 @@ struct Date;
 struct Student;
 struct User;
 struct UserList;
+struct Semester;
 
 struct Date{
     int day =0, month =0 , year = -1;
-};
-struct SchoolYear{
-	char * year = nullptr;
-  //  Class* classList = nullptr;
-    SchoolYear* pNext, *pPrev;
-   // Semester* semesterList = nullptr;
-    SchoolYear() : pNext(nullptr), pPrev(nullptr) {}
-   // SchoolYear(SchoolYear* prev_school_year, int x,int y) : pNext(nullptr), pPrev(prev_school_year), startYear(x), endYear(y) {}
 };
 struct SchoolYearList{
 
@@ -62,7 +55,6 @@ struct User{
 	string email;
 	Student* posStudent;
     int flag = 0 ;
-    int flag =0 ;
     User*uNext, *uPre;
 };
 struct UserList{
@@ -70,32 +62,10 @@ struct UserList{
     UserList(): fUser(nullptr){}
 };
 
-struct Date{
-    int day, month, year;
-};
 
-
-struct Student{
-    string firstName, lastName, studentID, Gender, socialID;
-	int No;
-    Date birth;
-    Student* pNext, *pPrev;
-    Student(): courseHead(nullptr),pPrev(nullptr), pNext(nullptr) {}
-
-};
-struct Class{
-    char* className;
-    int noStudent;
-    Student* studentList = nullptr;  
-    Class* pNext, *pPrev;
-    Class(): pNext(nullptr), pPrev(nullptr) {}
-};
-struct classList {
-	Class* classL = nullptr;
-};
 struct SchoolYear{
 	char * year = nullptr;
-  //  Class* classList = nullptr;   
+  //  Class* classList = nullptr;
     SchoolYear* pNext, *pPrev;
    // Semester* semesterList = nullptr;
     SchoolYear() : pNext(nullptr), pPrev(nullptr) {}
@@ -106,9 +76,6 @@ struct SchoolYear{
    Semester* semesterHead=nullptr;
 };
 
-struct SchoolYearList{
-    SchoolYear* schoolyearL = nullptr;
-};
 
 void displayCommandMenu();
 
@@ -133,7 +100,6 @@ void deleteStudentList(Class *&cl);
 void addStudentsToClass(classList &classList);
 void addAStudentToClass(classList &classList);
 Student *inputStudent();
-#endif // _School_
 
 
 
