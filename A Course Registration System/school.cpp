@@ -1,6 +1,4 @@
 #include "school.h"
-#include <iostream>
-#include <limits>
 
 void PressEnterToContinue()
 {
@@ -649,7 +647,7 @@ void createRegistrationSession_fromSchoolYearList(SchoolYearList& schlYL){
 
 // create a registration session
 void createRegistrationSession(Semester*& smt){
-	if(smt->registrationSession.startDate!=0){
+	if(smt->registrationSession.startDate.day!=0){
 		cout<<"Semester "<<smt->ordinalSemester<<" had a course registration session!\n";
 		return;
 	}
@@ -718,7 +716,9 @@ void loadCourse(istream& fin,Course*& course){
 	course->teacherName[strlen(tmp)]='\0';
 
 	// load the number of credits and the maximum number of students
+	fin.get();	// đọc dấu phẩy
 	fin>>course->numberOfCredits;
+	fin.get();	// đọc dấu phẩy
 	fin>>course->maximumNumberOfStudents;
 
 	// load 2 sessions
@@ -732,6 +732,7 @@ void loadSession(istream& fin,Session& session){
 	session.dayOfWeek=new char[4];
 	fin.ignore();
 	fin.get(session.dayOfWeek,4,',');
+	fin.get();	// đọc dấu phẩy
 	fin>>session.ordinalSession;
 }
 
@@ -761,7 +762,7 @@ void inputCourse(Course*& course){
 	// input course id
 	cout<<"Course ID: ";
 	cin.ignore();
-	cin.get(tmp,101,',');
+	cin.get(tmp,101);
 	course->courseID=new char[strlen(tmp)+1];
 	for(int i=0;i<strlen(tmp);++i)
 		course->courseID[i]=tmp[i];
@@ -770,7 +771,7 @@ void inputCourse(Course*& course){
 	// input course name
 	cout<<"Course name: ";
 	cin.ignore();
-	cin.get(tmp,101,',');
+	cin.get(tmp,101);
 	course->courseName=new char[strlen(tmp)+1];
 	for(int i=0;i<strlen(tmp);++i)
 		course->courseName[i]=tmp[i];
@@ -779,7 +780,7 @@ void inputCourse(Course*& course){
 	// input teacher name
 	cout<<"Teacher name: ";
 	cin.ignore();
-	cin.get(tmp,101,',');
+	cin.get(tmp,101);
 	course->teacherName=new char[strlen(tmp)+1];
 	for(int i=0;i<strlen(tmp);++i)
 		course->teacherName[i]=tmp[i];
@@ -1016,7 +1017,7 @@ Course* chooseCourse(Semester*& smt){
 		return nullptr;
 	}
 	curC=smt->courseHead;
-	for(int i=0;i<option;++i)curC=curC->courseNext;
+	for(int i=1;i<option;++i)curC=curC->courseNext;
 	return curC;
 }
 
@@ -1045,7 +1046,7 @@ Semester* chooseSemester(SchoolYear*& schlY){
 		return nullptr;
 	}
 	curSmt=schlY->semesterHead;
-	for(int i=0;i<option;++i)curSmt=curSmt->semesterNext;
+	for(int i=1;i<option;++i)curSmt=curSmt->semesterNext;
 	return curSmt;
 }
 
@@ -1070,7 +1071,7 @@ SchoolYear* chooseSchoolYear(SchoolYearList& schlYL){
 		return nullptr;
 	}
 	curSchlY=schlYL.schoolyearL;
-	for(int i=0;i<option;++i)curSchlY=curSchlY->pNext;
+	for(int i=1;i<option;++i)curSchlY=curSchlY->pNext;
 	return curSchlY;
 }
 
@@ -1100,4 +1101,7 @@ void doSomethingWithCourse(SchoolYearList& schlYL){
 	else if(option==3)inputCourse_fromSchoolYearList(schlYL);
 	else if(option==4)deleteCourse_fromSchoolYearList(schlYL);
 	else createRegistrationSession_fromSchoolYearList(schlYL);
+	cout<<"Do you want to do anything else?\n1. Yes\n2. No\nAnswer: ";
+	cin>>option;
+	if(option==1)doSomethingWithCourse(schlYL);
 }

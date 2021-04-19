@@ -6,6 +6,7 @@
 #include<string.h>
 #include<string>
 #include<ctime>
+#include <limits>
 
 using namespace std;
 
@@ -20,11 +21,12 @@ struct UserList;
 struct Semester;
 
 struct Date{
-    int day =0, month =0 , year = -1;
+    int day, month , year;
 };
 struct SchoolYearList{
 
-    SchoolYear* schoolyearL = nullptr;
+    SchoolYear* schoolyearL;
+    SchoolYearList():schoolyearL(nullptr){}
 };
 struct Student{
     string firstName, lastName, studentID, Gender, socialID;
@@ -38,14 +40,15 @@ struct Student{
 struct Class{
     char* className;
     int noStudent;
-    Student* studentList = nullptr;
-	Student* studentLast = nullptr;
+    Student* studentList;
+	Student* studentLast;
     Class* pNext, *pPrev;
-    Class(): pNext(nullptr), pPrev(nullptr) {}
+    Class(): pNext(nullptr), pPrev(nullptr),studentList(nullptr),studentLast(nullptr) {}
 };
 struct classList {
-	Class* classL = nullptr;
+	Class* classL;
 	SchoolYear* posSchoolYear;
+    classList():classL(nullptr){}
 };
 struct User{
     string password;
@@ -54,26 +57,68 @@ struct User{
 	string phoneNumber;
 	string email;
 	Student* posStudent;
-    int flag = 0 ;
+    int flag;
     User*uNext, *uPre;
+    User():flag(0),uNext(nullptr),uPre(nullptr){}
 };
 struct UserList{
     User* fUser;
     UserList(): fUser(nullptr){}
 };
 
+// COURSE
+
+struct Session{
+    char* dayOfWeek;
+    int ordinalSession;
+};
+
+struct Course{
+    char* courseID;
+    char* courseName;
+    char* teacherName;
+    int numberOfCredits;
+    int maximumNumberOfStudents;
+    int numberOfStudents;
+    Session session1,session2;
+    Course* courseNext;
+    Course* coursePrev;
+    Course(): numberOfStudents(0),courseNext(nullptr),coursePrev(nullptr){}
+};
+
+// SEMESTER
+
+struct RegistrationSession{
+    Date startDate,endDate;
+    RegistrationSession(){
+        startDate.day=0;
+        endDate.day=0;
+    }
+};
+
+struct Semester{
+    Date startDate,endDate;
+    int ordinalSemester;
+    char* schoolYear;
+    Course* courseHead;
+    RegistrationSession registrationSession;
+    Semester* semesterNext;
+    Semester* semesterPrev;
+    Semester(): courseHead(nullptr),semesterNext(nullptr),semesterPrev(nullptr){}
+};
+
 
 struct SchoolYear{
-	char * year = nullptr;
+	char * year ;
   //  Class* classList = nullptr;
     SchoolYear* pNext, *pPrev;
    // Semester* semesterList = nullptr;
-    SchoolYear() : pNext(nullptr), pPrev(nullptr) {}
+   
+    Semester* semesterHead;
+    SchoolYear() : pNext(nullptr), pPrev(nullptr),semesterHead(nullptr),year(nullptr){}
    // SchoolYear(SchoolYear* prev_school_year, int x,int y) : pNext(nullptr), pPrev(prev_school_year), startYear(x), endYear(y) {}
 
-   // Phu Hung
-   // Add Semester
-   Semester* semesterHead=nullptr;
+   
 };
 
 
@@ -106,45 +151,6 @@ Student *inputStudent();
 
 
 // Phu Hung
-
-// SEMESTER
-
-struct RegistrationSession{
-    Date startDate,endDate;
-    RegistrationSession(): startDate.day(0),endDate.day(0){}
-};
-
-struct Semester{
-    Date startDate,endDate;
-    int ordinalSemester;
-    char* schoolYear;
-    Course* courseHead;
-    RegistrationSession registrationSession;
-    Semester* semesterNext;
-    Semester* semesterPrev;
-    Semester(): courseHead(nullptr),semesterNext(nullptr),semesterPrev(nullptr){}
-};
-
-
-// COURSE
-
-struct Session{
-    char* dayOfWeek;
-    int ordinalSession;
-};
-
-struct Course{
-    char* courseID;
-    char* courseName;
-    char* teacherName;
-    int numberOfCredits;
-    int maximumNumberOfStudents;
-    int numberOfStudents;
-    Session session1,session2;
-    Course* courseNext=nullptr;
-    Course* coursePrev=nullptr;
-    Course(): numberOfStudents(0),courseNext(nullptr),coursePrev(nullptr){}
-};
 
 
 
