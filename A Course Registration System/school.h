@@ -24,7 +24,8 @@ struct Date{
 };
 struct SchoolYearList{
 
-    SchoolYear* schoolyearL = nullptr;
+    SchoolYear* schoolyearL;
+    SchoolYearList() : schoolyearL(nullptr) {}
 };
 struct Student{
     string firstName, lastName, studentID, Gender, socialID;
@@ -145,6 +146,7 @@ struct Course{
     Course* coursePrev=nullptr;
     Course(): numberOfStudents(0),courseNext(nullptr),coursePrev(nullptr){}
 };
+
 
 
 
