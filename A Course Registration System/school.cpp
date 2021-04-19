@@ -911,7 +911,7 @@ void updateCourse(Course*& course){
 		char tmp[101];
 		cout<<"New teacher's name: ";
 		cin.ignore();
-		cin.get(tmp,101,',');
+		cin.get(tmp,101);
 		course->teacherName=new char[strlen(tmp)+1];
 		for(int i=0;i<strlen(tmp);++i)
 			course->teacherName[i]=tmp[i];
