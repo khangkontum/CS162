@@ -51,13 +51,13 @@ struct classList {
     classList():classL(nullptr){}
 };
 struct User{
-    string password;
-	string username;
-	string Name;
+    string passWord;
+	string userName;
+	string name;
 	string phoneNumber;
 	string email;
 	Student* posStudent;
-    int flag;
+    bool isStaff;
     User*uNext, *uPre;
     User():flag(0),uNext(nullptr),uPre(nullptr){}
 };
@@ -113,12 +113,12 @@ struct SchoolYear{
   //  Class* classList = nullptr;
     SchoolYear* pNext, *pPrev;
    // Semester* semesterList = nullptr;
-   
+
     Semester* semesterHead;
     SchoolYear() : pNext(nullptr), pPrev(nullptr),semesterHead(nullptr),year(nullptr){}
    // SchoolYear(SchoolYear* prev_school_year, int x,int y) : pNext(nullptr), pPrev(prev_school_year), startYear(x), endYear(y) {}
 
-   
+
 };
 
 

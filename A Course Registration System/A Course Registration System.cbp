@@ -37,6 +37,8 @@
 		<Unit filename="main.cpp" />
 		<Unit filename="school.cpp" />
 		<Unit filename="school.h" />
+		<Unit filename="student.cpp" />
+		<Unit filename="student.h" />
 		<Extensions>
 			<lib_finder disable_auto="1" />
 		</Extensions>

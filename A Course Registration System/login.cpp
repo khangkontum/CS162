@@ -1,4 +1,5 @@
 #include "login.h"
+#include "school.h"
 
 using namespace std;
 
@@ -25,4 +26,24 @@ void updateUser(User &u){
     default :
         cout<<"Can't change";
     }
+}
+
+void login(User* user){
+    user = nullptr;
+    cout<<"****LOGIN****"<<endl;
+    string userName, passWord;
+    cout<<"Username: ";cin>>userName;
+    cout<<"Password: ";cin>>passWord;
+    User* tmp = findUser(userName);
+    if (tmp == nullptr){
+        clearScreen();
+        cout<<"Wrong username !"<<endl;
+        return;
+    }
+    if (tmp.passWord != passWord){
+        clearScreen();
+        cout<<"Wrong password !"<<endl;
+        return;
+    }
+    user = tmp;
 }
