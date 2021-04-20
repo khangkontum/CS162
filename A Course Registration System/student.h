@@ -10,5 +10,7 @@ void displayStudentCommand();
 void enrollInACourse(Course* course, User* user);
 void viewListOfEnrolledCourses(User* user);
 void removeACourseFromEnrolledList(User* user);
+void viewScoreBoard(User* user);
+void goStudent(User* user);
 
 #endif // _Student_

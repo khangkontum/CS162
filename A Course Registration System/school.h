@@ -59,7 +59,7 @@ struct User{
 	Student* posStudent;
     bool isStaff;
     User*uNext, *uPre;
-    User():flag(0),uNext(nullptr),uPre(nullptr){}
+    User():isStaff(false),uNext(nullptr),uPre(nullptr){}
 };
 struct UserList{
     User* fUser;

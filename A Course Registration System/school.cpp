@@ -1,4 +1,5 @@
 #include "school.h"
+#include "login.h"
 
 void PressEnterToContinue()
 {
@@ -6,11 +7,6 @@ void PressEnterToContinue()
 
 }
 
-void clearScreen()
-{
-	for(int i = 1; i <= 10; i++)
-		cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
-}
 
 void displayCommandMenu()
 {
@@ -120,7 +116,7 @@ void addAStudentToClass(classList &classList) {
 			fout << date << ',';
 			fout << x->socialID << ",";
 			fout << x->Gender << endl;
-			
+
 			x->No = addClass->noStudent + 1;
 			if (addClass->studentList == nullptr) {
 				addClass->studentList = x;
@@ -161,27 +157,27 @@ Student *inputStudent() {
 	}
 	cout << "Please input Student social ID : ";
 	getline(cin, socialID);
-	
+
 	Date d;
 	cout << "Please input Student Date of birth (dd/mm/yyyy): ";
 	getline(cin, date);
 	dateCSVToInt(date, d);
-	
+
 	while (d.day == 0 && d.month == 0 && d.year == -1) {
 		cout << "Wrong format, please input Student Date of birth (dd/mm/yyyy): ";
 		getline(cin, date);
 		dateCSVToInt(date, d);
 	}
-	
+
 	Student *x = new Student;
-	
+
 	x->firstName = firstName;
 	x->lastName = lastName;
 	x->Gender = Gender;
 	x->socialID = socialID;
 	x->studentID = studentID;
 	x->birth = d;
-	
+
 	return x;
 }
 void loadClassList(classList &classList)
@@ -284,8 +280,8 @@ void dateCSVToInt(string s, Date &d)
 	}
 	if (day == "" || month == "" || year == "")
 		return;
-	
-	
+
+
 	d.month = stoi(month);
 	d.year = stoi(year);
 	d.day = stoi(day);
@@ -345,7 +341,7 @@ void createClasses(classList &classList, string path)
 		strcpy(newClass->className, input);
 
 		int noStudent = 0;
-		
+
 		newClass->noStudent = noStudent;
 		newClass->pNext = classList.classL;
 		if (classList.classL != nullptr)
