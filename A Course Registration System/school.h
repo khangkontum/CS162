@@ -2,11 +2,11 @@
 #ifndef _School_
 #define _School_
 #include<iostream>
-#include <fstream>
+#include<fstream>
 #include<string.h>
 #include<string>
 #include<ctime>
-#include <limits>
+#include<limits>
 
 using namespace std;
 
@@ -18,6 +18,9 @@ struct Date;
 struct Student;
 struct User;
 struct UserList;
+struct Course;
+struct Session;
+struct RegistrationSession;
 struct Semester;
 
 struct Date{
@@ -145,13 +148,6 @@ void deleteStudentList(Class *&cl);
 void addStudentsToClass(classList &classList);
 void addAStudentToClass(classList &classList);
 Student *inputStudent();
-
-
-
-
-
-// Phu Hung
-
 
 
 
