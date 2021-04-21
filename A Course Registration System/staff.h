@@ -6,6 +6,11 @@
 
 using namespace std;
 
+void viewListOfClass();
+void viewListOfStudentsInClass();
+void viewListOfCourse();
+void viewListOfStudentInCourse();
+void displayStaffCommand();
 void goStaff(User* user);
 
 #endif // _staff_

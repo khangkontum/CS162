@@ -44,6 +44,7 @@ struct Student{
 };
 struct Class{
     char* className;
+    //string className;
     int noStudent;
     Student* studentList;
 	Student* studentLast;
