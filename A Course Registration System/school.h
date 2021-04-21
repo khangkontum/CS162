@@ -37,8 +37,8 @@ struct Student{
 	int No;
     Date birth;
     Student* pNext, *pPrev;
-    Class* posClass;
-    CourseList* courseList;
+    Class* posClass;// Trace
+    CourseList* courseList;// Trace
     Student(): pPrev(nullptr), pNext(nullptr) {}
 
 };
@@ -48,7 +48,7 @@ struct Class{
     Student* studentList;
 	Student* studentLast;
     Class* pNext, *pPrev;
-	SchoolYear* posSchoolYear;
+	SchoolYear* posSchoolYear;// Trace
     Class(): pNext(nullptr), pPrev(nullptr),studentList(nullptr),studentLast(nullptr) {}
 };
 struct classList {
@@ -61,7 +61,7 @@ struct User{
 	string name;
 	string phoneNumber;
 	string email;
-	Student* posStudent;
+	Student* posStudent;// Trace
     bool isStaff;
     User*uNext, *uPre;
     User():isStaff(false),uNext(nullptr),uPre(nullptr){}

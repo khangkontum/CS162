@@ -5,7 +5,7 @@
 	"student.h"
 	"staff.h"
 
-1618998263 d:\github\cs162\a course registration system\school.h
+1618999479 d:\github\cs162\a course registration system\school.h
 	<iostream>
 	<fstream>
 	<string.h>
@@ -36,7 +36,7 @@
 	"school.h"
 	"login.h"
 
-1618891252 source:d:\github\cs162\a course registration system\student.cpp
+1618998697 source:d:\github\cs162\a course registration system\student.cpp
 	"student.h"
 	"school.h"
 	"login.h"
