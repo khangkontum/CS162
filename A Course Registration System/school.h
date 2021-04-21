@@ -19,6 +19,7 @@ struct Student;
 struct User;
 struct UserList;
 struct Course;
+struct CourseList;
 struct Session;
 struct RegistrationSession;
 struct Semester;
@@ -37,6 +38,7 @@ struct Student{
     Date birth;
     Student* pNext, *pPrev;
     Class* posClass;
+    CourseList* courseList;
     Student(): pPrev(nullptr), pNext(nullptr) {}
 
 };
@@ -46,16 +48,16 @@ struct Class{
     Student* studentList;
 	Student* studentLast;
     Class* pNext, *pPrev;
+	SchoolYear* posSchoolYear;
     Class(): pNext(nullptr), pPrev(nullptr),studentList(nullptr),studentLast(nullptr) {}
 };
 struct classList {
 	Class* classL;
-	SchoolYear* posSchoolYear;
     classList():classL(nullptr){}
 };
 struct User{
-    string passWord;
-	string userName;
+    string password;
+	string username;
 	string name;
 	string phoneNumber;
 	string email;
@@ -77,7 +79,7 @@ struct Session{
 };
 
 struct Course{
-    char* courseID;
+    string courseID;
     char* courseName;
     char* teacherName;
     int numberOfCredits;
@@ -87,6 +89,12 @@ struct Course{
     Course* courseNext;
     Course* coursePrev;
     Course(): numberOfStudents(0),courseNext(nullptr),coursePrev(nullptr){}
+};
+
+struct CourseList{
+    string courseId;
+    Course* posCourse;
+    CourseList* Next;
 };
 
 // SEMESTER
@@ -236,5 +244,15 @@ SchoolYear* chooseSchoolYear(SchoolYearList& schlYL);
 
 void doSomethingWithCourse(SchoolYearList& schlYL);
 
+// Trace
+
+Course* getCourseFromCourseId(string courseId, Course* courseList);
+Student* getStudentFromUser(User* user);
+Class* getClassFromUser(User* user);
+SchoolYear* getSchoolYearFromUser(User* user);
+int countCurrentCourse(User* user);
+bool isAvailableCourse(string courseId, Course* courseList);
+bool isConflictedCourse(string courseId, User* user);
+bool isConflictedSession(Course* courseA, Course* courseB);
 
 #endif // _School_

@@ -881,6 +881,7 @@ void updateCourse(Course*& course){
 	cout<<"Answer: ";
 	cin>>option;
 	if(option==1){
+        /*
 		delete[]course->courseID;
 		char tmp[101];
 		cout<<"New course ID: ";
@@ -890,6 +891,9 @@ void updateCourse(Course*& course){
 		for(int i=0;i<strlen(tmp);++i)
 			course->courseID[i]=tmp[i];
 		course->courseID[strlen(tmp)]='\0';
+		*/
+		cout<<"New course ID: ";
+        cin>>course->courseID;
 	}
 	else if(option==2){
 		delete[]course->courseName;
@@ -1100,4 +1104,60 @@ void doSomethingWithCourse(SchoolYearList& schlYL){
 	cout<<"Do you want to do anything else?\n1. Yes\n2. No\nAnswer: ";
 	cin>>option;
 	if(option==1)doSomethingWithCourse(schlYL);
+}
+
+// Trace
+
+Student* getStudentFromUser(User* user){
+    return user->posStudent;
+}
+Class* getClassFromUser(User* user){
+    return user->posStudent->posClass;
+}
+SchoolYear* getSchoolYearFromUser(User* user){
+    return user->posStudent->posClass->posSchoolYear;
+}
+
+int countCurrentCourse(User* user){
+    CourseList* courseList = user->posStudent->courseList;
+    int cnt = 0;
+    while(courseList != nullptr){
+        ///check is course end ?
+        courseList = courseList->Next;
+    }
+    return cnt;
+}
+bool isAvailableCourse(string courseId, Course* courseList){
+    while(courseList != nullptr){
+        if (courseList->courseID == courseId)
+            return true;
+        courseList = courseList->courseNext;
+    }
+    return false;
+}
+
+Course* getCourseFromCourseId(string courseId, Course* courseList){
+    while(courseList != nullptr){
+        if (courseList->courseID == courseId) break;
+        courseList = courseList->courseNext;
+    }
+    return courseList;
+}
+
+bool isConflictedCourse(string courseId, User* user){
+    CourseList* courseList = user->posStudent->courseList;
+    Course* course = getCourseFromCourseId(courseId, user->posStudent->posClass->posSchoolYear->semesterHead->courseHead);
+    while(courseList != nullptr){
+        if (courseId == courseList->courseId)
+            return true;
+        if (isConflictedSession(course, courseList->posCourse))
+            return true;
+        courseList = courseList->Next;
+    }
+    return false;
+}
+
+bool isConflictedSession(Course* courseA, Course* courseB){
+    /// session bi thieu thong tin thi phai
+    return false;
 }

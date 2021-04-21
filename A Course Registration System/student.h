@@ -7,7 +7,7 @@
 using namespace std;
 
 void displayStudentCommand();
-void enrollInACourse(Course* course, User* user);
+void enrollInACourse(User* user);
 void viewListOfEnrolledCourses(User* user);
 void removeACourseFromEnrolledList(User* user);
 void viewScoreBoard(User* user);

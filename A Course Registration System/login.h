@@ -5,6 +5,7 @@
 
 using namespace std;
 
+User* getUserList();
 User createUser(Student u);
 void displayUser(User u);
 void updateUser(User &u);
