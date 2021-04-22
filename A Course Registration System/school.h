@@ -254,6 +254,7 @@ SchoolYear* getSchoolYearFromUser(User* user);
 int countCurrentCourse(User* user);
 bool isAvailableCourse(string courseId, Course* courseList);
 bool isConflictedCourse(string courseId, User* user);
+bool isSameSession(Session&s1,Session&s2);
 bool isConflictedSession(Course* courseA, Course* courseB);
 
 #endif // _School_
