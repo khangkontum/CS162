@@ -118,6 +118,7 @@ void addAStudentToClass(classList &classList) {
 			fout << x->Gender << endl;
 
 			x->No = addClass->noStudent + 1;
+			x->posClass = addClass;
 			if (addClass->studentList == nullptr) {
 				addClass->studentList = x;
 				x->pPrev = nullptr;
@@ -241,6 +242,8 @@ int loadStudent(Class *&cl)
 			getline(fin, newStudent->socialID, ',');
 			//Gender
 			getline(fin, newStudent->Gender);
+
+			newStudent->posClass = cl;
 
 			if (cl->studentList == nullptr)
 			{
