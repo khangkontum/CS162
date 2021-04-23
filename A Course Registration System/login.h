@@ -5,12 +5,13 @@
 
 using namespace std;
 
+User* copyUser(User* u);
 User* getUserList();
 User createUser(Student u);
 void displayUser(User u);
 void updateUser(User &u);
 User* findUser(string username);
-void login(User* user);
+void login(User*& user);
 void changePassword(User* user);
 void clearScreen();
 void displayPersonalInfo(User* user);

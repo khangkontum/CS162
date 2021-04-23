@@ -57,8 +57,8 @@ struct classList {
     classList():classL(nullptr){}
 };
 struct User{
-    string password;
 	string username;
+    string password;
 	string name;
 	string phoneNumber;
 	string email;

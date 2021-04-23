@@ -6,10 +6,10 @@
 using namespace std;
 
 int main(){
-    User* user;
+    User* user = nullptr;
     do{
         login(user);
-    }while(user!=nullptr);
+    }while(user==nullptr);
 
     if (user->isStaff)
         goStaff(user);

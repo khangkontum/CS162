@@ -1,12 +1,31 @@
 #include "login.h"
 #include "school.h"
+#include "fstream"
+#include <windows.h>
 
 using namespace std;
 
-void clearScreen()
-{
+User* copyUser(User* u){
+    if (u == nullptr)
+        return nullptr;
+    User* v = new User;
+    v->email = u->email;
+    v->name = v->name;
+    v->username = u->username;
+    v->isStaff = u->isStaff;
+    v->password = u->password;
+    v->phoneNumber = u->phoneNumber;
+    v->posStudent = u->posStudent;
+    v->uNext = v->uPre = nullptr;
+    return v;
+}
+
+void clearScreen(){
+    /*
 	for(int i = 1; i <= 10; i++)
 		cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
+    */
+    system("cls");
 }
 
 User createUser(Student u){
@@ -34,7 +53,7 @@ void updateUser(User &u){
     }
 }
 
-void login(User* user){
+void login(User*& user){
     user = nullptr;
     cout<<"****LOGIN****"<<endl;
     string username, password;
@@ -55,17 +74,66 @@ void login(User* user){
 }
 
 User* getUserList(){
-    return nullptr;
+    User* uList = nullptr;
+    ifstream fi;
+    int n;
+    string username, password;
+    fi.open("user/staff.txt");
+    fi>>n;
+    for(int i=0;i<n;++i){
+        fi>>username;
+        fi>>password;
+        if (uList==nullptr){
+            uList = new User;
+            uList->username = username;
+            uList->password = password;
+            uList->uNext = nullptr;
+        }else{
+            User* tmp = new User;
+            tmp->username = username;
+            tmp->password = password;
+            tmp->uNext = uList;
+            uList = tmp;
+        }
+    }
+    fi.close();
+    fi.open("user/student.txt");
+    fi>>n;
+    for(int i=0;i<n;++i){
+        cin>>username;
+        cin>>password;
+        if (uList==nullptr){
+            uList = new User;
+            uList->username = username;
+            uList->password = password;
+            uList->uNext = nullptr;
+        }else{
+            User* tmp = new User;
+            tmp->username = username;
+            tmp->password = password;
+            tmp->uNext = uList;
+            uList = tmp;
+        }
+    }
+    fi.close();
+    return uList;
 }
 
 User* findUser(string username){
     User* UserList = getUserList();
-    while(UserList != nullptr){
-        if (UserList->username == username)
+    User* cur = UserList;
+    while(cur != nullptr){
+        if (cur->username == username)
             break;
-        UserList = UserList->uNext;
+        cur = cur->uNext;
     }
-    return UserList;
+    cur = copyUser(cur);
+    while(UserList != nullptr){
+        User* tmp = UserList->uNext;
+        delete UserList;
+        UserList = tmp;
+    }
+    return cur;
 }
 
 void displayPersonalInfo(User* user){
