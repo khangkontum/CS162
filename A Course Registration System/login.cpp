@@ -1,7 +1,6 @@
 #include "login.h"
 #include "school.h"
 #include "fstream"
-#include <windows.h>
 
 using namespace std;
 
@@ -25,7 +24,7 @@ void clearScreen(){
 	for(int i = 1; i <= 10; i++)
 		cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
     */
-    system("cls");
+    system("clear");
 }
 
 User createUser(Student u){

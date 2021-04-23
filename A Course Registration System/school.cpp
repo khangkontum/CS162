@@ -666,7 +666,7 @@ void loadCourseList(Semester*& smt){
 	// Create path
 	string path="";
 	for(int i=0;i<strlen(smt->schoolYear);++i)path+=smt->schoolYear[i];	// path = "2020-2021"
-	path+="\\Semester "+to_string(smt->ordinalSemester)+"\\CourseList.csv";	// path = "2020-2021\Semester 1\CourseList.csv"
+	path+="/Semester "+to_string(smt->ordinalSemester)+"/CourseList.csv";	// path = "2020-2021\Semester 1\CourseList.csv"
 
 	// load all courses from file 2020-2021\Semester 1\CourseList.csv
 	ifstream fin;
