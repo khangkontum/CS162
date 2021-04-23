@@ -118,6 +118,7 @@ void addAStudentToClass(classList &classList) {
 			fout << x->Gender << endl;
 
 			x->No = addClass->noStudent + 1;
+			x->posClass = addClass;
 			if (addClass->studentList == nullptr) {
 				addClass->studentList = x;
 				x->pPrev = nullptr;
@@ -241,6 +242,8 @@ int loadStudent(Class *&cl)
 			getline(fin, newStudent->socialID, ',');
 			//Gender
 			getline(fin, newStudent->Gender);
+
+			newStudent->posClass = cl;
 
 			if (cl->studentList == nullptr)
 			{
@@ -1157,7 +1160,10 @@ bool isConflictedCourse(string courseId, User* user){
     return false;
 }
 
+bool isSameSession(Session&s1,Session&s2){
+	return strcmp(s1.dayOfWeek,s2.dayOfWeek)==0&&s1.ordinalSession==s2.ordinalSession;
+}
 bool isConflictedSession(Course* courseA, Course* courseB){
-    /// session bi thieu thong tin thi phai
-    return false;
+    return isSameSession(courseA->session1,courseB->session1)||isSameSession(courseA->session2,courseB->session1)||
+		isSameSession(courseA->session1,courseB->session2)||isSameSession(courseA->session2,courseB->session2);
 }
