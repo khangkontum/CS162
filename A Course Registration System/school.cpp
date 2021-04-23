@@ -1,5 +1,8 @@
 #include "school.h"
 #include "login.h"
+#ifdef _WIN32
+#include <windows.h>
+#endif
 
 void PressEnterToContinue()
 {
