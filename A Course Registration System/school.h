@@ -62,6 +62,7 @@ struct User{
 	string name;
 	string phoneNumber;
 	string email;
+	string socialId;
 	Student* posStudent;// Trace
     bool isStaff;
     User*uNext, *uPre;

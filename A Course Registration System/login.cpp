@@ -1,7 +1,7 @@
 #include "login.h"
 #include "school.h"
 #include "fstream"
-#ifdef _WIN32
+#ifdef _WIN64
 #include <windows.h>
 #endif
 
@@ -23,11 +23,11 @@ User* copyUser(User* u){
 }
 
 void clearScreen(){
-    /*
+
 	for(int i = 1; i <= 10; i++)
 		cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
-    */
-    system("clear");
+
+    //system("clear");
 }
 
 User createUser(Student u){
@@ -79,43 +79,56 @@ User* getUserList(){
     User* uList = nullptr;
     ifstream fi;
     int n;
-    string username, password;
+    string username, password, name, phonenumber, email, socialId;
     fi.open("user/staff.txt");
     fi>>n;
     for(int i=0;i<n;++i){
         fi>>username;
         fi>>password;
-        if (uList==nullptr){
-            uList = new User;
-            uList->username = username;
-            uList->password = password;
-            uList->uNext = nullptr;
-        }else{
-            User* tmp = new User;
-            tmp->username = username;
-            tmp->password = password;
-            tmp->uNext = uList;
-            uList = tmp;
-        }
+        fi.ignore();
+        getline(fi,name);
+        fi>>phonenumber;
+        fi>>email;
+        fi>>socialId;
+
+        User* tmp = new User;
+
+        tmp->username = username;
+        tmp->password = password;
+        tmp->name = name;
+        tmp->phoneNumber = phonenumber;
+        tmp->email = email;
+        tmp->socialId = socialId;
+
+        tmp->uNext = uList;
+        tmp->isStaff = true;
+        uList = tmp;
     }
     fi.close();
     fi.open("user/student.txt");
     fi>>n;
     for(int i=0;i<n;++i){
-        cin>>username;
-        cin>>password;
-        if (uList==nullptr){
-            uList = new User;
-            uList->username = username;
-            uList->password = password;
-            uList->uNext = nullptr;
-        }else{
-            User* tmp = new User;
-            tmp->username = username;
-            tmp->password = password;
-            tmp->uNext = uList;
-            uList = tmp;
-        }
+        fi>>username;
+        cerr<<username<<endl;
+        fi>>password;
+        fi.ignore();
+        getline(fi,name);
+        fi>>phonenumber;
+        fi>>email;
+        fi>>socialId;
+
+        User* tmp = new User;
+
+        tmp->username = username;
+        tmp->password = password;
+        tmp->name = name;
+        tmp->phoneNumber = phonenumber;
+        tmp->email = email;
+        tmp->socialId = socialId;
+
+        tmp->uNext = uList;
+        tmp->isStaff = false;
+        uList = tmp;
     }
     fi.close();
     return uList;
