@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1619166264 source:d:\github\cs162\a course registration system\main.cpp
+1619313027 source:d:\github\cs162\a course registration system\main.cpp
 	"school.h"
 	"login.h"
 	"student.h"
@@ -13,12 +13,12 @@
 	<ctime>
 	<limits>
 
-1619170613 source:d:\github\cs162\a course registration system\school.cpp
+1619313862 source:d:\github\cs162\a course registration system\school.cpp
 	"school.h"
 	"login.h"
 	<windows.h>
 
-1619270427 source:d:\github\cs162\a course registration system\login.cpp
+1619313503 source:d:\github\cs162\a course registration system\login.cpp
 	"login.h"
 	"school.h"
 	"fstream"
@@ -28,8 +28,9 @@
 	"school.h"
 	"student.h"
 
-1619076670 source:d:\github\cs162\a course registration system\staff.cpp
+1619313932 source:d:\github\cs162\a course registration system\staff.cpp
 	"staff.h"
+	<cstring>
 
 1619076670 d:\github\cs162\a course registration system\staff.h
 	"login.h"
@@ -39,7 +40,7 @@
 	"school.h"
 	"login.h"
 
-1619076670 source:d:\github\cs162\a course registration system\student.cpp
+1619270549 source:d:\github\cs162\a course registration system\student.cpp
 	"student.h"
 	"school.h"
 	"login.h"

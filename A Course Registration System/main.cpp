@@ -6,6 +6,7 @@
 using namespace std;
 
 int main(){
+
     User* user = nullptr;
     do{
         login(user);

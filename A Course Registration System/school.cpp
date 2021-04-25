@@ -193,9 +193,8 @@ void loadClassList(classList &classList)
 	if (fin.is_open())
 	{
 		char dummy[10000];
-		while (!fin.eof())
+		while (!fin.eof() && fin>>dummy)
 		{
-			fin >> dummy;
 			if (strlen(dummy) == 0)
 				return;
 			Class *newClass = new Class;

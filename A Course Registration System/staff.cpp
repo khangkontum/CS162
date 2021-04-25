@@ -1,4 +1,5 @@
 #include "staff.h"
+#include <cstring>
 
 using namespace std;
 
@@ -39,10 +40,31 @@ void goStaff(User* user){
     }while(command);
 }
 void viewListOfClass(){
-
+    classList cList;
+    loadClassList(cList);
+    displayClasses(cList);
 }
 void viewListOfStudentsInClass(){
-
+    cout<<"Input the name of class: ";
+    char* cName = new char[1000];
+    cin>>cName;
+    char* className = new char[strlen(cName) + 1];
+    strcpy(className, cName);
+    className[strlen(cName)] = '\000';
+    delete[] cName;
+    classList cList;
+    loadClassList(cList);
+    Class* classL = cList.classL;
+    while(classL != nullptr){
+        if (strcmp(classL->className, className) == 0)
+            break;
+        classL = classL->pNext;
+    }
+    if (classL == nullptr){
+        cout<<"Wrong class name !"<<endl;
+    }else{
+        displayStudent(classL);
+    }
 }
 void viewListOfCourse(){
 

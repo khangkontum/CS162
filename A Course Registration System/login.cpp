@@ -109,7 +109,6 @@ User* getUserList(){
     fi>>n;
     for(int i=0;i<n;++i){
         fi>>username;
-        cerr<<username<<endl;
         fi>>password;
         fi.ignore();
         getline(fi,name);
