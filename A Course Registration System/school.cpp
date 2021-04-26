@@ -4,6 +4,8 @@
 #include <windows.h>
 #endif
 
+classList globalClassList;
+
 void PressEnterToContinue()
 {
 	system("read -p \"Press a key to continue...\" -n 1 -s\n");
@@ -181,7 +183,7 @@ Student *inputStudent() {
 	x->socialID = socialID;
 	x->studentID = studentID;
 	x->birth = d;
-
+    createUser(x);
 	return x;
 }
 void loadClassList(classList &classList)
@@ -1114,6 +1116,23 @@ void doSomethingWithCourse(SchoolYearList& schlYL){
 // Trace
 
 Student* getStudentFromUser(User* user){
+    if (user->posStudent != nullptr) return user->posStudent;
+    classList cList;
+    if (globalClassList.classL == nullptr)
+        loadClassList(globalClassList);
+    cList = globalClassList;
+    Class* cur = cList.classL;
+    while(cur != nullptr){
+        Student* curStu = cur->studentList;
+        while(curStu != nullptr){
+            if (curStu->studentID == user->username){
+                user->posStudent = curStu;
+                break;
+            }
+        }
+        if (user->posStudent != nullptr)
+            break;
+    }
     return user->posStudent;
 }
 Class* getClassFromUser(User* user){
@@ -1124,11 +1143,18 @@ SchoolYear* getSchoolYearFromUser(User* user){
 }
 
 int countCurrentCourse(User* user){
-    CourseList* courseList = user->posStudent->courseList;
+    CourseList* couList = user->posStudent->courseList;
     int cnt = 0;
-    while(courseList != nullptr){
-        ///check is course end ?
-        courseList = courseList->Next;
+    Date now = getCurrentTime();
+    Course* courseList = getSchoolYearFromUser(user)->semesterHead->courseHead;
+    while(couList != nullptr){
+        ///
+        ///
+        ///
+        ///
+        ///
+        ///
+        couList = couList->Next;
     }
     return cnt;
 }

@@ -1,6 +1,7 @@
 #include "login.h"
 #include "school.h"
 #include "fstream"
+#include <time.h>
 #include "global.h"
 #ifdef _WIN64
 #include <windows.h>
@@ -17,12 +18,22 @@ void clearScreen(){
     //system("clear");
 }
 
-User createUser(Student u){
-    User a;
-    a.username = u.studentID;
-    a.password = "1";
-    a.name = u.lastName + " " + u.firstName;
-    return a;
+void createUser(Student* u){
+    User* a;
+    a->username = u->studentID;
+    a->password = "1";
+    a->name = u->lastName + " " + u->firstName;
+    a->email = "*";
+    a->phoneNumber = "*";
+    a->socialId = "*";
+    a->isStaff = false;
+    a->posStudent = u;
+    a->uPre = nullptr;
+    a->uNext = uList.fUser;
+    if (uList.fUser != nullptr)
+        uList.fUser->uPre = a;
+    uList.fUser = a;
+    saveUserList();
 }
 void displayUser(User u){
     cout<<endl;
@@ -62,6 +73,8 @@ void login(User*& user){
         return;
     }
     user = tmp;
+    if (user->isStaff == false && user->posStudent == nullptr)
+        user->posStudent = getStudentFromUser(user);
 }
 
 User* getUserList(){
@@ -91,8 +104,12 @@ User* getUserList(){
         tmp->email = email;
         tmp->socialId = socialId;
         tmp->isStaff = isStaff;
+        tmp->posStudent = nullptr;
 
         tmp->uNext = uList;
+        tmp->uPre = nullptr;
+        if  (uList != nullptr)
+            uList->uPre = tmp;
         uList = tmp;
     }
     fi.close();
@@ -164,4 +181,14 @@ void saveUserList(){
         cur = cur->uNext;
     }
     fo.close();
+}
+
+Date getCurrentTime(){
+    time_t theTime = time(NULL);
+    struct tm *aTime = localtime(&theTime);
+    Date cur;
+    cur.day = aTime->tm_mday;
+    cur.month = aTime->tm_mon + 1; // Month is 0 - 11, add 1 to get a jan-dec 1-12 concept
+    cur.year = aTime->tm_year + 1900; // Year is # years since 1900
+    return cur;
 }

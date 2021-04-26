@@ -3,12 +3,14 @@ first line: N : Number of user
 ith user:
 username	default username of students  is student Id
 password	default password is '1'
-name
+name		
 phonenumber
 email
 SocialId	use to trace
 isStaff		1:True	0:False
 
+
+Note: * = null
 *****example*****
 
 3

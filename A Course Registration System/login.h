@@ -8,7 +8,7 @@ using namespace std;
 void loadUserList();
 void saveUserList();
 User* getUserList();
-User createUser(Student u);
+void createUser(Student* u);
 void displayUser(User u);
 void updateUser(User &u);
 User* findUser(string username);
@@ -16,6 +16,7 @@ void login(User*& user);
 void changePassword(User* user);
 void clearScreen();
 void displayPersonalInfo(User* user);
+Date getCurrentTime();
 
 
 #endif // _login_
