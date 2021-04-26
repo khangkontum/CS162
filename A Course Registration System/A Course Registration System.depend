@@ -1,11 +1,11 @@
 # depslib dependency file v1.0
-1619313027 source:d:\github\cs162\a course registration system\main.cpp
+1619418969 source:d:\github\cs162\a course registration system\main.cpp
 	"school.h"
 	"login.h"
 	"student.h"
 	"staff.h"
 
-1619270226 d:\github\cs162\a course registration system\school.h
+1619400378 d:\github\cs162\a course registration system\school.h
 	<iostream>
 	<fstream>
 	<string.h>
@@ -13,22 +13,23 @@
 	<ctime>
 	<limits>
 
-1619313862 source:d:\github\cs162\a course registration system\school.cpp
+1619400379 source:d:\github\cs162\a course registration system\school.cpp
 	"school.h"
 	"login.h"
 	<windows.h>
 
-1619313503 source:d:\github\cs162\a course registration system\login.cpp
+1619418640 source:d:\github\cs162\a course registration system\login.cpp
 	"login.h"
 	"school.h"
 	"fstream"
+	"global.h"
 	<windows.h>
 
-1619167051 d:\github\cs162\a course registration system\login.h
+1619417855 d:\github\cs162\a course registration system\login.h
 	"school.h"
 	"student.h"
 
-1619313932 source:d:\github\cs162\a course registration system\staff.cpp
+1619313947 source:d:\github\cs162\a course registration system\staff.cpp
 	"staff.h"
 	<cstring>
 
@@ -40,8 +41,11 @@
 	"school.h"
 	"login.h"
 
-1619270549 source:d:\github\cs162\a course registration system\student.cpp
+1619400380 source:d:\github\cs162\a course registration system\student.cpp
 	"student.h"
 	"school.h"
 	"login.h"
+
+1619418951 d:\github\cs162\a course registration system\global.h
+	"school.h"
 

@@ -7,6 +7,8 @@ using namespace std;
 
 int main(){
 
+    loadUserList();
+
     User* user = nullptr;
     do{
         login(user);

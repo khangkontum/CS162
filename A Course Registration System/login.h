@@ -5,7 +5,8 @@
 
 using namespace std;
 
-User* copyUser(User* u);
+void loadUserList();
+void saveUserList();
 User* getUserList();
 User createUser(Student u);
 void displayUser(User u);

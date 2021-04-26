@@ -1,26 +1,13 @@
 #include "login.h"
 #include "school.h"
 #include "fstream"
+#include "global.h"
 #ifdef _WIN64
 #include <windows.h>
 #endif
 
 using namespace std;
 
-User* copyUser(User* u){
-    if (u == nullptr)
-        return nullptr;
-    User* v = new User;
-    v->email = u->email;
-    v->name = v->name;
-    v->username = u->username;
-    v->isStaff = u->isStaff;
-    v->password = u->password;
-    v->phoneNumber = u->phoneNumber;
-    v->posStudent = u->posStudent;
-    v->uNext = v->uPre = nullptr;
-    return v;
-}
 
 void clearScreen(){
 
@@ -33,7 +20,7 @@ void clearScreen(){
 User createUser(Student u){
     User a;
     a.username = u.studentID;
-    a.password = u.socialID;
+    a.password = "1";
     a.name = u.lastName + " " + u.firstName;
     return a;
 }
@@ -80,7 +67,8 @@ User* getUserList(){
     ifstream fi;
     int n;
     string username, password, name, phonenumber, email, socialId;
-    fi.open("user/staff.txt");
+    int isStaff;
+    fi.open("user/user.txt");
     fi>>n;
     for(int i=0;i<n;++i){
         fi>>username;
@@ -90,6 +78,7 @@ User* getUserList(){
         fi>>phonenumber;
         fi>>email;
         fi>>socialId;
+        fi>>isStaff;
 
         User* tmp = new User;
 
@@ -99,34 +88,9 @@ User* getUserList(){
         tmp->phoneNumber = phonenumber;
         tmp->email = email;
         tmp->socialId = socialId;
+        tmp->isStaff = isStaff;
 
         tmp->uNext = uList;
-        tmp->isStaff = true;
-        uList = tmp;
-    }
-    fi.close();
-    fi.open("user/student.txt");
-    fi>>n;
-    for(int i=0;i<n;++i){
-        fi>>username;
-        fi>>password;
-        fi.ignore();
-        getline(fi,name);
-        fi>>phonenumber;
-        fi>>email;
-        fi>>socialId;
-
-        User* tmp = new User;
-
-        tmp->username = username;
-        tmp->password = password;
-        tmp->name = name;
-        tmp->phoneNumber = phonenumber;
-        tmp->email = email;
-        tmp->socialId = socialId;
-
-        tmp->uNext = uList;
-        tmp->isStaff = false;
         uList = tmp;
     }
     fi.close();
@@ -134,26 +98,46 @@ User* getUserList(){
 }
 
 User* findUser(string username){
-    User* UserList = getUserList();
-    User* cur = UserList;
-    while(cur != nullptr){
+    User* cur = uList.fUser;
+    while(cur!=nullptr){
         if (cur->username == username)
             break;
         cur = cur->uNext;
-    }
-    cur = copyUser(cur);
-    while(UserList != nullptr){
-        User* tmp = UserList->uNext;
-        delete UserList;
-        UserList = tmp;
     }
     return cur;
 }
 
 void displayPersonalInfo(User* user){
-
+    cout<<"******Info*******"<<endl;
 }
 
 void changePassword(User* user){
 
+}
+
+void loadUserList(){
+    uList.fUser = getUserList();
+}
+void saveUserList(){
+    ofstream fo;
+    fo.open("user/user.txt");
+    int n = 0;
+    User* cur = uList.fUser;
+    while(cur!=nullptr){
+        ++n;
+        cur = cur->uNext;
+    }
+    fo<<n<<endl;
+    cur = uList.fUser;
+    while(cur!=nullptr){
+        fo<<cur->username<<endl;
+        fo<<cur->password<<endl;
+        fo<<cur->name<<endl;
+        fo<<cur->phoneNumber<<endl;
+        fo<<cur->email<<endl;
+        fo<<cur->socialId<<endl;
+        fo<<cur->isStaff<<endl;
+        cur = cur->uNext;
+    }
+    fo.close();
 }
