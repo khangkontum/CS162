@@ -5,6 +5,7 @@
 using namespace std;
 
 void displayStudentCommand(){
+    cout<<endl;
     cout<<"********************************************************"<<endl;
     cout<<"0. Exit."<<endl;
     cout<<"1. View personal information."<<endl;
@@ -15,6 +16,7 @@ void displayStudentCommand(){
     cout<<"6. Enroll in a course."<<endl;
     cout<<"7. View command board again."<<endl;
     cout<<"********************************************************"<<endl;
+    cout<<endl;
 }
 void viewScoreBoard(User* user){
 
@@ -85,6 +87,8 @@ void goStudent(User* user){
         cout<<"Input your command: ";
         cin>>command;
         switch (command){
+        case 0:
+            break;
         case 1:
             displayPersonalInfo(user);
             break;

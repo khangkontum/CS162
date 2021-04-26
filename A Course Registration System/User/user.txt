@@ -1,4 +1,11 @@
 2
+20125010
+password
+Tran Bao Loi
+0942490214
+loitan1042002@gmail.com
+20125010
+0
 Admin
 123
 Admin
@@ -6,11 +13,3 @@ Admin
 Admin@hcmus
 001010000001
 1
-20125010
-1
-Tran Bao Loi
-0942490214
-loitan1042002@gmail.com
-20125010
-0
-

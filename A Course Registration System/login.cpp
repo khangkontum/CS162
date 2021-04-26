@@ -25,11 +25,13 @@ User createUser(Student u){
     return a;
 }
 void displayUser(User u){
+    cout<<endl;
     cout<<"1. Username: "<<u.username<<endl;
     cout<<"2. Full name: "<<u.name<<endl;
     cout<<"3. Password: "<<u.password<<endl;
     cout<<"4. Mail: "<<u.email<<endl;
     cout<<"5. Phone: "<<u.phoneNumber<<endl;
+    cout<<endl;
 }
 void updateUser(User &u){
     displayUser(u);
@@ -108,11 +110,33 @@ User* findUser(string username){
 }
 
 void displayPersonalInfo(User* user){
+    cout<<endl;
     cout<<"******Info*******"<<endl;
+    cout<<"Username: "<<user->username<<endl;
+    cout<<"Password: "<<user->password<<endl;
+    cout<<"Email: "<<user->email<<endl;
+    cout<<"Name: "<<user->name<<endl;
+    cout<<"Social Id: "<<user->socialId<<endl;
+    cout<<"Phone: "<<user->phoneNumber<<endl;
+    cout<<endl;
 }
 
 void changePassword(User* user){
-
+    cout<<endl;
+    cout<<"******Change Password******"<<endl;
+    string u, v;
+    cout<<"Input your new password: ";
+    cin>>u;
+    cout<<"Input your new password again: ";
+    cin>>v;
+    if (u == v){
+        user->password = u;
+        saveUserList();
+        cout<<"Change successfully !"<<endl;
+    }else{
+        cout<<"Wrong !"<<endl;
+    }
+    cout<<endl;
 }
 
 void loadUserList(){

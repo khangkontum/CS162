@@ -4,14 +4,18 @@
 using namespace std;
 
 void displayStaffCommand(){
+    cout<<endl;
     cout<<"********************************************************"<<endl;
     cout<<"0. Exit."<<endl;
     cout<<"1. View list of classes."<<endl;
     cout<<"2. View list of students in a class."<<endl;
     cout<<"3. View list of courses."<<endl;
     cout<<"4. View list of students in a course."<<endl;
+    cout<<"5. view personal information."<<endl;
+    cout<<"6. Change password."<<endl;
     cout<<"7. View command board again."<<endl;
     cout<<"********************************************************"<<endl;
+    cout<<endl;
 }
 
 void goStaff(User* user){
@@ -22,6 +26,8 @@ void goStaff(User* user){
         cout<<"Input your command: ";
         cin>>command;
         switch (command){
+        case 0:
+            break;
         case 1:
             viewListOfClass();
             break;
@@ -33,6 +39,15 @@ void goStaff(User* user){
             break;
         case 4:
             viewListOfStudentInCourse();
+            break;
+        case 5:
+            displayPersonalInfo(user);
+            break;
+        case 6:
+            changePassword(user);
+            break;
+        case 7:
+            displayStaffCommand();
             break;
         default:
             cout<<"Wrong command !"<<endl;
