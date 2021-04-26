@@ -1129,9 +1129,11 @@ Student* getStudentFromUser(User* user){
                 user->posStudent = curStu;
                 break;
             }
+            curStu = curStu->pNext;
         }
         if (user->posStudent != nullptr)
             break;
+        cur = cur->pNext;
     }
     return user->posStudent;
 }

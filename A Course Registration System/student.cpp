@@ -15,6 +15,7 @@ void displayStudentCommand(){
     cout<<"5. View scoreboard."<<endl;
     cout<<"6. Enroll in a course."<<endl;
     cout<<"7. View command board again."<<endl;
+    cout<<"8. Update user."<<endl;
     cout<<"********************************************************"<<endl;
     cout<<endl;
 }
@@ -109,6 +110,9 @@ void goStudent(User* user){
             break;
         case 7:
             displayStudentCommand();
+            break;
+        case 8:
+            updateUser(user);
             break;
         default:
             cout<<"Wrong command !"<<endl;

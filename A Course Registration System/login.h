@@ -10,7 +10,7 @@ void saveUserList();
 User* getUserList();
 void createUser(Student* u);
 void displayUser(User u);
-void updateUser(User &u);
+void updateUser(User* u);
 User* findUser(string username);
 void login(User*& user);
 void changePassword(User* user);

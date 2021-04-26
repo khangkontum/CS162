@@ -14,6 +14,7 @@ void displayStaffCommand(){
     cout<<"5. view personal information."<<endl;
     cout<<"6. Change password."<<endl;
     cout<<"7. View command board again."<<endl;
+    cout<<"8. Update user."<<endl;
     cout<<"********************************************************"<<endl;
     cout<<endl;
 }
@@ -48,6 +49,9 @@ void goStaff(User* user){
             break;
         case 7:
             displayStaffCommand();
+            break;
+        case 8:
+            updateUser(user);
             break;
         default:
             cout<<"Wrong command !"<<endl;

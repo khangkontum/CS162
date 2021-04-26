@@ -35,24 +35,48 @@ void createUser(Student* u){
     uList.fUser = a;
     saveUserList();
 }
-void displayUser(User u){
+void displayUser(User* u){
     cout<<endl;
-    cout<<"1. Username: "<<u.username<<endl;
-    cout<<"2. Full name: "<<u.name<<endl;
-    cout<<"3. Password: "<<u.password<<endl;
-    cout<<"4. Mail: "<<u.email<<endl;
-    cout<<"5. Phone: "<<u.phoneNumber<<endl;
+    cout<<"1. Mail: "<<u->email<<endl;
+    cout<<"2. Phone: "<<u->phoneNumber<<endl;
+    cout<<"3. Social Id: "<<u->socialId<<endl;
     cout<<endl;
 }
-void updateUser(User &u){
+void updateUser(User* u){
+    cout<<endl;
     displayUser(u);
-    cout<<"Input the code you to update: ";
+    cout<<"0. Exit"<<endl;
+    cout<<"Input the code you want to update: ";
     int w;
     cin>>w;
+    string v;
     switch (w){
-    default :
-        cout<<"Can't change";
+    case 0:
+        break;
+    case 1:
+        cout<<"Input your Mail: ";
+        cin.ignore();
+        getline(cin, v);
+        u->name = v;
+        break;
+    case 2:
+        cout<<"Input your Phone: ";
+        cin.ignore();
+        getline(cin, v);
+        u->phoneNumber = v;
+        break;
+    case 3:
+        cout<<"Input your Social ID: ";
+        cin.ignore();
+        getline(cin, v);
+        u->socialId = v;
+        break;
+    default:
+        cout<<"Wrong !"<<endl;
     }
+    cout<<"Done !!!"<<endl;
+    cout<<endl;
+    saveUserList();
 }
 
 void login(User*& user){
