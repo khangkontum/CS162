@@ -2,6 +2,7 @@
     "files.associations": {
         "*.vue": "html",
         "iostream": "cpp",
-        "istream": "cpp"
+        "istream": "cpp",
+        "iosfwd": "cpp"
     }
 }

@@ -635,6 +635,40 @@ void createSemester(SchoolYear*& schlY){
 	if(option==1)createRegistrationSession(curSmt);
 }
 
+// save a semester to file
+void saveSemester_toFile(Semester*&s){
+	string path="";
+	for(int i=0;i<strlen(s->schoolYear);++i)path+=s->schoolYear[i];
+	path+="/Semester "+to_string(s->ordinalSemester)+"/Information.txt";
+	ofstream fout;
+	fout.open(path);
+	if(fout.is_open()){
+		fout<<s->startDate.day<<" "
+			<<s->startDate.month<<" "
+			<<s->startDate.year<<endl;
+		fout<<s->endDate.day<<" "
+			<<s->endDate.month<<" "
+			<<s->endDate.year<<endl;
+	}
+	fout.close();
+	path="";
+	for(int i=0;i<strlen(s->schoolYear);++i)path+=s->schoolYear[i];
+	path+="/Semester "+to_string(s->ordinalSemester)+"/CourseList.csv";
+	saveCourseList_toFile(s->courseHead,path);
+}
+
+// delete a semester list
+void deleteSemesterList(Semester*&semesterHead){
+	Semester*s=semesterHead;
+	while(s){
+		Semester*tmp=s;
+		s=s->semesterNext;
+		deleteCourseList(tmp->courseHead);
+		delete[]tmp->schoolYear;
+		delete tmp;
+	}
+}
+
 
 
 // CREATE A COURSE REGISTRATION SESSION
@@ -863,6 +897,42 @@ void viewCourse(Course*& course){
 	else cout<<"15:30\n";
 }
 
+
+
+// SAVE A COURSE LIST TO FILE
+
+// save a course list to file
+void saveCourseList_toFile(Course*&courseHead,string path){
+	ofstream fout;
+	fout.open(path);
+	if(fout.is_open()){
+		Course* curC=courseHead;
+		while(curC){
+			saveCourse_toFile(curC,fout);
+			curC=curC->courseNext;
+		}
+	}
+	fout.close();
+}
+
+// save a course to file
+void saveCourse_toFile(Course*&c,ostream&fout){
+	fout<<c->courseID<<","
+		<<c->courseName<<","
+		<<c->teacherName<<","
+		<<c->numberOfCredits<<","
+		<<c->maximumNumberOfStudents<<","
+		<<c->numberOfStudents<<",";
+
+	// session 1
+	fout<<c->session1.dayOfWeek<<","<<c->session1.ordinalSession<<",";
+
+	// session 2
+	fout<<c->session2.dayOfWeek<<","<<c->session2.ordinalSession<<"\n";
+}
+
+
+
 // UPDATE THE INFORMATION OF A COURSE
 
 // choose a course list from school year list and update it
@@ -996,6 +1066,18 @@ void deleteCourse(Course*& courseHead,Course*& course){
 		else courseHead=curC->courseNext;
 		if(curC->courseNext)curC->courseNext->coursePrev=curC->coursePrev;
 		delete curC;
+	}
+}
+
+// delete a course list
+void deleteCourseList(Course*&courseHead){
+	Course*c=courseHead;
+	while(c){
+		Course*tmp=c;
+		c=c->courseNext;
+		delete[]tmp->courseName;
+		delete[]tmp->teacherName;
+		delete tmp;
 	}
 }
 

@@ -176,6 +176,10 @@ bool isBiggerDate(Date& d1,Date& d2);
 
 // create a semester
 void createSemester(SchoolYear*& schlY);
+// save a semester to file
+void saveSemester_toFile(Semester*&s);
+// delete a semester list
+void deleteSemesterList(Semester*&semesterHead);
 
 
 
@@ -218,6 +222,17 @@ void viewCourseList_fromSchoolYearList(SchoolYearList& schlYL);
 void viewCourseList(Course*& courseHead);
 // display one course
 void viewCourse(Course*& course);
+
+// SAVE A COURSE LIST TO FILE
+
+// save a course list to file
+void saveCourseList_toFile(Course*&courseHead,string path);
+
+// save a course to file
+void saveCourse_toFile(Course*&c,ostream&fout);
+
+
+
 // UPDATE THE INFORMATION OF A COURSE
 
 // choose a course list from school year list and update it
@@ -233,7 +248,8 @@ void updateCourse(Course*& course);
 void deleteCourse_fromSchoolYearList(SchoolYearList& schlYL);
 // delete a course
 void deleteCourse(Course*& courseHead,Course*& course);
-
+// delete a course list
+void deleteCourseList(Course*&courseHead);
 
 
 // user chooses one course in a semester
