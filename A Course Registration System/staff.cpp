@@ -13,8 +13,13 @@ void displayStaffCommand(){
     cout<<"4. View list of students in a course."<<endl;
     cout<<"5. view personal information."<<endl;
     cout<<"6. Change password."<<endl;
-    cout<<"7. View command board again."<<endl;
-    cout<<"8. Update user."<<endl;
+    cout<<"7. Export list of student in a course." << endl; //Not finished
+    cout<<"8. Import scoreboard of a course." << endl;//Not finished
+    cout<<"9. View scoreboard of a course." << endl;//Not finished
+    cout<<"10. Update a student result." << endl; //Not finished
+    cout<<"11. View the scoreboard of a class." << endl; //Not finished
+    cout<<"12. View command board again."<<endl;
+    cout<<"13. Update user."<<endl;
     cout<<"********************************************************"<<endl;
     cout<<endl;
 }
@@ -47,10 +52,10 @@ void goStaff(User* user){
         case 6:
             changePassword(user);
             break;
-        case 7:
+        case 12:
             displayStaffCommand();
             break;
-        case 8:
+        case 13:
             updateUser(user);
             break;
         default:
