@@ -1,6 +1,8 @@
 #include "staff.h"
+#include <iostream>
 #include <cstring>
 #include <sstream>
+#include <filesystem>
 
 using namespace std;
 
@@ -14,7 +16,6 @@ void displayStaffCommand(){
     cout<<"4. View list of students in a course."<<endl;
     cout<<"5. view personal information."<<endl;
     cout<<"6. Change password."<<endl;
-    cout<<"7. View list of student in a course." << endl;
     cout<<"8. Export list of student in a course." << endl; //Not finished
     cout<<"9. Import scoreboard of a course." << endl;//Not finished
     cout<<"10. View scoreboard of a course." << endl;//Not finished
@@ -46,16 +47,13 @@ void goStaff(User* user){
             viewListOfCourse();
             break;
         case 4:
-            viewListOfStudentInCourse();
+            viewListOfStudentInCourse(cout);
             break;
         case 5:
             displayPersonalInfo(user);
             break;
         case 6:
             changePassword(user);
-            break;
-        case 7:
-            viewListOfStudentInCourse(cout);
             break;
         case 8:
             exportListofStudentInCourse();
@@ -99,23 +97,31 @@ void viewListOfStudentsInClass(){
     }
 }
 
-//Working
-bool isInCourse(istream& str)
+bool isInCourse(string MSSV, string courseID, string SemesterTime)
 {
+    string Dir = "Students/" + MSSV + ".csv";
     string line;
-    getline(str,line);
 
-    stringstream lineStream(line);
-    string cell;
+    ifstream fin;
+    fin.open(Dir);
 
-    int i = 0;
-    while(getline(lineStream,cell, ','))
+    string* strArr = new string[10];
+    while(getline(fin, line))
     {
-        i++;
-        if(i == 3){
+        stringstream lineStream(line);
+        string cell;
 
+        int i = 0;
+        while(getline(lineStream,cell, ','))
+        {
+            i++;
+            strArr[i] = cell;
         }
+        if(strArr[1] == courseID && strArr[8] == SemesterTime)
+            return true;
     }
+    fin.close();
+    return false;
 }
 
 void exportListofStudentInCourse()
@@ -146,12 +152,12 @@ void displayContent(string Dir)
 void viewListOfCourse(){
 }
 
-//Working
 void viewListOfStudentInCourse(ostream& fout){
     cout << "Choose school year.\n";
     ifstream fin;
     string Dir = "SchoolYear/SchoolYear.txt";
     fin.open(Dir);
+    displayContent(Dir);
     string str;
     
     do{
@@ -178,41 +184,59 @@ void viewListOfStudentInCourse(ostream& fout){
         else
         {
             clearScreen();
-            cout <<"School year not exist. Choose again.";
+            cout <<"School year not exist. Choose again.\n";
         }   
     }while(true);
+
+    fin.close();
     
     string c;
     do{
-        cout << "Choose semester (1 - 3):";
+        clearScreen();
+        cout << "Choose semester (1 - 3): ";
         cin >> c;
         if((c[0] == '1' || c[0] == '2' || c[0] == '3') && c.size() == 1)
             break;
         else{
             clearScreen();
-            cout << "Wrong statement. Please input again.";
+            cout << "Wrong statement. Please input again.\n";
         }
     }while(true);
 
     Dir = "SchoolYear/" + str + "/Semester " + c + "/CourseList.csv";
 
-    cout << "Choose course";
+    //Input time of chosen semester
+    fin.open("SchoolYear/" + str + "/log.txt");
+    string SemesterTime;
+    for (int i = 1; i <= (c[0] - '0'); i++)
+        getline(fin, SemesterTime);
+    fin.close();
+
+    clearScreen();
+    cout << "Choose course:\n";
     displayContent(Dir);
     do{
         cout << "Input: ";
-        string tmp;
+        string line;
         bool ok = false;
 
         cin >> str;
 
-        fin.close();
         fin.open(Dir);
 
-        while(getline(fin, tmp))
+        while(getline(fin, line))
         {
-            if(tmp == str)
+            stringstream lineStream(line);
+            string cell;
+
+            int i = 0;
+            while(getline(lineStream,cell, ','))
             {
-                ok = true;
+                if(cell == str)
+                {
+                    ok = true;
+                    break;
+                }
                 break;
             }
         }
@@ -220,7 +244,20 @@ void viewListOfStudentInCourse(ostream& fout){
         if(ok)
             break;
         else
-            cout <<"Course not exist. Choose again.";
+            cout <<"Course not exist. Choose again.\n";
+        fin.close();
     }while(true);
+    if(fin.is_open())
+        fin.close();
+    
+    string courseID = str;
 
+    fin.open("Students/list.txt");
+    string tmp;
+    while(getline(fin, tmp))
+    {
+        if(isInCourse(tmp, courseID, SemesterTime))
+            fout << tmp << "\n";
+    }
+    fin.close();
 }
