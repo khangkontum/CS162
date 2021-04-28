@@ -15,5 +15,9 @@ void viewListOfStudentInCourse(ostream& fout);
 void exportListofStudentInCourse();
 void displayContent(string Dir);
 bool isInCourse(string MSSV, string courseID);
+void viewScoreStudent(string MSSV);
+void viewScoreBoardClass();
+void ImportScoreboard();
+
 
 #endif // _staff_
