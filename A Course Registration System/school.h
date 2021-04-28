@@ -181,7 +181,6 @@ void saveSemester_toFile(Semester*&s);
 // delete a semester list
 void deleteSemesterList(Semester*&semesterHead);
 // current Semester
-Semester*currentSemester;
 
 
 // CREATE A COURSE REGISTRATION SESSION
