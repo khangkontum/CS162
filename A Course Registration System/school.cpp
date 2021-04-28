@@ -633,6 +633,25 @@ void createSemester(SchoolYear*& schlY){
 	int option;
 	cin>>option;
 	if(option==1)createRegistrationSession(curSmt);
+
+	// gán semester mới curSmt cho currentSemester
+	currentSemester=curSmt;
+
+	// save currentSemester vô file theo yêu cầu của anh KhangKonTum
+	string path="SchoolYear/CurrentSemester.txt";
+	ofstream fout;
+	fout.open(path);
+	if(fout.is_open()){
+		fout<<currentSemester->schoolYear<<endl;
+		fout<<currentSemester->ordinalSemester<<endl;
+		fout<<currentSemester->startDate.day<<" "
+			<<currentSemester->startDate.month<<" "
+			<<currentSemester->startDate.year<<"\n";
+		fout<<currentSemester->endDate.day<<" "
+			<<currentSemester->endDate.month<<" "
+			<<currentSemester->endDate.year<<"\n";
+	}
+	else cout<<"Can't open file CurrentSemester.txt\n";
 }
 
 // save a semester to file
