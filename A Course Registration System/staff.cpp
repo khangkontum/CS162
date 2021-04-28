@@ -1,4 +1,5 @@
 #include "staff.h"
+#include "school.h"
 #include <iostream>
 #include <cstring>
 #include <sstream>
@@ -206,10 +207,9 @@ void viewListOfStudentInCourse(ostream& fout){
     Dir = "SchoolYear/" + str + "/Semester " + c + "/CourseList.csv";
 
     //Input time of chosen semester
-    fin.open("SchoolYear/" + str + "/log.txt");
+    fin.open("SchoolYear/" + str + "/Semester " + c +"/Information.txt");
     string SemesterTime;
-    for (int i = 1; i <= (c[0] - '0'); i++)
-        getline(fin, SemesterTime);
+    getline(fin, SemesterTime);
     fin.close();
 
     clearScreen();
