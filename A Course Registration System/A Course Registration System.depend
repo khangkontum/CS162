@@ -5,7 +5,7 @@
 	"student.h"
 	"staff.h"
 
-1619400378 d:\github\cs162\a course registration system\school.h
+1619678057 d:\github\cs162\a course registration system\school.h
 	<iostream>
 	<fstream>
 	<string.h>
@@ -13,12 +13,12 @@
 	<ctime>
 	<limits>
 
-1619442655 source:d:\github\cs162\a course registration system\school.cpp
+1619678057 source:d:\github\cs162\a course registration system\school.cpp
 	"school.h"
 	"login.h"
 	<windows.h>
 
-1619442646 source:d:\github\cs162\a course registration system\login.cpp
+1619678337 source:d:\github\cs162\a course registration system\login.cpp
 	"login.h"
 	"school.h"
 	"fstream"
@@ -30,11 +30,15 @@
 	"school.h"
 	"student.h"
 
-1619442368 source:d:\github\cs162\a course registration system\staff.cpp
+1619678268 source:d:\github\cs162\a course registration system\staff.cpp
 	"staff.h"
+	"school.h"
+	<bits/stdc++.h>
 	<cstring>
+	<sstream>
+	<filesystem>
 
-1619076670 d:\github\cs162\a course registration system\staff.h
+1619678058 d:\github\cs162\a course registration system\staff.h
 	"login.h"
 	"student.h"
 

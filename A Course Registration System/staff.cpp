@@ -158,7 +158,7 @@ void viewListOfStudentInCourse(ostream& fout){
     fin.open(Dir);
     displayContent(Dir);
     string str;
-    
+
     do{
         cout << "Input: ";
         string tmp;
@@ -182,16 +182,19 @@ void viewListOfStudentInCourse(ostream& fout){
             break;
         else
         {
-            clearScreen();
+            //clearScreen();
+            cout<<endl;
             cout <<"School year not exist. Choose again.\n";
-        }   
+            cout<<endl;
+        }
     }while(true);
 
     fin.close();
-    
+
     string c;
     do{
-        clearScreen();
+        //clearScreen();
+        cout<<endl;
         cout << "Choose semester (1 - 3): ";
         cin >> c;
         if((c[0] == '1' || c[0] == '2' || c[0] == '3') && c.size() == 1)
@@ -210,7 +213,8 @@ void viewListOfStudentInCourse(ostream& fout){
     getline(fin, SemesterTime);
     fin.close();
 
-    clearScreen();
+    //clearScreen();
+    cout<<endl;
     cout << "Choose course:\n";
     displayContent(Dir);
     do{
@@ -247,7 +251,7 @@ void viewListOfStudentInCourse(ostream& fout){
     }while(true);
     if(fin.is_open())
         fin.close();
-    
+
     string courseID = str;
 
     fin.open("Students/list.txt");
@@ -264,7 +268,7 @@ void updateStudentResult(string* updatedResult, string courseID)
 {
     ifstream fin;
     ofstream fout;
-    
+
     string Content;
     fin.open("Students/" + updatedResult[1] + ".csv");
 
@@ -318,7 +322,7 @@ void updateStudentResultTmp()
             break;
         }
     }while(true);
-    
+
 
 
     do{
@@ -386,7 +390,7 @@ void ImportScoreboard()
             break;
         }
     }while(true);
-    
+
     //Read csv file
     string line;
     getline(fin, line);
@@ -410,13 +414,13 @@ void ImportScoreboard()
 void viewScoreBoardClass()
 {
     string className;
-    
+
     do{
         cout << "List of classes: ";
         displayContent("Classes/Classes.txt");
         cout << "\nInput class name: ";
         cin >> className;
-        
+
         ifstream fin;
         string tmp;
         bool ok = false;

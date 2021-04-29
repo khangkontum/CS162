@@ -7,13 +7,13 @@
 #include <windows.h>
 #endif
 
+
 using namespace std;
 
 
 void clearScreen(){
-
 	for(int i = 1; i <= 10; i++)
-		cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
+		cout << "\n\n\n\n\n";
 
     //system("clear");
 }
