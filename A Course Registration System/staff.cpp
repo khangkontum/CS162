@@ -19,7 +19,7 @@ void displayStaffCommand(){
     cout<<"6. Change password."<<endl;
     cout<<"8. Export list of student in a course." << endl;
     cout<<"9. Import scoreboard of a course." << endl;
-    cout<<"10. View scoreboard of a course." << endl;//Not finished
+    cout<<"10. View scoreboard of a course." << endl;
     cout<<"11. Update a student result." << endl;
     cout<<"12. View the scoreboard of a class." << endl; //Not finished
     cout<<"13. View command board again."<<endl;
@@ -61,6 +61,9 @@ void goStaff(User* user){
             break;
         case 9:
             ImportScoreboard();
+            break;
+        case 10:
+            viewScoreBoardCourse();
             break;
         case 13:
             displayStaffCommand();
@@ -416,25 +419,20 @@ void viewScoreBoardClass()
 {
     string className;
 
+    cout << "List of classes: ";
+    displayContent("Classes/Classes.txt");
     do{
-        cout << "List of classes: ";
-        displayContent("Classes/Classes.txt");
         cout << "\nInput class name: ";
         cin >> className;
-
         ifstream fin;
-        string tmp;
-        bool ok = false;
-        fin.open("Classes/Classes.txt");
-
-        while(getline(fin, tmp))
+        fin.open("Classes/" + className + ".csv");
+        if(fin.is_open() == false)
         {
-            if(tmp == className)
-            {
-                ok = true;
-                break;
-            }
+            clearScreen();
+            cout << "Class not found. Try again.\n";
         }
+        else
+            break;
     }while(true);
 
 
@@ -461,4 +459,143 @@ void viewScoreStudent(string MSSV)
         if(strArr[3][0] != '0')
             cout << MSSV << " " << strArr[2] << " " << strArr[5] << "\n";
     }
+}
+
+void viewScoreBoardCourse()
+{
+    cout << "Choose school year.\n";
+    ifstream fin;
+    string Dir = "SchoolYear/SchoolYear.txt";
+    fin.open(Dir);
+    displayContent(Dir);
+    string str;
+
+    do{
+        cout << "Input: ";
+        string tmp;
+        bool ok = false;
+
+        cin >> str;
+
+        fin.close();
+        fin.open(Dir);
+
+        while(getline(fin, tmp))
+        {
+            if(tmp == str)
+            {
+                ok = true;
+                break;
+            }
+        }
+
+        if(ok)
+            break;
+        else
+        {
+            //clearScreen();
+            cout<<endl;
+            cout <<"School year not exist. Choose again.\n";
+            cout<<endl;
+        }
+    }while(true);
+
+    fin.close();
+
+    string c;
+    do{
+        //clearScreen();
+        cout<<endl;
+        cout << "Choose semester (1 - 3): ";
+        cin >> c;
+        if((c[0] == '1' || c[0] == '2' || c[0] == '3') && c.size() == 1)
+            break;
+        else{
+            clearScreen();
+            cout << "Wrong statement. Please input again.\n";
+        }
+    }while(true);
+
+    Dir = "SchoolYear/" + str + "/Semester " + c + "/CourseList.csv";
+
+    //Input time of chosen semester
+    fin.open("SchoolYear/" + str + "/Semester " + c +"/Information.txt");
+    string SemesterTime;
+    getline(fin, SemesterTime);
+    fin.close();
+
+    //clearScreen();
+    cout<<endl;
+    cout << "Choose course:\n";
+    displayContent(Dir);
+    do{
+        cout << "Input: ";
+        string line;
+        bool ok = false;
+
+        cin >> str;
+
+        fin.open(Dir);
+
+        while(getline(fin, line))
+        {
+            stringstream lineStream(line);
+            string cell;
+
+            int i = 0;
+            while(getline(lineStream,cell, ','))
+            {
+                if(cell == str)
+                {
+                    ok = true;
+                    break;
+                }
+                break;
+            }
+        }
+
+        if(ok)
+            break;
+        else
+            cout <<"Course not exist. Choose again.\n";
+        fin.close();
+    }while(true);
+    if(fin.is_open())
+        fin.close();
+
+    string courseID = str;
+
+    fin.open("Students/list.txt");
+    string MSSV;
+    while(getline(fin, MSSV))
+    {
+        string Dir = "Students/" + MSSV + ".csv";
+        string line;
+
+        ifstream ffin;
+        ffin.open(Dir);
+
+        string* strArr = new string[10];
+        while(getline(ffin, line))
+        {
+            stringstream lineStream(line);
+            string cell;
+
+            int i = 0;
+            while(getline(lineStream,cell, ','))
+            {
+                i++;
+                strArr[i] = cell;
+            }
+            if(strArr[1] == courseID && strArr[8] == SemesterTime)
+            {
+                cout << MSSV << " ";
+                for(int j = 4; j <= 7; j++)
+                    cout << strArr[j] << " ";
+                cout << "\n";
+            }
+        }
+        ffin.close();
+    }
+    fin.close();
 }

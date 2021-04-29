@@ -18,6 +18,7 @@ bool isInCourse(string MSSV, string courseID);
 void viewScoreStudent(string MSSV);
 void viewScoreBoardClass();
 void ImportScoreboard();
+void viewScoreBoardCourse();
 
 
 #endif // _staff_
