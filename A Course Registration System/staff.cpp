@@ -20,7 +20,7 @@ void displayStaffCommand(){
     cout<<"8. Export list of student in a course." << endl;
     cout<<"9. Import scoreboard of a course." << endl;
     cout<<"10. View scoreboard of a course." << endl;//Not finished
-    cout<<"11. Update a student result." << endl;//Not finished
+    cout<<"11. Update a student result." << endl;
     cout<<"12. View the scoreboard of a class." << endl; //Not finished
     cout<<"13. View command board again."<<endl;
     cout<<"14. Update user."<<endl;
@@ -303,8 +303,59 @@ void updateStudentResultTmp()
 {
     string* strArr = new string[10];
     string courseID;
-    cout << "Input student ID: ";
-    cin >> strArr[1];
+    do{
+        cout << "Input student ID: ";
+        cin >> strArr[1];
+        ifstream fin;;
+        fin.open(strArr[1] + ".csv");
+        if(fin.is_open() == false)
+        {
+            clearScreen();
+            cout << "Student ID not found. Try again.\n";
+        }
+        else{
+            fin.close();
+            break;
+        }
+    }while(true);
+    
+
+
+    do{
+        cout << "Input course ID: ";
+        ifstream fin;
+        fin.open(strArr[1] + ".csv");
+
+        string line;
+        bool ok = false;
+        while(getline(fin, line))
+        {
+            stringstream lineStream(line);
+            string cell;
+
+            int i = 0;
+            string* tmpArr = new string[10];
+            while(getline(lineStream, cell, ','))
+            {
+                i++;
+                tmpArr[i] = cell;
+            }
+            if(tmpArr[1] == courseID)
+            {
+                ok = (tmpArr[3][0] !='0');
+                break;
+            }
+            fin.close();
+        }
+        if(ok == false)
+        {
+            clearScreen();
+            cout << "Course not found or have not enrolled yet. Try again.\n";
+        }
+        else
+            break;
+    }while(true);
+
     cout << "Input total mark: ";
     cin >> strArr[3];
     cout << "Input mid term mark: ";
