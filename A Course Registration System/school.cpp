@@ -490,8 +490,8 @@ void displayStudent(Class *cl)
 	while (cur != nullptr)
 	{
 
-		cout << cur->No << " " << cur->studentID << " " << cur->firstName << " " << cur->lastName
-			 << " " << cur->birth.day << "/" << cur->birth.month << "/" << cur->birth.year << " " << cur->socialID << " " << cur->Gender << endl;
+		cout << cur->No << "  " << cur->studentID << "  " << cur->firstName << "  " << cur->lastName
+			 << "  " << cur->birth.day << "/" << cur->birth.month << "/" << cur->birth.year << "  " << cur->socialID << "  " << cur->Gender << endl;
 		cur = cur->pNext;
 	}
 	cout << endl;
@@ -634,7 +634,7 @@ void createSemester(SchoolYear*& schlY){
 	cin>>option;
 	if(option==1)createRegistrationSession(curSmt);
 
-	
+
 }
 
 // save a semester to file
@@ -1229,20 +1229,8 @@ SchoolYear* getSchoolYearFromUser(User* user){
 }
 
 int countCurrentCourse(User* user){
-    CourseList* couList = user->posStudent->courseList;
-    int cnt = 0;
-    Date now = getCurrentTime();
-    Course* courseList = getSchoolYearFromUser(user)->semesterHead->courseHead;
-    while(couList != nullptr){
-        ///
-        ///
-        ///
-        ///
-        ///
-        ///
-        couList = couList->Next;
-    }
-    return cnt;
+
+
 }
 bool isAvailableCourse(string courseId, Course* courseList){
     while(courseList != nullptr){
@@ -1262,16 +1250,7 @@ Course* getCourseFromCourseId(string courseId, Course* courseList){
 }
 
 bool isConflictedCourse(string courseId, User* user){
-    CourseList* courseList = user->posStudent->courseList;
-    Course* course = getCourseFromCourseId(courseId, user->posStudent->posClass->posSchoolYear->semesterHead->courseHead);
-    while(courseList != nullptr){
-        if (courseId == courseList->courseId)
-            return true;
-        if (isConflictedSession(course, courseList->posCourse))
-            return true;
-        courseList = courseList->Next;
-    }
-    return false;
+
 }
 
 bool isSameSession(Session&s1,Session&s2){

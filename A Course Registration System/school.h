@@ -38,7 +38,7 @@ struct Student{
     Date birth;
     Student* pNext, *pPrev;
     Class* posClass;// Trace
-    CourseList* courseList;// Trace
+    //CourseList* courseList;// Trace
     Student(): pPrev(nullptr), pNext(nullptr) {}
 
 };

@@ -79,6 +79,7 @@ void viewListOfClass(){
     displayClasses(cList);
 }
 void viewListOfStudentsInClass(){
+    cout<<endl;
     cout<<"Input the name of class: ";
     char* cName = new char[1000];
     cin>>cName;
