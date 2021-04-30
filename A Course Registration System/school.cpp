@@ -2,6 +2,7 @@
 #include "login.h"
 #include <bits/stdc++.h>
 #include <iostream>
+#include <cstring>
 #include <sys/stat.h>
 #include <sys/types.h>
 #ifdef _WIN32
@@ -749,7 +750,7 @@ void loadCourseList(Semester*& smt){
 
 		// create a new course
 		Course* courseNew = new Course;
-		while(!fin.eof() && loadCourse(fin, courseNew)){		
+		while(!fin.eof() && loadCourse(fin, courseNew)){
 			courseNew->courseNext=smt->courseHead;
 			if(smt->courseHead)smt->courseHead->coursePrev=courseNew;
 			smt->courseHead=courseNew;
@@ -979,6 +980,7 @@ void viewCourse(Course*& course){
 	else if(course->session2.ordinalSession==2)cout<<"9:30\n";
 	else if(course->session2.ordinalSession==3)cout<<"13:30\n";
 	else cout<<"15:30\n";
+	cout<<endl;
 }
 
 
@@ -1009,10 +1011,10 @@ void saveCourse_toFile(Course*&c,ostream&fout){
 		<<c->numberOfStudents<<",";
 
 	// session 1
-	fout<<c->session1.dayOfWeek<<","<<c->session1.ordinalSession<<",";
+	fout<<string(c->session1.dayOfWeek)<<","<<c->session1.ordinalSession<<",";
 
 	// session 2
-	fout<<c->session2.dayOfWeek<<","<<c->session2.ordinalSession<<"\n";
+	fout<<string(c->session2.dayOfWeek)<<","<<c->session2.ordinalSession<<"\n";
 }
 
 
@@ -1311,34 +1313,75 @@ SchoolYear* getSchoolYearFromUser(User* user){
 }
 
 int countCurrentCourse(User* user){
-    cerr<<"No Hope: countCurrentCourse(User* user)" <<endl;
-
-}
-bool isAvailableCourse(string courseId, Course* courseList){
-    while(courseList != nullptr){
-        if (courseList->courseID == courseId)
-            return true;
-        courseList = courseList->courseNext;
+    Course* cou = getCourseListOfUser(user);
+    int cnt = 0;
+    while(cou != nullptr){
+        if (cou->status == 1) ++cnt;
+        cou = cou->courseNext;
     }
-    return false;
+    while(cou != nullptr){
+        Course* tmp = cou->coursePrev;
+        delete cou;
+        cou = tmp;
+    }
+    return cnt;
+}
+bool isAvailableCourse(string courseId, Course* couList){
+    bool k = false;
+    while(couList != nullptr){
+        if (couList->courseID == courseId)
+            k = true;
+        couList = couList->courseNext;
+    }
+    return k;
 }
 
-Course* getCourseFromCourseId(string courseId, Course* courseList){
-    while(courseList != nullptr){
-        if (courseList->courseID == courseId) break;
-        courseList = courseList->courseNext;
+Course* getCourseFromCourseId(string courseId){
+    SchoolYearList schYearList;
+    loadSchoolYearList(schYearList);
+    Semester* sem = new Semester;
+    sem->ordinalSemester = getCurrentSemester();
+    sem->schoolYear = schYearList.schoolyearL->year;
+    sem->courseHead = nullptr;
+    loadCourseList(sem);
+
+    Course* couList = sem->courseHead;
+    delete sem;
+
+    Course* cur = couList;
+    while(cur != nullptr){
+        if (cur->courseID == courseId) break;
+        cur = cur->courseNext;
     }
-    return courseList;
+    return cur;
 }
 
 bool isConflictedCourse(string courseId, User* user){
-    cerr<<"No Hope: isConflictedCourse(string courseId, User* user)" <<endl;
+
+    Course* cou = getCourseListOfUser(user);
+    Course* cur = getCourseFromCourseId(courseId);
+
+    bool k = false;
+    while(cou != nullptr){
+        Course* tmp = cou->courseNext;
+        Course* gg = getCourseFromCourseId(cou->courseID);
+        if (!k && isConflictedSession(gg, cur))
+            k = true;
+
+        delete cou;
+        cou = tmp;
+    }
+    delete cur;
+    return k;
+
 }
 
-bool isSameSession(Session&s1,Session&s2){
-	return strcmp(s1.dayOfWeek,s2.dayOfWeek)==0&&s1.ordinalSession==s2.ordinalSession;
+bool isSameSession(Session& s1,Session& s2){
+	return strcmp(s1.dayOfWeek,s2.dayOfWeek)==0 && s1.ordinalSession==s2.ordinalSession;
 }
 bool isConflictedSession(Course* courseA, Course* courseB){
+    if (courseA == nullptr || courseB == nullptr)
+        return false;
     return isSameSession(courseA->session1,courseB->session1)||isSameSession(courseA->session2,courseB->session1)||
 		isSameSession(courseA->session1,courseB->session2)||isSameSession(courseA->session2,courseB->session2);
 }
@@ -1377,5 +1420,81 @@ Semester* getCurrentSemesterList(){
 }
 
 Course* getCourseListOfUser(User* user){
-    cerr<<"No Hope: Course* getCourseListOfUser(User* user)"<<endl;
+    string path = "students/" + user->username + ".csv";
+    ifstream fi;
+    fi.open(path);
+    string tmp;
+    getline(fi,tmp);
+    Course* cou = nullptr;
+    while(getline(fi, tmp)){
+        Course* cur = new Course;
+        cur->courseNext = nullptr;
+        cur->coursePrev = nullptr;
+        ///course ID
+        int i = 0, j = 0;
+        while(j<tmp.size() && tmp[j] != ',') ++j;
+        cur->courseID = tmp.substr(i, j-i);
+        i = ++j;
+        ///course Name
+        while(j<tmp.size() && tmp[j] != ',') ++j;
+        cur->courseName = converToChar(tmp.substr(i, j-i));
+        i = ++j;
+        ///Status
+        while(j<tmp.size() && tmp[j] != ',') ++j;
+        cur->status = stoi(tmp.substr(i, j-i));
+        i = ++j;
+        ///Total mark
+        while(j<tmp.size() && tmp[j] != ',') ++j;
+        cur->totalMark = stoi(tmp.substr(i, j-i));
+        i = ++j;
+        ///Final mark
+        while(j<tmp.size() && tmp[j] != ',') ++j;
+        cur->finalMark = stoi(tmp.substr(i, j-i));
+        i = ++j;
+        ///Midterm mark
+        while(j<tmp.size() && tmp[j] != ',') ++j;
+        cur->midTermMark = stoi(tmp.substr(i, j-i));
+        i = ++j;
+        ///other mark
+        while(j<tmp.size() && tmp[j] != ',') ++j;
+        cur->otherMark = stoi(tmp.substr(i, j-i));
+        i = ++j;
+        ///day start
+        while(j<tmp.size() && tmp[j] != '/') ++j;
+        cur->startDay.day = stoi(tmp.substr(i, j-i));
+        i = ++j;
+        ///month start
+        while(j<tmp.size() && tmp[j] != '/') ++j;
+        cur->startDay.month = stoi(tmp.substr(i, j-i));
+        i = ++j;
+        ///year start
+        while(j<tmp.size() && tmp[j] != '-') ++j;
+        cur->startDay.year = stoi(tmp.substr(i, j-i));
+        i = ++j;
+        ///end start
+        while(j<tmp.size() && tmp[j] != '/') ++j;
+        cur->startDay.day = stoi(tmp.substr(i, j-i));
+        i = ++j;
+        ///end start
+        while(j<tmp.size() && tmp[j] != '/') ++j;
+        cur->startDay.month = stoi(tmp.substr(i, j-i));
+        i = ++j;
+        ///end start
+        while(j<tmp.size() && tmp[j] != ',') ++j;
+        cur->startDay.year = stoi(tmp.substr(i, j-i));
+        i = ++j;
+        ///count
+        while(j<tmp.size() && tmp[j] != ',') ++j;
+        cur->count = stoi(tmp.substr(i, j-i));
+        i = ++j;
+
+        cur->courseNext = cou;
+        if (cou != nullptr)
+            cou->coursePrev = cur;
+        cou = cur;
+
+    }
+    fi.close();
+
+    return cou;
 }

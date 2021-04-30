@@ -88,6 +88,8 @@ struct Course{
     int numberOfCredits;
     int maximumNumberOfStudents;
     int numberOfStudents;
+    int totalMark, finalMark, midTermMark, otherMark, count;
+    Date startDay, endDay;
     Session session1,session2;
     Course* courseNext;
     Course* coursePrev;
@@ -265,7 +267,7 @@ void doSomethingWithCourse(SchoolYearList& schlYL);
 
 // Trace
 
-Course* getCourseFromCourseId(string courseId, Course* courseList);
+Course* getCourseFromCourseId(string courseId);
 Student* getStudentFromUser(User* user);
 Class* getClassFromUser(User* user);
 SchoolYear* getSchoolYearFromUser(User* user);

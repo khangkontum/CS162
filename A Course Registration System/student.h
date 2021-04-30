@@ -12,5 +12,7 @@ void viewListOfEnrolledCourses(User* user);
 void removeACourseFromEnrolledList(User* user);
 void viewScoreBoard(User* user);
 void goStudent(User* user);
+void checkStudentInfo(User* user);
+
 
 #endif // _Student_
