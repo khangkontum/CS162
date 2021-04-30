@@ -82,6 +82,7 @@ struct Session{
 
 struct Course{
     string courseID;
+    int status;
     char* courseName;
     char* teacherName;
     int numberOfCredits;
@@ -273,6 +274,9 @@ bool isAvailableCourse(string courseId, Course* courseList);
 bool isConflictedCourse(string courseId, User* user);
 bool isSameSession(Session&s1,Session&s2);
 bool isConflictedSession(Course* courseA, Course* courseB);
+
+Semester* getCurrentSemesterList();
+Course* getCourseListOfUser(User* user);
 
 int getCurrentSemester();
 char* converToChar(string path);

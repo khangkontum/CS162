@@ -1271,7 +1271,7 @@ SchoolYear* getSchoolYearFromUser(User* user){
 }
 
 int countCurrentCourse(User* user){
-
+    cerr<<"No Hope: countCurrentCourse(User* user)" <<endl;
 
 }
 bool isAvailableCourse(string courseId, Course* courseList){
@@ -1292,7 +1292,7 @@ Course* getCourseFromCourseId(string courseId, Course* courseList){
 }
 
 bool isConflictedCourse(string courseId, User* user){
-
+    cerr<<"No Hope: isConflictedCourse(string courseId, User* user)" <<endl;
 }
 
 bool isSameSession(Session&s1,Session&s2){
@@ -1322,4 +1322,20 @@ string getCurrentPathSem(){
     loadSchoolYearList(schYearList);
     string path="SchoolYear/"+string(schYearList.schoolyearL->year)+"/Semester " + to_string(getCurrentSemester());
     return path;
+}
+
+Semester* getCurrentSemesterList(){
+    SchoolYearList schYearList;
+    loadSchoolYearList(schYearList);
+    Semester* sem = new Semester;
+    sem->ordinalSemester = getCurrentSemester();
+    sem->schoolYear = schYearList.schoolyearL->year;
+    sem->courseHead = nullptr;
+    loadCourseList(sem);
+    return sem;
+
+}
+
+Course* getCourseListOfUser(User* user){
+    cerr<<"No Hope: Course* getCourseListOfUser(User* user)"<<endl;
 }

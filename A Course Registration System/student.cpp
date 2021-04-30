@@ -1,6 +1,7 @@
 #include "student.h"
 #include "school.h"
 #include "login.h"
+#include "staff.h"
 
 using namespace std;
 
@@ -24,14 +25,45 @@ void viewScoreBoard(User* user){
 }
 
 void enrollInACourse(User* user){
-
+    if (countCurrentCourse(user)>=5){
+        cout<<"You have reached the maximum number of course this semester !"<<endl;
+        return;
+    }
+    viewListOfCourse();
+    cout<<"Input course Id you want to enroll: ";
+    string couId;
+    cin>>couId;
+    Semester* curSem = getCurrentSemesterList();
+    if (isAvailableCourse(couId, curSem->courseHead)){
+        if (isConflictedCourse(couId, user))
+            cout<<"Course is conflicted !"<<endl;
+        else{
+            /// Add course
+        }
+    }else
+        cout<<"Wrong ID !"<<endl;
 
 }
 void viewListOfEnrolledCourses(User* user){
-
+    Course* couList = getCourseListOfUser(user);
+    Course* cur = couList;
+    while(cur!=nullptr){
+        if (cur->status == 1)
+            viewCourse(cur);
+        cur = cur->courseNext;
+    }
 }
 void removeACourseFromEnrolledList(User* user){
+    viewListOfEnrolledCourses(user);
 
+    cout<<"Input course Id you want to remove: ";
+    string couId;
+    cin>>couId;
+    Course* couList = getCourseListOfUser(user);
+    if (isAvailableCourse(couId, couList)){
+        /// Remove course
+    }else
+        cout<<"Wrong Id !"<<endl;
 
 }
 

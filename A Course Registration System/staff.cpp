@@ -37,6 +37,7 @@ void goStaff(User* user){
     displayStaffCommand();
     do{
         cout<<"Input your command: ";
+        cin.ignore();
         cin>>command;
         switch (command){
         case 0:
