@@ -739,11 +739,10 @@ void createRegistrationSession(Semester*& smt){
 void loadCourseList(Semester*& smt){
 
 	// Create path
-	string path="";
+	string path="schoolyear/";
 	for(int i=0;i<strlen(smt->schoolYear);++i)path+=smt->schoolYear[i];	// path = "2020-2021"
 	path+="/Semester "+to_string(smt->ordinalSemester)+"/CourseList.csv";	// path = "2020-2021\Semester 1\CourseList.csv"
-
-	// load all courses from file 2020-2021\Semester 1\CourseList.csv
+    // load all courses from file 2020-2021\Semester 1\CourseList.csv
 	ifstream fin;
 	fin.open(path);
 	if(fin.is_open()){
@@ -763,8 +762,11 @@ void loadCourseList(Semester*& smt){
 
 // load a course
 void loadCourse(istream& fin,Course*& course){
+    string s;
+    getline(fin,s);
+    cerr<<"error : infinity loop"<<endl;
+    /*
 	char tmp[101];
-
 	// load course id
 	fin.ignore();
 	fin.get(tmp,101,',');
@@ -772,6 +774,7 @@ void loadCourse(istream& fin,Course*& course){
 	for(int i=0;i<strlen(tmp);++i)
 		course->courseID[i]=tmp[i];
 	course->courseID[strlen(tmp)]='\0';
+	cerr<<course->courseID<<endl;
 
 	// load course name
 	fin.ignore();
@@ -794,11 +797,15 @@ void loadCourse(istream& fin,Course*& course){
 	fin>>course->numberOfCredits;
 	fin.get();	// đọc dấu phẩy
 	fin>>course->maximumNumberOfStudents;
+	fin>>course->numberOfStudents;
 
 	// load 2 sessions
 	// this function is below
 	loadSession(fin,course->session1);
+	fin.get();	// đọc dấu phẩy
 	loadSession(fin,course->session2);
+	*/
+
 }
 
 // load a session
@@ -1294,4 +1301,25 @@ bool isSameSession(Session&s1,Session&s2){
 bool isConflictedSession(Course* courseA, Course* courseB){
     return isSameSession(courseA->session1,courseB->session1)||isSameSession(courseA->session2,courseB->session1)||
 		isSameSession(courseA->session1,courseB->session2)||isSameSession(courseA->session2,courseB->session2);
+}
+
+int getCurrentSemester(){
+    SchoolYearList schYearList;
+    loadSchoolYearList(schYearList);
+    string path="SchoolYear/"+string(schYearList.schoolyearL->year)+"/currentSemester.txt";
+
+    int curSem;
+    ifstream fi;
+    fi.open(path);
+    fi>>curSem;
+    fi.close();
+
+    return curSem;
+}
+
+string getCurrentPathSem(){
+    SchoolYearList schYearList;
+    loadSchoolYearList(schYearList);
+    string path="SchoolYear/"+string(schYearList.schoolyearL->year)+"/Semester " + to_string(getCurrentSemester());
+    return path;
 }

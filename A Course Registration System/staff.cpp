@@ -24,6 +24,7 @@ void displayStaffCommand(){
     cout<<"12. View the scoreboard of a class." << endl; //Not finished
     cout<<"13. View command board again."<<endl;
     cout<<"14. Update user."<<endl;
+    cout<<"15. Add a course to current semester."<<endl;
     cout<<"16. Create a school year."<<endl;
     cout<<"17. Create a semester."<<endl;
     cout<<"********************************************************"<<endl;
@@ -72,6 +73,9 @@ void goStaff(User* user){
             break;
         case 14:
             updateUser(user);
+            break;
+        case 15:
+            addACourseToCurSem();
             break;
         case 16:
             createASchoolYear();
@@ -161,6 +165,16 @@ void displayContent(string Dir)
 }
 
 void viewListOfCourse(){
+    SchoolYearList schYearList;
+    loadSchoolYearList(schYearList);
+    Semester* sem = new Semester;
+    sem->ordinalSemester = getCurrentSemester();
+    sem->schoolYear = schYearList.schoolyearL->year;
+    sem->courseHead = nullptr;
+    loadCourseList(sem);
+    viewCourseList(sem->courseHead);
+
+    delete sem;
 }
 
 void viewListOfStudentInCourse(ostream& fout){
@@ -654,5 +668,27 @@ void createASemester(){
     path="SchoolYear/"+string(schYearList.schoolyearL->year)+"/semesterList.txt";
     fo.open(path, ios_base::app);
     fo<<curSem<<endl;
+    fo.close();
+}
+
+void addACourseToCurSem(){
+    int curSem = getCurrentSemester();
+    Course* cou = new Course;
+    string tmp;
+    cout<<"Course Id: ";cin>>cou->courseID;cin.ignore();
+    cout<<"Course name: ";getline(cin,tmp);cou->courseName = converToChar(tmp);
+    cout<<"Teacher name: ";getline(cin,tmp);cou->teacherName = converToChar(tmp);
+    cout<<"Number Of Credits: ";cin>>cou->numberOfCredits;
+    cout<<"Maximum number of student: ";cin>>cou->maximumNumberOfStudents;
+    cout<<"Number of student: ";cin>>cou->numberOfStudents;cin.ignore();
+    cout<<"Session 1 day of week: ";getline(cin,tmp);cou->session1.dayOfWeek = converToChar(tmp);
+    cout<<"Session 1 ordinal session: ";cin>>cou->session1.ordinalSession;cin.ignore();
+    cout<<"Session 2 day of week: ";getline(cin,tmp);cou->session2.dayOfWeek = converToChar(tmp);
+    cout<<"Session 2 ordinal session: ";cin>>cou->session2.ordinalSession;
+
+    ofstream fo;
+    string path = getCurrentPathSem() + "/courseList.csv";
+    fo.open(path, ios_base::app);
+    saveCourse_toFile(cou, fo);
     fo.close();
 }

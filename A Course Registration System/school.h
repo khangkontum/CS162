@@ -274,6 +274,8 @@ bool isConflictedCourse(string courseId, User* user);
 bool isSameSession(Session&s1,Session&s2);
 bool isConflictedSession(Course* courseA, Course* courseB);
 
-//Global
+int getCurrentSemester();
+char* converToChar(string path);
+string getCurrentPathSem();
 
 #endif // _School_

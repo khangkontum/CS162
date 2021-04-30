@@ -21,6 +21,7 @@ void ImportScoreboard();
 void viewScoreBoardCourse();
 void createASchoolYear();
 void createASemester();
+void addACourseToCurSem();
 
 
 #endif // _staff_
