@@ -19,6 +19,8 @@ void viewScoreStudent(string MSSV);
 void viewScoreBoardClass();
 void ImportScoreboard();
 void viewScoreBoardCourse();
+void createASchoolYear();
+void createASemester();
 
 
 #endif // _staff_

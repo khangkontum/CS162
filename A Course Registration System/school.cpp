@@ -1,10 +1,22 @@
 #include "school.h"
 #include "login.h"
+#include <bits/stdc++.h>
+#include <iostream>
+#include <sys/stat.h>
+#include <sys/types.h>
 #ifdef _WIN32
 #include <windows.h>
 #endif
 
 classList globalClassList;
+
+char* converToChar(string path){
+    char* s = new char[path.size() +1];
+    for (int i=0,ii=path.size();i<ii;++i)
+        s[i] = path[i];
+    s[path.size() + 1] = '\0';
+    return s;
+}
 
 void PressEnterToContinue()
 {
@@ -369,7 +381,7 @@ void createClasses(classList &classList, string path)
 	}
 }
 
-void createSchoolYear(SchoolYearList &schoolYearList, string path)
+void createSchoolYear(SchoolYearList &schoolYearList, string path = "SchoolYear/SchoolYear.txt")
 {
 
 	ofstream fout;
@@ -405,14 +417,34 @@ void createSchoolYear(SchoolYearList &schoolYearList, string path)
 		fout << newSchoolYear->year << endl;
 
 		cout << "School Year Created !!!!" << endl;
-		return;
+		//return;
 	}
 	else
 	{
 		cout << "Cannot find or open SchoolYear.txt..." << endl;
-		return;
+		//return;
 	}
 	fout.close();
+	path = "SchoolYear/" + string(schoolYearList.schoolyearL->year);
+	char* tPath = new char[path.size()+1];
+	for (int i=0,ii=path.size(); i<ii; ++i)
+        tPath[i] = path[i];
+    tPath[path.size()] = '\0';
+    //cerr<<tPath<<endl;
+    mkdir(tPath);
+    path = "SchoolYear/" + string(schoolYearList.schoolyearL->year)+"/currentSemester.txt";
+    //cerr<<path<<endl;
+    ofstream fo;
+    fo.open(path);
+    fo<<0;
+    fo.close();
+
+
+    path = "SchoolYear/" + string(schoolYearList.schoolyearL->year)+"/semesterList.txt";
+    //cerr<<path<<endl;
+    fo.open(path);
+    fo.close();
+
 }
 
 bool validSchoolYear(char input[])
@@ -639,9 +671,12 @@ void createSemester(SchoolYear*& schlY){
 
 // save a semester to file
 void saveSemester_toFile(Semester*&s){
-	string path="";
+	string path="schoolyear/";
 	for(int i=0;i<strlen(s->schoolYear);++i)path+=s->schoolYear[i];
-	path+="/Semester "+to_string(s->ordinalSemester)+"/Information.txt";
+	path+="/Semester "+to_string(s->ordinalSemester);
+	//cerr<<path<<endl;
+	mkdir(converToChar(path));/// tao folder
+	path+="/Information.txt";
 	ofstream fout;
 	fout.open(path);
 	if(fout.is_open()){

@@ -24,6 +24,8 @@ void displayStaffCommand(){
     cout<<"12. View the scoreboard of a class." << endl; //Not finished
     cout<<"13. View command board again."<<endl;
     cout<<"14. Update user."<<endl;
+    cout<<"16. Create a school year."<<endl;
+    cout<<"17. Create a semester."<<endl;
     cout<<"********************************************************"<<endl;
     cout<<endl;
 }
@@ -70,6 +72,12 @@ void goStaff(User* user){
             break;
         case 14:
             updateUser(user);
+            break;
+        case 16:
+            createASchoolYear();
+            break;
+        case 17:
+            createASemester();
             break;
         default:
             cout<<"Wrong command !"<<endl;
@@ -598,4 +606,53 @@ void viewScoreBoardCourse()
         ffin.close();
     }
     fin.close();
+}
+
+void createASchoolYear(){
+    SchoolYearList schYearList;
+    createSchoolYear(schYearList, "SchoolYear/SchoolYear.txt");
+}
+
+void createASemester(){
+    SchoolYearList schYearList;
+    loadSchoolYearList(schYearList);
+    /*
+    while(schYearList.schoolyearL->pNext != nullptr)
+        schYearList.schoolyearL = schYearList.schoolyearL->pNext;
+    */
+    cout<<"Current year: "<<schYearList.schoolyearL->year<<endl;
+    string path="SchoolYear/"+string(schYearList.schoolyearL->year)+"/currentSemester.txt";
+    int curSem;
+    ifstream fi;
+    fi.open(path);
+    fi>>curSem;
+    fi.close();
+
+    curSem+=1;
+
+    Semester* sem = new Semester;
+
+    cout<<"New semester: "<<curSem<<endl;
+    cout<<"Input start day (dd mm yyyy): ";
+    cin >> sem->startDate.day >> sem->startDate.month >> sem->startDate.year;
+    cout<<"Input end day (dd mm yyyy): ";
+    cin >> sem->endDate.day >> sem->endDate.month >> sem->endDate.year;
+
+
+    sem->ordinalSemester = curSem;
+    sem->schoolYear = schYearList.schoolyearL->year;
+    sem->courseHead = nullptr;
+
+    saveSemester_toFile(sem);
+
+    ofstream fo;
+    path="SchoolYear/"+string(schYearList.schoolyearL->year)+"/currentSemester.txt";
+    fo.open(path);
+    fo<<curSem;
+    fo.close();
+
+    path="SchoolYear/"+string(schYearList.schoolyearL->year)+"/semesterList.txt";
+    fo.open(path, ios_base::app);
+    fo<<curSem<<endl;
+    fo.close();
 }

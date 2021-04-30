@@ -274,4 +274,6 @@ bool isConflictedCourse(string courseId, User* user);
 bool isSameSession(Session&s1,Session&s2);
 bool isConflictedSession(Course* courseA, Course* courseB);
 
+//Global
+
 #endif // _School_
