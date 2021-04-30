@@ -200,7 +200,7 @@ void createRegistrationSession(Semester*& smt);
 // load a course list
 void loadCourseList(Semester*& smt);
 // load a course
-void loadCourse(istream& fin,Course*& course);
+bool loadCourse(istream& fin,Course*& course);
 // load a session
 void loadSession(istream& fin,Session& session);
 

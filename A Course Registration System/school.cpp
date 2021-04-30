@@ -748,12 +748,12 @@ void loadCourseList(Semester*& smt){
 	if(fin.is_open()){
 
 		// create a new course
-		while(!fin.eof()){
-			Course* courseNew=new Course;
-			loadCourse(fin,courseNew);
+		Course* courseNew = new Course;
+		while(!fin.eof() && loadCourse(fin, courseNew)){		
 			courseNew->courseNext=smt->courseHead;
 			if(smt->courseHead)smt->courseHead->coursePrev=courseNew;
 			smt->courseHead=courseNew;
+			 courseNew = new Course;
 		}
 	}
 	else cout<<path<<" is non-existent.\n";
@@ -761,11 +761,52 @@ void loadCourseList(Semester*& smt){
 }
 
 // load a course
-void loadCourse(istream& fin,Course*& course){
-    string s;
-    getline(fin,s);
-    cerr<<"error : infinity loop"<<endl;
-    /*
+bool loadCourse(istream& fin, Course*& course) {
+	string dummy;
+	getline(fin, dummy, ',');
+	if (dummy == "") {
+		delete course;
+		return false;
+	}
+	course->courseID = dummy;
+
+	getline(fin, dummy, ',');
+	course->courseName = new char[dummy.length() + 1];
+	strcpy(course->courseName, dummy.c_str());
+
+	getline(fin, dummy, ',');
+	course->teacherName = new char[dummy.length() + 1];
+	strcpy(course->teacherName, dummy.c_str());
+
+	getline(fin, dummy, ',');
+	course->numberOfCredits = stoi(dummy);
+
+	getline(fin, dummy, ',');
+	course->maximumNumberOfStudents = stoi(dummy);
+
+	getline(fin, dummy, ',');
+	course->numberOfStudents = stoi(dummy);
+
+	getline(fin, dummy, ',');
+	course->session1.dayOfWeek = new char[dummy.length() + 1];
+	for (int i = 0; i < dummy.length() + 1; i++) {
+		course->session1.dayOfWeek[i] = dummy[i];
+	}
+
+	getline(fin, dummy, ',');
+	course->session1.ordinalSession = stoi(dummy);
+
+	getline(fin, dummy, ',');
+	course->session2.dayOfWeek = new char[dummy.length() + 1];
+	for (int i = 0; i < dummy.length() + 1; i++) {
+		course->session2.dayOfWeek[i] = dummy[i];
+	}
+
+	getline(fin, dummy);
+	course->session2.ordinalSession = stoi(dummy);
+
+	return true;
+	/*
 	char tmp[101];
 	// load course id
 	fin.ignore();
@@ -807,7 +848,6 @@ void loadCourse(istream& fin,Course*& course){
 	*/
 
 }
-
 // load a session
 void loadSession(istream& fin,Session& session){
 	session.dayOfWeek=new char[4];
