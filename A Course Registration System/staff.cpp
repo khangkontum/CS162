@@ -27,6 +27,9 @@ void displayStaffCommand(){
     cout<<"15. Add a course to current semester."<<endl;
     cout<<"16. Create a school year."<<endl;
     cout<<"17. Create a semester."<<endl;
+	cout<<"18. Create a new class." << endl;
+	cout<<"19. Import students from csv file to a class." << endl;
+	cout<<"20. Add a Student to a Class" << endl;
     cout<<"********************************************************"<<endl;
     cout<<endl;
 }
@@ -93,6 +96,7 @@ void viewListOfClass(){
     classList cList;
     loadClassList(cList);
     displayClasses(cList);
+	deleteClassList(cList);
 }
 void viewListOfStudentsInClass(){
     cout<<endl;
@@ -116,6 +120,7 @@ void viewListOfStudentsInClass(){
     }else{
         displayStudent(classL);
     }
+	deleteClassList(cList);
 }
 
 bool isInCourse(string MSSV, string courseID, string SemesterTime)
@@ -176,6 +181,7 @@ void viewListOfCourse(){
     viewCourseList(sem->courseHead);
 
     delete sem;
+	deleteSchoolYearList(schYearList);
 }
 
 void viewListOfStudentInCourse(ostream& fout){
