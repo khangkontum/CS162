@@ -623,7 +623,7 @@ void loadSemester(SchoolYear*&schlY){
 	Semester*smt=schlY->semesterHead;
 	for(int i=0;i<3;++i){
 		string path="SchoolYear/";
-		for(int j=0;j<schlY->year;++j)path+=schlY->year[j];
+		for(int j=0;j<strlen(schlY->year);++j)path+=schlY->year[j];
 		path+="/Semester "+to_string(i+1);
 		fin.open(path+"/Information.txt");
 		if(fin.is_open()){
@@ -709,6 +709,13 @@ void createSemester(SchoolYear*& schlY){
 	cout<<"1. Yes\n2. Later\nAnswer: ";
 	cin>>option;
 	if(option)createRegistrationSession(curSmt);
+
+	//	save Semester mới tạo vào file
+	string path="";
+	for(int j=0;j<strlen(schlY->year);++j)path+=schlY->year[j];
+	path+="/Semester "+curSmt->ordinalSemester;
+	mkdir(path,0777);
+	saveSemester_toFile(curSmt);
 }
 
 // save a semester to file
@@ -728,6 +735,12 @@ void saveSemester_toFile(Semester*&s){
 		fout<<s->endDate.day<<" "
 			<<s->endDate.month<<" "
 			<<s->endDate.year<<endl;
+		fout<<s->registrationSession.startDate.day<<" "
+			<<s->registrationSession.startDate.month<<" "
+			<<s->registrationSession.startDate.year<<endl;
+		fout<<s->registrationSession.endDate.day<<" "
+			<<s->registrationSession.endDate.month<<" "
+			<<s->registrationSession.endDate.year<<endl;
 	}
 	fout.close();
 	path="";
