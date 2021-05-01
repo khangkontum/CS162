@@ -177,6 +177,8 @@ bool isBiggerDate(Date& d1,Date& d2);
 
 // CREATE SEMESTER
 
+// load a semester
+void loadSemester(SchoolYear&schlY);
 // create a semester
 void createSemester(SchoolYear*& schlY);
 // save a semester to file
@@ -214,6 +216,8 @@ void inputCourse_fromSchoolYearList(SchoolYearList& schlYL);
 void inputCourse(Course*& course);
 // input a session
 void inputSession(Session& session);
+// input a course list of a semester
+void inputCourseList(Semester*&smt);
 
 
 

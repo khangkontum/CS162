@@ -617,6 +617,45 @@ bool isBiggerDate(Date& d1,Date& d2){
 
 // CREATE SEMESTER
 
+// load a semester
+void loadSemester(SchoolYear*&schlY){
+	ifstream fin;
+	Semester*smt=schlY->semesterHead;
+	for(int i=0;i<3;++i){
+		string path="SchoolYear/";
+		for(int j=0;j<schlY->year;++j)path+=schlY->year[j];
+		path+="/Semester "+to_string(i+1);
+		fin.open(path+"/Information.txt");
+		if(fin.is_open()){
+			if(!schlY->semesterHead){
+				schlY->semesterHead=new Semester;
+				smt=schlY->semesterHead;
+			}
+			else{
+				smt->semesterNext=new Semester;
+				smt->semesterNext->semesterPrev=smt;
+				smt=smt->semesterNext;
+			}
+			smt->schoolYear=schlY->year;
+			smt->ordinalSemester=i+1;
+			fin>>smt->startDate.day
+				>>smt->startDate.month
+				>>smt->startDate.year;
+			fin>>smt->endDate.day
+				>>smt->endDate.month
+				>>smt->endDate.year;
+			fin>>smt->registrationSession.startDate.day
+				>>smt->registrationSession.startDate.month
+				>>smt->registrationSession.startDate.year;
+			fin>>smt->registrationSession.endDate.day
+				>>smt->registrationSession.endDate.month
+				>>smt->registrationSession.endDate.year;
+			loadCourseList(smt);
+		}
+		else return;
+	}
+}
+
 // create a semester
 void createSemester(SchoolYear*& schlY){
 	Semester* curSmt=schlY->semesterHead;
@@ -658,16 +697,18 @@ void createSemester(SchoolYear*& schlY){
 	inputDate(curSmt->endDate);
 
 	// Load course list
-	loadCourseList(curSmt);
+	//loadCourseList(curSmt);
+	cout<<"Do you want to input a course?\n";
+	cout<<"1. Yes\n2. No\nAnswer: ";
+	int option;
+	cin>>option;
+	if(option)inputCourseList(curSmt);
 
 	// create the course registration session
 	cout<<"Do you want to create a course registration session?\n";
 	cout<<"1. Yes\n2. Later\nAnswer: ";
-	int option;
 	cin>>option;
-	if(option==1)createRegistrationSession(curSmt);
-
-
+	if(option)createRegistrationSession(curSmt);
 }
 
 // save a semester to file
@@ -849,6 +890,7 @@ bool loadCourse(istream& fin, Course*& course) {
 	*/
 
 }
+
 // load a session
 void loadSession(istream& fin,Session& session){
 	session.dayOfWeek=new char[4];
@@ -932,6 +974,19 @@ void inputSession(Session& session){
 	cin>>session.ordinalSession;
 }
 
+// input a course list of a semester
+void inputCourseList(Semester*&smt){
+	Course*c=new Course;
+	inputCpurse(c);
+	c->courseNext=smt->courseHead;
+	smt->courseHead->coursePrev=c;
+	c=smt->courseHead;
+	cout<<"Do you want to input another course?\n";
+	cout<<"1. Yes\n2. No\nAnswer: ";
+	int option;
+	cin>>option;
+	if(option)inputCourseList(smt);
+}
 
 
 // DISPLAY A COURSE LIST

@@ -6,7 +6,17 @@
 using namespace std;
 
 int main(){
-
+    SchoolYearList schoolYearList;
+    loadSchoolYearList(schoolYearList);
+    
+    SchoolYear*schoolYear=schoolYearList.schoolyearL;
+    while(schoolYear){
+        loadSemester(schoolYear);
+        schoolYear=schoolYear->pNext;
+    }
+    classList classList;
+    loadClassList(classList);
+    
     loadUserList();
 
     User* user = nullptr;
