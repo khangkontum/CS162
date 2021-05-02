@@ -23,7 +23,8 @@ int main(){
         cl->noStudent=loadStudent(cl);
         cl=cl->pNext;
     }
-    loadUserList();*/
+    */
+    loadUserList();
     User* user = nullptr;
     do{
         user = nullptr;

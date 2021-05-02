@@ -2,6 +2,7 @@
 #include "school.h"
 #include "login.h"
 #include "staff.h"
+#include <sstream>
 
 using namespace std;
 
@@ -21,7 +22,28 @@ void displayStudentCommand(){
     cout<<endl;
 }
 void viewScoreBoard(User* user){
+    string Dir = "Students/" + user->posStudent->studentID + ".csv";
+    ifstream fin;
+    fin.open(Dir);
 
+    string line;
+    while(getline(fin, line))
+    {
+        stringstream lineStream(line);
+        string cell;
+
+        int i = 0;
+        string* strArr = new string[10];
+        while(getline(lineStream, cell, ','))
+        {
+            i++;
+            strArr[i] = cell;
+        }
+        if(strArr[3] != "0")
+            cout << strArr[2] << " " << strArr[4] << " " << strArr[5] << " " << strArr[6] << " " << strArr[7] << "\n";
+        delete[] strArr;
+    }
+    fin.close();
 }
 
 void enrollInACourse(User* user){

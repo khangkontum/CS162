@@ -72,6 +72,9 @@ void goStaff(User* user){
         case 10:
             viewScoreBoardCourse();
             break;
+        case 12:
+            viewScoreBoardClass();
+            break;
         case 13:
             displayStaffCommand();
             break;
@@ -444,9 +447,63 @@ void ImportScoreboard()
     fin.close();
 }
 
+double calGPAoverAll(string MSSV)
+{
+    double sum = 0;
+    double count = 0;
+    ifstream fin;
+    fin.open("Students/" + MSSV + ".csv");
+    string line;
+    string* strArr = new string[10];
+    while(getline(fin, line))
+    {
+        stringstream lineStream(line);
+        string cell;
+        int i = 0;
+        while(getline(lineStream, cell, ','))
+        {
+            i++;
+            strArr[i] = cell;
+        }
+        if(strArr[3] != "0")
+        {
+            sum += atof(strArr[5].c_str());
+            count += 1;
+        }
+    }
+    delete[] strArr;
+    if(count == double(0))
+        return 0;
+    else
+        return (sum / count);
+}
+
+bool getMSSV(istream& fin, string& MSSV)
+{
+    string line;
+    getline(fin, line);
+
+    string cell;
+    stringstream lineStream(line);
+    string* strArr = new string[10];
+    int i = 0;
+    while(getline(lineStream, cell, ','))
+    {
+        i++;
+        strArr[i] = cell;
+    }
+    if(strArr[1] == "" || strArr[1] == "\n")
+        return false;
+    else{
+        MSSV = strArr[3];
+        return true;
+    }
+}
+
 void viewScoreBoardClass()
 {
     string className;
+    string SemesterTime;
 
     cout << "List of classes: ";
     displayContent("Classes/Classes.txt");
@@ -461,10 +518,77 @@ void viewScoreBoardClass()
             cout << "Class not found. Try again.\n";
         }
         else
+        {
+            fin.close();
             break;
+        }
     }while(true);
 
+    //input semester time
+    string tmp;
+    ifstream fin;
+    fin.open("SchoolYear/SchoolYear.txt");
+    while(getline(fin, tmp)) {}
+    fin.close();
+    string Dir = "SchoolYear/" + tmp + "/Semester ";
 
+    int i = 0;
+    do{
+        i++;
+        fin.open(Dir + to_string(i) + "/Information.txt");
+        if(fin.is_open() == true);
+            break;
+    }while(true);
+    getline(fin, SemesterTime);
+    fin.close();
+
+    //display score
+    fin.open("Classes/" + className + ".csv");
+    string MSSV;
+    while(getMSSV(fin, MSSV))
+    {
+        Dir = "Students/" + MSSV + ".csv";
+        ifstream fin2;
+        fin2.open(Dir);
+        if(fin2.is_open() == false)
+            continue;
+
+        bool ok = true;
+        string line, cell;
+        string* strArr = new string[10];
+
+        double sum = 0;
+        double count = 0;
+
+        while(getline(fin2, line))
+        {
+            stringstream lineStream(line);
+            int i = 0;
+            while(getline(lineStream, cell, ','))
+            {
+                i++;
+                strArr[i] = cell;
+            }
+            if(strArr[8] == SemesterTime)
+            {           
+                if(ok == true)
+                {
+                    cout << "STUDENT-ID  ||  COURSE-NAME  ||  FINAL-MARK\n";
+                    ok = false;
+                }
+                cout << MSSV << " " << strArr[2] << " " << strArr[5] << "\n";
+
+                count += 1;
+                sum += atof(strArr[5].c_str());
+            }
+        }
+        fin2.close();
+        delete[] strArr;
+
+        cout << "STUDENT_ID  ||  GPA_this_semester  ||  GPA_overall\n";
+        cout << MSSV << " "  << (count == double(0) ? 0 : sum/count) << " " << calGPAoverAll(MSSV) << "\n";
+
+    }   
 }
 
 void viewScoreStudent(string MSSV)

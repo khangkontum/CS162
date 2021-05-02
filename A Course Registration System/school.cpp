@@ -432,7 +432,7 @@ void createSchoolYear(SchoolYearList &schoolYearList, string path = "SchoolYear/
         tPath[i] = path[i];
     tPath[path.size()] = '\0';
     //cerr<<tPath<<endl;
-    mkdir(tPath);
+    mkdir(tPath, 0777);
     path = "SchoolYear/" + string(schoolYearList.schoolyearL->year)+"/currentSemester.txt";
     //cerr<<path<<endl;
     ofstream fo;
@@ -719,7 +719,7 @@ void saveSemester_toFile(Semester*&s){
 	for(int i=0;i<strlen(s->schoolYear);++i)path+=s->schoolYear[i];
 	path+="/Semester "+to_string(s->ordinalSemester);
 	//cerr<<path<<endl;
-	mkdir(converToChar(path));/// tạo folder
+	mkdir(converToChar(path), 0777);/// tạo folder
 	path+="/Information.txt";
 	ofstream fout;
 	fout.open(path);
@@ -985,7 +985,7 @@ void inputSession(Session& session){
 // input a course list of a semester
 void inputCourseList(Semester*&smt){
 	Course*c=new Course;
-	inputCpurse(c);
+	inputCourse(c);
 	c->courseNext=smt->courseHead;
 	smt->courseHead->coursePrev=c;
 	c=smt->courseHead;
