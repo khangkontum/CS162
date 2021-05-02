@@ -573,7 +573,7 @@ void viewScoreBoardClass()
                 strArr[i] = cell;
             }
             if(strArr[8] == SemesterTime)
-            {           
+            {
                 if(ok == true)
                 {
                     cout << "STUDENT-ID  ||  COURSE-NAME  ||  FINAL-MARK\n";
@@ -591,7 +591,7 @@ void viewScoreBoardClass()
         cout << "STUDENT_ID  ||  GPA_this_semester  ||  GPA_overall\n";
         cout << MSSV << " "  << (count == double(0) ? 0 : sum/count) << " " << calGPAoverAll(MSSV) << "\n";
 
-    }   
+    }
 }
 
 void viewScoreStudent(string MSSV)
@@ -822,6 +822,7 @@ void addACourseToCurSem(){
 
     ofstream fo;
     string path = getCurrentPathSem() + "/courseList.csv";
+    cerr<<path<<endl;
     fo.open(path, ios_base::app);
     saveCourse_toFile(cou, fo);
     fo.close();
