@@ -378,15 +378,6 @@ void createClasses(classList &classList, string path)
 		classList.classL = newClass;
 		fout << newClass->className << endl;
 
-		string path2 = "Classes/";
-		path2.append(newClass->className);
-		path2 += ".csv";
-
-		ofstream fout2;
-		fout2.open(path2);
-		fout2.close();
-
-		cout << "Class Created, please add student to" << newClass->className <<".csv that is newly created in folder Classes !!!!" << endl;
 		return;
 	}
 }

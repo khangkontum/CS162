@@ -98,27 +98,29 @@ void goStaff(User* user){
             createASemester();
             break;
         case 18:{
-            clearScreen();
 			string path = "Classes/Classes.txt";
 			cout << "Create a new class:" << endl;
 			createClasses(classList, path);
 			PressEnterToContinue();
             break;
         }
-        case 19:{
-           	addAStudentToClass(classList);
-			PressEnterToContinue();
-            break;
-        }
-         case 20:{
+          case 19:{
              addStudentsToClass(classList);
 			PressEnterToContinue();
             break;
         }
+        case 20:{
+           	addAStudentToClass(classList);
+			PressEnterToContinue();
+            break;
+        }
+       
         default:
             cout<<"Wrong command !"<<endl;
         }
     }while(command);
+    deleteClassList(classList);
+    deleteSchoolYearList(schoolYearList);
 }
 void viewListOfClass(){
     classList cList;
