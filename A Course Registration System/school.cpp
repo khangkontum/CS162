@@ -160,6 +160,7 @@ void addAStudentToClass(classList &classList) {
 			addClass->studentLast->pNext = nullptr;
 		}
 		cout << "Successfully added new student..." <<endl;
+		fout.close();
 	}
 }
 Student *inputStudent() {
@@ -375,7 +376,8 @@ void createClasses(classList &classList, string path)
 			classList.classL->pPrev = newClass;
 		classList.classL = newClass;
 		fout << newClass->className << endl;
-
+		cout<<"New Class Created !!!"<<endl;
+		fout.close();
 		return;
 	}
 }
