@@ -11,6 +11,15 @@
 
 classList globalClassList;
 
+void make_directory(const char* name)
+{
+    #ifdef __linux__
+        mkdir(name, 777); /* Or what parameter you need here ... */
+    #else
+        mkdir(name);
+    #endif
+}
+
 char* converToChar(string path){
     char* s = new char[path.size() +1];
     for (int i=0,ii=path.size();i<ii;++i)
@@ -432,7 +441,8 @@ void createSchoolYear(SchoolYearList &schoolYearList, string path = "SchoolYear/
         tPath[i] = path[i];
     tPath[path.size()] = '\0';
     //cerr<<tPath<<endl;
-    mkdir(tPath, 0777);
+    //mkdir(tPath, 0777);
+    make_directory(tPath);
     path = "SchoolYear/" + string(schoolYearList.schoolyearL->year)+"/currentSemester.txt";
     //cerr<<path<<endl;
     ofstream fo;
@@ -719,7 +729,8 @@ void saveSemester_toFile(Semester*&s){
 	for(int i=0;i<strlen(s->schoolYear);++i)path+=s->schoolYear[i];
 	path+="/Semester "+to_string(s->ordinalSemester);
 	//cerr<<path<<endl;
-	mkdir(converToChar(path), 0777);/// tạo folder
+	//mkdir(converToChar(path), 0777);/// tạo folder
+	make_directory(converToChar(path));
 	path+="/Information.txt";
 	ofstream fout;
 	fout.open(path);

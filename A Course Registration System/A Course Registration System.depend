@@ -1,11 +1,11 @@
 # depslib dependency file v1.0
-1619747104 source:d:\github\cs162\a course registration system\main.cpp
+1619960666 source:d:\github\cs162\a course registration system\main.cpp
 	"school.h"
 	"login.h"
 	"student.h"
 	"staff.h"
 
-1619772615 d:\github\cs162\a course registration system\school.h
+1619947888 d:\github\cs162\a course registration system\school.h
 	<iostream>
 	<fstream>
 	<string.h>
@@ -35,7 +35,7 @@
 	"school.h"
 	"student.h"
 
-1619768107 source:d:\github\cs162\a course registration system\staff.cpp
+1619960666 source:d:\github\cs162\a course registration system\staff.cpp
 	"staff.h"
 	"school.h"
 	<bits/stdc++.h>
@@ -51,11 +51,12 @@
 	"school.h"
 	"login.h"
 
-1619773631 source:d:\github\cs162\a course registration system\student.cpp
+1619960666 source:d:\github\cs162\a course registration system\student.cpp
 	"student.h"
 	"school.h"
 	"login.h"
 	"staff.h"
+	<sstream>
 
 1619418951 d:\github\cs162\a course registration system\global.h
 	"school.h"
