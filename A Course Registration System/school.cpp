@@ -14,7 +14,7 @@ classList globalClassList;
 void make_directory(const char* name)
 {
     #ifdef __linux__
-        mkdir(name, 777); /* Or what parameter you need here ... */
+        mkdir(name, 0777); /* Or what parameter you need here ... */
     #else
         mkdir(name);
     #endif

@@ -27,6 +27,7 @@ void viewScoreBoard(User* user){
     fin.open(Dir);
 
     string line;
+    cout << "Student-ID || Total mark  || Final mark || Midterm mark || Other mark\n";
     while(getline(fin, line))
     {
         stringstream lineStream(line);
@@ -40,7 +41,7 @@ void viewScoreBoard(User* user){
             strArr[i] = cell;
         }
         if(strArr[3] != "0")
-            cout << strArr[2] << " " << strArr[4] << " " << strArr[5] << " " << strArr[6] << " " << strArr[7] << "\n";
+            cout << strArr[2] << "    " << strArr[4] << "    " << strArr[5] << "    " << strArr[6] << "   " << strArr[7] << "\n";
         delete[] strArr;
     }
     fin.close();
