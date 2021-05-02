@@ -35,6 +35,10 @@ void displayStaffCommand(){
 }
 
 void goStaff(User* user){
+    SchoolYearList schoolYearList;
+	classList classList;
+	loadSchoolYearList(schoolYearList);
+	loadClassList(classList);
     int command;
     clearScreen();
     displayStaffCommand();
@@ -93,6 +97,24 @@ void goStaff(User* user){
         case 17:
             createASemester();
             break;
+        case 18:{
+            clearScreen();
+			string path = "Classes/Classes.txt";
+			cout << "Create a new class:" << endl;
+			createClasses(classList, path);
+			PressEnterToContinue();
+            break;
+        }
+        case 19:{
+           	addAStudentToClass(classList);
+			PressEnterToContinue();
+            break;
+        }
+         case 20:{
+             addStudentsToClass(classList);
+			PressEnterToContinue();
+            break;
+        }
         default:
             cout<<"Wrong command !"<<endl;
         }
