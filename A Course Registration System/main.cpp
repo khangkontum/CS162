@@ -6,7 +6,9 @@
 using namespace std;
 
 int main(){
-    SchoolYearList schoolYearList;
+    //  Load mọi thứ lên xong tính gì tính
+    
+    /*SchoolYearList schoolYearList;
     loadSchoolYearList(schoolYearList);
     
     SchoolYear*schoolYear=schoolYearList.schoolyearL;
@@ -16,9 +18,12 @@ int main(){
     }
     classList classList;
     loadClassList(classList);
-    
-    loadUserList();
-
+    Class*cl=classList.classL;
+    while(cl){
+        cl->noStudent=loadStudent(cl);
+        cl=cl->pNext;
+    }
+    loadUserList();*/
     User* user = nullptr;
     do{
         user = nullptr;
@@ -32,6 +37,5 @@ int main(){
         else
             goStudent(user);
     }while(true);
-
     return 0;
 }

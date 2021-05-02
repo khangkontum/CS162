@@ -710,21 +710,16 @@ void createSemester(SchoolYear*& schlY){
 	cin>>option;
 	if(option)createRegistrationSession(curSmt);
 
-	//	save Semester mới tạo vào file
-	string path="";
-	for(int j=0;j<strlen(schlY->year);++j)path+=schlY->year[j];
-	path+="/Semester "+curSmt->ordinalSemester;
-	mkdir(path,0777);
 	saveSemester_toFile(curSmt);
 }
 
 // save a semester to file
 void saveSemester_toFile(Semester*&s){
-	string path="schoolyear/";
+	string path="SchoolYear/";
 	for(int i=0;i<strlen(s->schoolYear);++i)path+=s->schoolYear[i];
 	path+="/Semester "+to_string(s->ordinalSemester);
 	//cerr<<path<<endl;
-	mkdir(converToChar(path));/// tao folder
+	mkdir(converToChar(path));/// tạo folder
 	path+="/Information.txt";
 	ofstream fout;
 	fout.open(path);
