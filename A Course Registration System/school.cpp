@@ -159,9 +159,7 @@ void addAStudentToClass(classList &classList) {
 			addClass->noStudent++;
 			addClass->studentLast->pNext = nullptr;
 		}
-		cout << "Successfully added new student...";
-		displayStudent(addClass);
-		system("pause");
+		cout << "Successfully added new student..." <<endl;
 	}
 }
 Student *inputStudent() {
@@ -174,7 +172,7 @@ Student *inputStudent() {
 	cout << "Please input Student ID (8 digits): ";
 	getline(cin, studentID);
 	while (studentID.length() != 8) {
-		cout << "Wrong format, please input Student ID (6 digits): ";
+		cout << "Wrong format, please input Student ID (8 digits): ";
 		getline(cin, studentID);
 	}
 	cout << "Please input Student gender (male/female): ";
