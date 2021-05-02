@@ -72,6 +72,9 @@ void goStaff(User* user){
         case 10:
             viewScoreBoardCourse();
             break;
+        case 11:
+            updateStudentResultTmp();
+            break;
         case 12:
             viewScoreBoardClass();
             break;
