@@ -19,6 +19,7 @@ void viewScoreStudent(string MSSV);
 void viewScoreBoardClass();
 void ImportScoreboard();
 void viewScoreBoardCourse();
+void updateStudentResultTmp();
 void createASchoolYear();
 void createASemester();
 void addACourseToCurSem();

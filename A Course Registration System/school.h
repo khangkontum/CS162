@@ -279,6 +279,7 @@ bool isAvailableCourse(string courseId, Course* courseList);
 bool isConflictedCourse(string courseId, User* user);
 bool isSameSession(Session&s1,Session&s2);
 bool isConflictedSession(Course* courseA, Course* courseB);
+void PressEnterToContinue();
 
 Semester* getCurrentSemesterList();
 Course* getCourseListOfUser(User* user);

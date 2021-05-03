@@ -31,7 +31,6 @@ char* converToChar(string path){
 void PressEnterToContinue()
 {
 	system("read -p \"Press a key to continue...\" -n 1 -s\n");
-
 }
 
 
