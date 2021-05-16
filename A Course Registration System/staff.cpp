@@ -468,13 +468,13 @@ void updateStudentResultTmp()
     }while(true);
 
     cout << "Input total mark: ";
-    cin >> strArr[3];
-    cout << "Input mid term mark: ";
     cin >> strArr[4];
-    cout << "Input final mark: ";
+    cout << "Input mid term mark: ";
     cin >> strArr[5];
-    cout << "Input other mark: ";
+    cout << "Input final mark: ";
     cin >> strArr[6];
+    cout << "Input other mark: ";
+    cin >> strArr[7];
     updateStudentResult(strArr, courseID);
 
 }
