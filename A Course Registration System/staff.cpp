@@ -30,6 +30,7 @@ void displayStaffCommand(){
 	cout<<"18. Create a new class." << endl;
 	cout<<"19. Import students from csv file to a class." << endl;
 	cout<<"20. Add a Student to a Class" << endl;
+	cout<<"21. Create a course registration"<<endl;
     cout<<"********************************************************"<<endl;
     cout<<endl;
 }
@@ -114,7 +115,13 @@ void goStaff(User* user){
 			//PressEnterToContinue();
             break;
         }
-
+        case 21:{
+            Semester* sem = getCurrentSemesterList();
+            createRegistrationSession(sem);
+            saveSemester_toFile(sem);
+            delete sem;
+            break;
+        }
         default:
             cout<<"Wrong command !"<<endl;
         }
@@ -821,6 +828,12 @@ void createASemester(){
     cin >> sem->startDate.day >> sem->startDate.month >> sem->startDate.year;
     cout<<"Input end day (dd mm yyyy): ";
     cin >> sem->endDate.day >> sem->endDate.month >> sem->endDate.year;
+    sem->registrationSession.startDate.day = 0;
+    sem->registrationSession.startDate.month = 0;
+    sem->registrationSession.startDate.year = 0;
+    sem->registrationSession.endDate.day = 0;
+    sem->registrationSession.endDate.month = 0;
+    sem->registrationSession.endDate.year = 0;
 
 
     sem->ordinalSemester = curSem;
@@ -838,6 +851,13 @@ void createASemester(){
     path="SchoolYear/"+string(schYearList.schoolyearL->year)+"/semesterList.txt";
     fo.open(path, ios_base::app);
     fo<<curSem<<endl;
+    fo.close();
+
+    path="SchoolYear/" + string(schYearList.schoolyearL->year) + "/Semester ";
+    path = path + char(curSem+'0');
+    path = path + "/courseList.csv";
+    //cerr<<path<<endl;
+    fo.open(path);
     fo.close();
 }
 
@@ -858,7 +878,7 @@ void addACourseToCurSem(){
 
     ofstream fo;
     string path = getCurrentPathSem() + "/courseList.csv";
-    cerr<<path<<endl;
+    //cerr<<path<<endl;
     fo.open(path, ios_base::app);
     saveCourse_toFile(cou, fo);
     fo.close();

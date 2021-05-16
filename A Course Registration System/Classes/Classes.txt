@@ -2,5 +2,3 @@
 17CTT2
 20ctt1
 20ctt2
-21ctt1
-

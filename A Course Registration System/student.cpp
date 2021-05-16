@@ -47,8 +47,23 @@ void viewScoreBoard(User* user){
     fin.close();
 }
 
+bool isBigger(Date u, Date v){
+    if (u.year == v.year){
+        if (u.month == v.month){
+            return u.day>v.day;
+        }else return u.month>v.month;
+    }else return u.year>v.year;
+}
+
 void enrollInACourse(User* user){
-    cout<<endl;
+    Semester* curSem = getCurrentSemesterList();
+    Date nowD = getCurrentTime();
+    //cerr<<curSem->registrationSession.endDate.day<<' '<<curSem->registrationSession.endDate.month<<' '<<curSem->registrationSession.endDate.year<<endl;
+    if (isBigger(nowD, curSem->registrationSession.endDate)
+        || isBiggerDate(curSem->registrationSession.startDate, nowD)){
+        cout<<"Out of time to enroll"<<endl;
+        return;
+    }
     if (countCurrentCourse(user)>=5){
         cout<<"You have reached the maximum number of course this semester !"<<endl;
         return;
@@ -57,7 +72,6 @@ void enrollInACourse(User* user){
     cout<<"Input course Id you want to enroll: ";
     string couId;
     cin>>couId;
-    Semester* curSem = getCurrentSemesterList();
     if (isAvailableCourse(couId, curSem->courseHead)){
         if (isConflictedCourse(couId, user))
             cout<<"Course is conflicted !"<<endl;

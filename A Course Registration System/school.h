@@ -10,6 +10,8 @@
 
 using namespace std;
 
+void make_directory(const char* name);
+
 struct Class;
 struct classList;
 struct SchoolYear;

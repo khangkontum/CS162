@@ -775,7 +775,9 @@ void createRegistrationSession(Semester*& smt){
 		cout<<"Semester "<<smt->ordinalSemester<<" had a course registration session!\n";
 		return;
 	}
+	cout<<"Start date: "<<endl;
 	inputDate(smt->registrationSession.startDate);
+	cout<<"End date: "<<endl;
 	inputDate(smt->registrationSession.endDate);
 }
 
@@ -1478,6 +1480,16 @@ Semester* getCurrentSemesterList(){
     sem->schoolYear = schYearList.schoolyearL->year;
     sem->courseHead = nullptr;
     loadCourseList(sem);
+
+    string path=getCurrentPathSem();
+    path = path + "/Information.txt";
+    ifstream fi;
+    fi.open(path);
+    fi >> sem->startDate.day >> sem->startDate.month >> sem->startDate.year;
+    fi >> sem->endDate.day >> sem->endDate.month >> sem->endDate.year;
+    fi >> sem->registrationSession.startDate.day >> sem->registrationSession.startDate.month >> sem->registrationSession.startDate.year;
+    fi >> sem->registrationSession.endDate.day >> sem->registrationSession.endDate.month >> sem->registrationSession.endDate.year;
+    fi.close();
     return sem;
 
 }
