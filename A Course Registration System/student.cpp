@@ -67,7 +67,17 @@ void enrollInACourse(User* user){
             string path = "students/" + user->username + ".csv";
             cerr<<path<<endl;
             fo.open(path, ios_base::app);
-            fo<<cou->courseID<<','<<cou->courseName<<','<<cou->status<<','<<"0,0,0,0,0,1"<<endl;
+            fo<<cou->courseID<<','<<cou->courseName<<','<<"1,0,0,0,0,";
+            /// add start - end
+            string tmp = getCurrentPathSem();
+            tmp = tmp + "/Information.txt";
+            ifstream fi;
+            fi.open(tmp);
+            string s_e;
+            fi>>s_e;
+            fi.close();
+            ///
+            fo<<s_e<<",1"<<endl;
             fo.close();
             delete cou;
             cout<<"Enroll successful !"<<endl;
@@ -82,6 +92,7 @@ void viewListOfEnrolledCourses(User* user){
     cout<<"***********List of enrolled courses***********"<<endl;
     Course* couList = getCourseListOfUser(user);
     Course* cur = couList;
+    cerr<<"OK"<<endl;
     while(cur!=nullptr){
         if (cur->status == 1){
             Course* tmp = getCourseFromCourseId(cur->courseID);
