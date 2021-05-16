@@ -1088,7 +1088,6 @@ void saveCourse_toFile(Course*&c,ostream&fout){
 
 // choose a course list from school year list and update it
 void updateCourse_fromSchoolYearList(SchoolYearList& schlYL){
-	
 	SchoolYear* schlY=chooseSchoolYear(schlYL);
 	if(!schlY)return;
 	loadSemester(schlY);
@@ -1099,6 +1098,7 @@ void updateCourse_fromSchoolYearList(SchoolYearList& schlYL){
 
 	// this function is below
 	updateCourse(course);
+	saveSemester_toFile(smt);
 }
 
 // update a course
@@ -1208,6 +1208,7 @@ void deleteCourse_fromSchoolYearList(SchoolYearList& schlYL){
 
 	// this function is below
 	deleteCourse(smt->courseHead,course);
+	saveSemester_toFile(smt);
 }
 
 // delete a course

@@ -133,6 +133,7 @@ void goStaff(User* user){
 			SchoolYearList schlYL;
 			loadSchoolYearList(schlYL);
             updateCourse_fromSchoolYearList(schlYL);
+            
 			deleteSchoolYearList(schlYL);
             break;
         }
