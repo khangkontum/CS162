@@ -325,7 +325,9 @@ void loadSchoolYearList(SchoolYearList &schoolYearList)
 		char dummy[10000];
 		while (!fin.eof())
 		{
-			fin >> dummy;
+		    string tmp;
+			fin.get(dummy, 10000, '\n');
+			fin.ignore(100, '\n');
 			if (strlen(dummy) == 0)
 				return;
 			SchoolYear *newSchoolYear = new SchoolYear;
@@ -742,7 +744,7 @@ void saveSemester_toFile(Semester*&s){
 		return;
 	}
 	fout.close();
-	path="";
+	path="SchoolYear/";
 	for(int i=0;i<strlen(s->schoolYear);++i)path+=s->schoolYear[i];
 	path+="/Semester "+to_string(s->ordinalSemester)+"/CourseList.csv";
 	saveCourseList_toFile(s->courseHead,path);
@@ -1058,6 +1060,7 @@ void viewCourse(Course*& course){
 
 // save a course list to file
 void saveCourseList_toFile(Course*&courseHead,string path){
+    //cerr<<path<<endl;
 	ofstream fout;
 	fout.open(path);
 	if(fout.is_open()){
@@ -1109,7 +1112,7 @@ void updateCourse_fromSchoolYearList(SchoolYearList& schlYL){
 	string path = "SchoolYear/";
 	for (int i = 0; i < strlen(smt->schoolYear); ++i)path += smt->schoolYear[i];
 	path += "/Semester " + to_string(smt->ordinalSemester) + "/courseList.csv";
-	
+
 	saveCourseList_toFile(smt->courseHead,path);
 }
 
@@ -1117,7 +1120,7 @@ void updateCourse_fromSchoolYearList(SchoolYearList& schlYL){
 void updateCourse(Course*& course){
 	int option=0;
 	cout<<"What do want to update?\n";
-	cout<<"1. Course ID\n2. Course name\n3. Teacher's name";
+	cout<<"1. Course ID\n2. Course name\n3. Teacher's name\n";
 	cout<<"4. The number of credits\n5. The maximum number of students\n";
 	cout<<"6. Session 1\n7. Session 2\n";
 	cout<<"Answer: ";

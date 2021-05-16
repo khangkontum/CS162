@@ -13,7 +13,7 @@
 	<ctime>
 	<limits>
 
-1621156668 source:d:\github\cs162\a course registration system\school.cpp
+1621182622 source:d:\github\cs162\a course registration system\school.cpp
 	"school.h"
 	"login.h"
 	<bits/stdc++.h>
@@ -35,7 +35,7 @@
 	"school.h"
 	"student.h"
 
-1621156247 source:d:\github\cs162\a course registration system\staff.cpp
+1621180974 source:d:\github\cs162\a course registration system\staff.cpp
 	"staff.h"
 	"school.h"
 	<bits/stdc++.h>

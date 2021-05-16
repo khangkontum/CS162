@@ -361,6 +361,7 @@ void viewListOfStudentInCourse(ostream& fout){
     string tmp;
     while(getline(fin, tmp))
     {
+        cerr<<tmp<<endl;
         if(isInCourse(tmp, courseID, SemesterTime))
             fout << tmp << "\n";
     }
@@ -865,8 +866,6 @@ void createASemester(){
     sem->schoolYear = schYearList.schoolyearL->year;
     sem->courseHead = nullptr;
 
-    saveSemester_toFile(sem);
-
     ofstream fo;
     path="SchoolYear/"+string(schYearList.schoolyearL->year)+"/currentSemester.txt";
     fo.open(path);
@@ -884,6 +883,8 @@ void createASemester(){
     //cerr<<path<<endl;
     fo.open(path);
     fo.close();
+
+    saveSemester_toFile(sem);
 }
 
 void addACourseToCurSem(){
