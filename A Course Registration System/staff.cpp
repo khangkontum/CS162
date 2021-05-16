@@ -113,7 +113,7 @@ void goStaff(User* user){
 			PressEnterToContinue();
             break;
         }
-       
+
         default:
             cout<<"Wrong command !"<<endl;
         }
@@ -129,7 +129,7 @@ void getSemester(istream& fin, string& SemesterTime)
 
     fin >> d1 >> m1 >> y1;
     fin >> d2 >> m2 >> y2;
-    
+
     SemesterTime = d1 + "/" + m1 + "/" + y1 + "-" + d2 + "/" + m2 + "/" + y2;
 }
 

@@ -35,7 +35,7 @@
 	"school.h"
 	"student.h"
 
-1621136122 source:d:\github\cs162\a course registration system\staff.cpp
+1621138485 source:d:\github\cs162\a course registration system\staff.cpp
 	"staff.h"
 	"school.h"
 	<bits/stdc++.h>
@@ -51,7 +51,7 @@
 	"school.h"
 	"login.h"
 
-1621137865 source:d:\github\cs162\a course registration system\student.cpp
+1621138195 source:d:\github\cs162\a course registration system\student.cpp
 	"student.h"
 	"school.h"
 	"login.h"
