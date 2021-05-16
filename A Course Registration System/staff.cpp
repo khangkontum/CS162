@@ -31,6 +31,8 @@ void displayStaffCommand(){
 	cout<<"19. Import students from csv file to a class." << endl;
 	cout<<"20. Add a Student to a Class" << endl;
 	cout<<"21. Create a course registration"<<endl;
+    cout<<"22. Update a course.\n";
+    cout<<"23. Delete a course.\n";
     cout<<"********************************************************"<<endl;
     cout<<endl;
 }
@@ -39,6 +41,11 @@ void goStaff(User* user){
     SchoolYearList schoolYearList;
 	classList classList;
 	loadSchoolYearList(schoolYearList);
+    SchoolYear*schlY=schoolYearList.schoolyearL;
+    while(schlY){
+        loadSemester(schlY);
+        schlY=schlY->pNext;
+    }
 	loadClassList(classList);
     int command;
     clearScreen();
@@ -120,6 +127,14 @@ void goStaff(User* user){
             createRegistrationSession(sem);
             saveSemester_toFile(sem);
             delete sem;
+            break;
+        }
+        case 22:{
+            updateCourse_fromSchoolYearList(schlYL);
+            break;
+        }
+        case 23:{
+            deleteCourse_fromSchoolYearList(schlYL);
             break;
         }
         default:
