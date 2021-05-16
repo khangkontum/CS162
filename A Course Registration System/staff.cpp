@@ -430,6 +430,7 @@ void updateStudentResultTmp()
 
     do{
         cout << "Input course ID: ";
+        cin >> courseID;
         ifstream fin;
         fin.open("Students/" + strArr[1] + ".csv");
 
@@ -449,7 +450,7 @@ void updateStudentResultTmp()
             }
             if(tmpArr[1] == courseID)
             {
-                ok = (tmpArr[3][0] !='0');
+                ok = (tmpArr[3][0] != '0');
                 break;
             }
             fin.close();
