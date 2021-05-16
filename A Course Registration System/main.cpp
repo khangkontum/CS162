@@ -7,10 +7,10 @@ using namespace std;
 
 int main(){
     //  Load mọi thứ lên xong tính gì tính
-    
+
     /*SchoolYearList schoolYearList;
     loadSchoolYearList(schoolYearList);
-    
+
     SchoolYear*schoolYear=schoolYearList.schoolyearL;
     while(schoolYear){
         loadSemester(schoolYear);
@@ -25,6 +25,7 @@ int main(){
     }
     */
     loadUserList();
+
     User* user = nullptr;
     do{
         user = nullptr;
