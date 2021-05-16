@@ -74,7 +74,7 @@ void enrollInACourse(User* user){
             ifstream fi;
             fi.open(tmp);
             string s_e;
-            fi>>s_e;
+            getSemester(fi, s_e);
             fi.close();
             ///
             fo<<s_e<<",1"<<endl;

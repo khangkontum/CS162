@@ -3,6 +3,7 @@
 
 #include "school.h"
 #include "login.h"
+#include "staff.h"
 
 using namespace std;
 

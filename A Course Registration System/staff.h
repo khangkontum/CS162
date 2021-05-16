@@ -23,6 +23,7 @@ void updateStudentResultTmp();
 void createASchoolYear();
 void createASemester();
 void addACourseToCurSem();
+void getSemester(istream& fin, string& SemesterTime);
 
 
 #endif // _staff_
