@@ -130,11 +130,17 @@ void goStaff(User* user){
             break;
         }
         case 22:{
+			SchoolYearList schlYL;
+			loadSchoolYearList(schlYL);
             updateCourse_fromSchoolYearList(schlYL);
+			deleteSchoolYearList(schlYL);
             break;
         }
         case 23:{
+			SchoolYearList schlYL;
+			loadSchoolYearList(schlYL);
             deleteCourse_fromSchoolYearList(schlYL);
+			deleteSchoolYearList(schlYL);
             break;
         }
         default:

@@ -1088,8 +1088,10 @@ void saveCourse_toFile(Course*&c,ostream&fout){
 
 // choose a course list from school year list and update it
 void updateCourse_fromSchoolYearList(SchoolYearList& schlYL){
+	
 	SchoolYear* schlY=chooseSchoolYear(schlYL);
 	if(!schlY)return;
+	loadSemester(schlY);
 	Semester* smt=chooseSemester(schlY);
 	if(!smt)return;
 	Course* course=chooseCourse(smt);
@@ -1245,6 +1247,7 @@ Course* chooseCourse(Semester*& smt){
 	while(curC){
 		++count;
 		cout<<count<<". "<<curC->courseID<<endl;
+		curC = curC->courseNext;
 	}
 	cout<<"Answer: ";
 	int option;
