@@ -450,11 +450,14 @@ void updateStudentResultTmp()
             }
             if(tmpArr[1] == courseID)
             {
-                ok = (tmpArr[3][0] != '0');
-                break;
+                if(tmpArr[3] != "0")
+                {
+                    ok = true;
+                    break;
+                }
             }
-            fin.close();
         }
+        fin.close();
         if(ok == false)
         {
             clearScreen();
