@@ -112,7 +112,7 @@ void goStaff(User* user){
 			//PressEnterToContinue();
             break;
         }
-          case 19:{
+        case 19:{
             addStudentsToClass(classList);
 			//PressEnterToContinue();
             break;
@@ -133,7 +133,6 @@ void goStaff(User* user){
 			SchoolYearList schlYL;
 			loadSchoolYearList(schlYL);
             updateCourse_fromSchoolYearList(schlYL);
-            
 			deleteSchoolYearList(schlYL);
             break;
         }

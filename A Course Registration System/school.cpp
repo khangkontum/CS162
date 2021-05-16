@@ -737,6 +737,10 @@ void saveSemester_toFile(Semester*&s){
 			<<s->registrationSession.endDate.month<<" "
 			<<s->registrationSession.endDate.year<<endl;
 	}
+	else{
+		cout<<"Can't open the file!\n";
+		return;
+	}
 	fout.close();
 	path="";
 	for(int i=0;i<strlen(s->schoolYear);++i)path+=s->schoolYear[i];
@@ -1063,6 +1067,10 @@ void saveCourseList_toFile(Course*&courseHead,string path){
 			curC=curC->courseNext;
 		}
 	}
+	else{
+		cout<<"Can't open the file!\n";
+		return;
+	}
 	fout.close();
 }
 
@@ -1098,7 +1106,10 @@ void updateCourse_fromSchoolYearList(SchoolYearList& schlYL){
 
 	// this function is below
 	updateCourse(course);
-	saveSemester_toFile(smt);
+	string path="";
+	for(int i=0;i<strlen(smt->schoolYear);++i)path+=smt->schoolYear[i];
+	path+="/Semester "+to_string(smt->ordinalSemester)+"/CourseList.csv";
+	saveCourseList_toFile(smt->courseHead,path);
 }
 
 // update a course
@@ -1208,7 +1219,10 @@ void deleteCourse_fromSchoolYearList(SchoolYearList& schlYL){
 
 	// this function is below
 	deleteCourse(smt->courseHead,course);
-	saveSemester_toFile(smt);
+	string path="";
+	for(int i=0;i<strlen(smt->schoolYear);++i)path+=smt->schoolYear[i];
+	path+="/Semester "+to_string(smt->ordinalSemester)+"/CourseList.csv";
+	saveCourseList_toFile(smt->courseHead,path);
 }
 
 // delete a course
