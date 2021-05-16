@@ -121,6 +121,18 @@ void goStaff(User* user){
     deleteClassList(classList);
     deleteSchoolYearList(schoolYearList);
 }
+
+void getSemester(istream& fin, string& SemesterTime)
+{
+    string d1, m1, y1;
+    string d2, m2, y2;
+
+    fin >> d1 >> m1 >> y1;
+    fin >> d2 >> m2 >> y2;
+    
+    SemesterTime = d1 + "/" + m1 + "/" + y1 + "-" + d2 + "/" + m2 + "/" + y2;
+}
+
 void viewListOfClass(){
     classList cList;
     loadClassList(cList);
@@ -272,7 +284,7 @@ void viewListOfStudentInCourse(ostream& fout){
     //Input time of chosen semester
     fin.open("SchoolYear/" + str + "/Semester " + c +"/Information.txt");
     string SemesterTime;
-    getline(fin, SemesterTime);
+    getSemester(fin, SemesterTime);
     fin.close();
 
     //clearScreen();
@@ -565,7 +577,7 @@ void viewScoreBoardClass()
         if(fin.is_open() == true);
             break;
     }while(true);
-    getline(fin, SemesterTime);
+    getSemester(fin, SemesterTime);
     fin.close();
 
     //display score
@@ -700,7 +712,7 @@ void viewScoreBoardCourse()
     //Input time of chosen semester
     fin.open("SchoolYear/" + str + "/Semester " + c +"/Information.txt");
     string SemesterTime;
-    getline(fin, SemesterTime);
+    getSemester(fin, SemesterTime);
     fin.close();
 
     //clearScreen();
