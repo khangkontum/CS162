@@ -16,7 +16,7 @@ void make_directory(const char* name)
     #ifdef __linux__
         mkdir(name, 0777); /* Or what parameter you need here ... */
     #else
-        mkdir(name);
+       mkdir(name);
     #endif
 }
 
@@ -1106,9 +1106,10 @@ void updateCourse_fromSchoolYearList(SchoolYearList& schlYL){
 
 	// this function is below
 	updateCourse(course);
-	string path="";
-	for(int i=0;i<strlen(smt->schoolYear);++i)path+=smt->schoolYear[i];
-	path+="/Semester "+to_string(smt->ordinalSemester)+"/CourseList.csv";
+	string path = "SchoolYear/";
+	for (int i = 0; i < strlen(smt->schoolYear); ++i)path += smt->schoolYear[i];
+	path += "/Semester " + to_string(smt->ordinalSemester) + "/courseList.csv";
+	
 	saveCourseList_toFile(smt->courseHead,path);
 }
 
@@ -1212,6 +1213,7 @@ void updateCourse(Course*& course){
 void deleteCourse_fromSchoolYearList(SchoolYearList& schlYL){
 	SchoolYear* schlY=chooseSchoolYear(schlYL);
 	if(!schlY)return;
+	loadSemester(schlY);
 	Semester* smt=chooseSemester(schlY);
 	if(!smt)return;
 	Course* course=chooseCourse(smt);
@@ -1219,9 +1221,10 @@ void deleteCourse_fromSchoolYearList(SchoolYearList& schlYL){
 
 	// this function is below
 	deleteCourse(smt->courseHead,course);
-	string path="";
-	for(int i=0;i<strlen(smt->schoolYear);++i)path+=smt->schoolYear[i];
-	path+="/Semester "+to_string(smt->ordinalSemester)+"/CourseList.csv";
+	string path = "SchoolYear/";
+	for (int i = 0; i < strlen(smt->schoolYear); ++i)path += smt->schoolYear[i];
+	path += "/Semester " + to_string(smt->ordinalSemester) + "/courseList.csv";
+
 	saveCourseList_toFile(smt->courseHead,path);
 }
 
