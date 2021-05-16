@@ -1245,6 +1245,7 @@ Course* chooseCourse(Semester*& smt){
 	while(curC){
 		++count;
 		cout<<count<<". "<<curC->courseID<<endl;
+		curC=curC->next;
 	}
 	cout<<"Answer: ";
 	int option;
