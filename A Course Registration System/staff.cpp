@@ -390,7 +390,7 @@ void updateStudentResult(string* updatedResult, string courseID)
         }
         if(strArr[1] == courseID)
         {
-            for (int j = 3; j <= 6; j++)
+            for (int j = 4; j <= 7; j++)
                 strArr[j] = updatedResult[j];
         }
 
