@@ -361,7 +361,6 @@ void viewListOfStudentInCourse(ostream& fout){
     string tmp;
     while(getline(fin, tmp))
     {
-        cerr<<tmp<<endl;
         if(isInCourse(tmp, courseID, SemesterTime))
             fout << tmp << "\n";
     }
@@ -402,6 +401,8 @@ void updateStudentResult(string* updatedResult, string courseID)
     fin.close();
 
     fout.open("Students/" + updatedResult[1] + ".csv");
+    if (Content[0]!='I')
+        Content = "ID,Name,Status,Total mark,Final mark,Midterm mark,Other mark,Time,Count\n" + Content;
     fout << Content;
     fout.close();
 }
@@ -482,7 +483,8 @@ void updateStudentResultTmp()
 
 void ImportScoreboard()
 {
-    clearScreen();
+    //clearScreen();
+    cout<<endl;
     string courseID;
     ifstream fin;
     do{
@@ -491,7 +493,8 @@ void ImportScoreboard()
         fin.open(courseID + ".csv");
         if(fin.is_open() == false)
         {
-            clearScreen();
+            //clearScreen();
+            cout<<endl;
             cout << "File not found. Please try again.";
         }
         else{
@@ -508,13 +511,15 @@ void ImportScoreboard()
         string cell;
 
         int i = 0;
-        string* strArr = new string[9];
+        string* strArr = new string[10];
         while(getline(lineStream,cell, ','))
         {
             i++;
-            strArr[i - 1] = cell;
+            strArr[i] = cell;
         }
+        strArr[1] = strArr[2];
         updateStudentResult(strArr, courseID);
+        delete[] strArr;
     }
     fin.close();
 }
@@ -564,10 +569,12 @@ bool getMSSV(istream& fin, string& MSSV)
         i++;
         strArr[i] = cell;
     }
-    if(strArr[1] == "" || strArr[1] == "\n")
+    string tmp = strArr[1], u = strArr[3];
+    delete[] strArr;
+    if(tmp == "" || tmp == "\n")
         return false;
     else{
-        MSSV = strArr[3];
+        MSSV = u;
         return true;
     }
 }
@@ -577,7 +584,7 @@ void viewScoreBoardClass()
     string className;
     string SemesterTime;
 
-    cout << "List of classes: ";
+    cout << "List of classes: "<<endl;
     displayContent("Classes/Classes.txt");
     do{
         cout << "\nInput class name: ";
@@ -684,6 +691,7 @@ void viewScoreStudent(string MSSV)
         if(strArr[3][0] != '0')
             cout << MSSV << " " << strArr[2] << " " << strArr[5] << "\n";
     }
+    delete[] strArr;
 }
 
 void viewScoreBoardCourse()
@@ -792,6 +800,7 @@ void viewScoreBoardCourse()
 
     fin.open("Students/list.txt");
     string MSSV;
+    cout<<"SId, Total, Final, Mid, Other"<<endl;
     while(getline(fin, MSSV))
     {
         string Dir = "Students/" + MSSV + ".csv";
@@ -821,6 +830,7 @@ void viewScoreBoardCourse()
             }
         }
         ffin.close();
+        delete[] strArr;
     }
     fin.close();
 }

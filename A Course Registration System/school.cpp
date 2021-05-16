@@ -1574,15 +1574,15 @@ Course* getCourseListOfUser(User* user){
         i = ++j;
         ///end start
         while(j<tmp.size() && tmp[j] != '/') ++j;
-        cur->startDay.day = stoi(tmp.substr(i, j-i));
+        cur->endDay.day = stoi(tmp.substr(i, j-i));
         i = ++j;
         ///end start
         while(j<tmp.size() && tmp[j] != '/') ++j;
-        cur->startDay.month = stoi(tmp.substr(i, j-i));
+        cur->endDay.month = stoi(tmp.substr(i, j-i));
         i = ++j;
         ///end start
         while(j<tmp.size() && tmp[j] != ',') ++j;
-        cur->startDay.year = stoi(tmp.substr(i, j-i));
+        cur->endDay.year = stoi(tmp.substr(i, j-i));
         i = ++j;
         ///count
         while(j<tmp.size() && tmp[j] != ',') ++j;

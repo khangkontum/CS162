@@ -12,9 +12,13 @@ using namespace std;
 
 
 void clearScreen(){
+    /*
 	for(int i = 1; i <= 10; i++)
 		cout << "\n\n\n\n\n";
-
+    */
+    cout<<endl;
+    cout<<endl;
+    cout<<endl;
     //system("clear");
 }
 

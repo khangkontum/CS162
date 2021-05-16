@@ -27,7 +27,7 @@ void viewScoreBoard(User* user){
     fin.open(Dir);
 
     string line;
-    cout << "Student-ID || Total mark  || Final mark || Midterm mark || Other mark\n";
+    //cout << "Student-ID || Total mark  || Final mark || Midterm mark || Other mark\n";
     while(getline(fin, line))
     {
         stringstream lineStream(line);
@@ -89,6 +89,7 @@ void enrollInACourse(User* user){
             fi.open(tmp);
             string s_e;
             getSemester(fi, s_e);
+            cerr<<s_e<<endl;
             fi.close();
             ///
             fo<<s_e<<",1"<<endl;
@@ -149,7 +150,7 @@ void removeACourseFromEnrolledList(User* user){
             fo<<couList->courseID<<','<<couList->courseName<<','<<couList->status<<','<<couList->totalMark<<
                 ','<<couList->finalMark<<','<<couList->midTermMark<<','<<couList->otherMark<<','<<
                 couList->startDay.day<<'/'<<couList->startDay.month<<'/'<<couList->startDay.year<<'-'<<
-                couList->startDay.day<<'/'<<couList->startDay.month<<'/'<<couList->startDay.year<<','<<
+                couList->endDay.day<<'/'<<couList->endDay.month<<'/'<<couList->endDay.year<<','<<
                 couList->count<<endl;
             couList = couList->courseNext;
         }
