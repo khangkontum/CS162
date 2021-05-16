@@ -43,6 +43,7 @@ void goStaff(User* user){
     clearScreen();
     displayStaffCommand();
     do{
+        cout<<endl;
         cout<<"Input your command: ";
         command = readCommand();
         switch (command){
@@ -100,17 +101,17 @@ void goStaff(User* user){
 			string path = "Classes/Classes.txt";
 			cout << "Create a new class:" << endl;
 			createClasses(classList, path);
-			PressEnterToContinue();
+			//PressEnterToContinue();
             break;
         }
           case 19:{
-             addStudentsToClass(classList);
-			PressEnterToContinue();
+            addStudentsToClass(classList);
+			//PressEnterToContinue();
             break;
         }
         case 20:{
            	addAStudentToClass(classList);
-			PressEnterToContinue();
+			//PressEnterToContinue();
             break;
         }
 

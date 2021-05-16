@@ -30,7 +30,7 @@ char* converToChar(string path){
 
 void PressEnterToContinue()
 {
-	system("read -p \"Press a key to continue...\" -n 1 -s\n");
+	//system("read -p \"Press a key to continue...\" -n 1 -s\n");
 }
 
 
@@ -142,7 +142,6 @@ void addAStudentToClass(classList &classList) {
 			fout << date << ',';
 			fout << x->socialID << ",";
 			fout << x->Gender << endl;
-
 			x->No = addClass->noStudent + 1;
 			x->posClass = addClass;
 			if (addClass->studentList == nullptr) {

@@ -19,7 +19,7 @@ void clearScreen(){
 }
 
 void createUser(Student* u){
-    User* a;
+    User* a = new User;
     a->username = u->studentID;
     a->password = "1";
     a->name = u->lastName + " " + u->firstName;

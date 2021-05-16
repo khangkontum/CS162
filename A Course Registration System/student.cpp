@@ -153,6 +153,7 @@ void goStudent(User* user){
     clearScreen();
     displayStudentCommand();
     do{
+        cout<<endl;
         cout<<"Input your command: ";
         command = readCommand();
         switch (command){
