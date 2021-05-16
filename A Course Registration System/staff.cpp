@@ -44,7 +44,7 @@ void goStaff(User* user){
     displayStaffCommand();
     do{
         cout<<"Input your command: ";
-        cin>>command;
+        command = readCommand();
         switch (command){
         case 0:
             break;

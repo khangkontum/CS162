@@ -217,3 +217,14 @@ Date getCurrentTime(){
     return cur;
 }
 
+int readCommand(){
+    string s;
+    cin>>s;
+    int u = 0;
+    for (int i=0, ii = s.size(); i<ii; ++i)
+    if (s[i] >= '0' && s[i] <= '9')
+        u = u*10 + s[i]-'0';
+    else
+        return -1;
+    return u;
+}

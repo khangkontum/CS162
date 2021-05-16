@@ -154,8 +154,7 @@ void goStudent(User* user){
     displayStudentCommand();
     do{
         cout<<"Input your command: ";
-        cin.ignore();
-        cin>>command;
+        command = readCommand();
         switch (command){
         case 0:
             break;

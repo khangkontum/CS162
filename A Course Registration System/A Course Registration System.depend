@@ -23,7 +23,7 @@
 	<sys/types.h>
 	<windows.h>
 
-1621139956 source:d:\github\cs162\a course registration system\login.cpp
+1621148654 source:d:\github\cs162\a course registration system\login.cpp
 	"login.h"
 	"school.h"
 	"fstream"
@@ -31,11 +31,11 @@
 	"global.h"
 	<windows.h>
 
-1619442354 d:\github\cs162\a course registration system\login.h
+1621148576 d:\github\cs162\a course registration system\login.h
 	"school.h"
 	"student.h"
 
-1621138485 source:d:\github\cs162\a course registration system\staff.cpp
+1621148671 source:d:\github\cs162\a course registration system\staff.cpp
 	"staff.h"
 	"school.h"
 	<bits/stdc++.h>
@@ -52,7 +52,7 @@
 	"login.h"
 	"staff.h"
 
-1621139878 source:d:\github\cs162\a course registration system\student.cpp
+1621148708 source:d:\github\cs162\a course registration system\student.cpp
 	"student.h"
 	"school.h"
 	"login.h"

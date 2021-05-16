@@ -17,6 +17,7 @@ void changePassword(User* user);
 void clearScreen();
 void displayPersonalInfo(User* user);
 Date getCurrentTime();
+int readCommand();
 
 
 #endif // _login_
