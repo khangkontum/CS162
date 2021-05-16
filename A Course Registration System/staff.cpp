@@ -574,7 +574,7 @@ void viewScoreBoardClass()
     do{
         i++;
         fin.open(Dir + to_string(i) + "/Information.txt");
-        if(fin.is_open() == true);
+        if(fin.is_open() == true)
             break;
     }while(true);
     getSemester(fin, SemesterTime);
