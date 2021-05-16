@@ -431,7 +431,7 @@ void updateStudentResultTmp()
     do{
         cout << "Input course ID: ";
         ifstream fin;
-        fin.open(strArr[1] + ".csv");
+        fin.open("Students/" + strArr[1] + ".csv");
 
         string line;
         bool ok = false;
