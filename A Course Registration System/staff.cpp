@@ -414,7 +414,7 @@ void updateStudentResultTmp()
         cout << "Input student ID: ";
         cin >> strArr[1];
         ifstream fin;;
-        fin.open(strArr[1] + ".csv");
+        fin.open("Students/" + strArr[1] + ".csv");
         if(fin.is_open() == false)
         {
             clearScreen();
