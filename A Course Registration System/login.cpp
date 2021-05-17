@@ -19,8 +19,6 @@ void clearScreen(){
     cout<<endl;
     cout<<endl;
     cout<<endl;
-    cout<<endl;
-    cout<<endl;
     //system("clear");
 }
 
