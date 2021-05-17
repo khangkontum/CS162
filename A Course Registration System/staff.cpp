@@ -624,7 +624,8 @@ void viewScoreBoardClass()
     string tmp;
     ifstream fin;
     fin.open("SchoolYear/SchoolYear.txt");
-    while(getline(fin, tmp)) {}
+    //while(getline(fin, tmp)) {}
+    while(fin>>tmp){}
     fin.close();
     string Dir = "SchoolYear/" + tmp + "/Semester ";
 
