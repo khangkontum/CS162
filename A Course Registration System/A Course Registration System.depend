@@ -1,11 +1,11 @@
 # depslib dependency file v1.0
-1621187704 source:d:\github\cs162\a course registration system\main.cpp
+1621216243 source:d:\github\cs162\a course registration system\main.cpp
 	"school.h"
 	"login.h"
 	"student.h"
 	"staff.h"
 
-1621155320 d:\github\cs162\a course registration system\school.h
+1621216243 d:\github\cs162\a course registration system\school.h
 	<iostream>
 	<fstream>
 	<string.h>
@@ -13,7 +13,7 @@
 	<ctime>
 	<limits>
 
-1621216081 source:d:\github\cs162\a course registration system\school.cpp
+1621216243 source:d:\github\cs162\a course registration system\school.cpp
 	"school.h"
 	"login.h"
 	<bits/stdc++.h>
@@ -23,7 +23,7 @@
 	<sys/types.h>
 	<windows.h>
 
-1621216163 source:d:\github\cs162\a course registration system\login.cpp
+1621216243 source:d:\github\cs162\a course registration system\login.cpp
 	"login.h"
 	"school.h"
 	"fstream"
@@ -31,11 +31,11 @@
 	"global.h"
 	<windows.h>
 
-1621148576 d:\github\cs162\a course registration system\login.h
+1621216243 d:\github\cs162\a course registration system\login.h
 	"school.h"
 	"student.h"
 
-1621215783 source:d:\github\cs162\a course registration system\staff.cpp
+1621216243 source:d:\github\cs162\a course registration system\staff.cpp
 	"staff.h"
 	"school.h"
 	<bits/stdc++.h>
@@ -43,22 +43,22 @@
 	<sstream>
 	<filesystem>
 
-1621139995 d:\github\cs162\a course registration system\staff.h
+1621216243 d:\github\cs162\a course registration system\staff.h
 	"login.h"
 	"student.h"
 
-1621139967 d:\github\cs162\a course registration system\student.h
+1621216243 d:\github\cs162\a course registration system\student.h
 	"school.h"
 	"login.h"
 	"staff.h"
 
-1621186290 source:d:\github\cs162\a course registration system\student.cpp
+1621216243 source:d:\github\cs162\a course registration system\student.cpp
 	"student.h"
 	"school.h"
 	"login.h"
 	"staff.h"
 	<sstream>
 
-1619418951 d:\github\cs162\a course registration system\global.h
+1621216243 d:\github\cs162\a course registration system\global.h
 	"school.h"
 
