@@ -37,6 +37,30 @@ void createUser(Student* u){
     if (uList.fUser != nullptr)
         uList.fUser->uPre = a;
     uList.fUser = a;
+    ///////////////////////////////////////////////////////////////////////////
+    ifstream fi;
+    string stmp, ListOfStudent[10000];
+    int cnt = 0;
+    fi.open("Students/list.txt");
+    while(!fi.eof()&&fi>>stmp){
+        //cerr<<stmp;
+        ListOfStudent[cnt++] = stmp;
+    }
+    fi.close();
+    bool k = true;
+    for (int i=0;i<cnt;++i)
+        if (ListOfStudent[i] == u->studentID){
+            k = false;
+            break;
+        }
+    if (k)
+        ListOfStudent[cnt++] = u->studentID;
+    ofstream fo;
+    fo.open("Students/list.txt");
+    for (int i=0;i<cnt;++i)
+        fo<<ListOfStudent[i]<<endl;
+    fo.close();
+    /////////////////////////////////////////////////////////////////////////////////
     saveUserList();
 }
 void displayUser(User* u){

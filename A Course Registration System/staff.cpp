@@ -48,16 +48,20 @@ void goStaff(User* user){
     }
 	loadClassList(classList);
     ///***Create USER***
+
+
 	Class* curClass = classList.classL;
     while(curClass != nullptr){
         Student* curSt = curClass->studentList;
         while(curSt != nullptr){
             if (findUser(curSt->studentID) == nullptr)
                 createUser(curSt);
+
             curSt = curSt->pNext;
         }
         curClass = curClass->pNext;
     }
+
 
     ///*****************
     int command;
