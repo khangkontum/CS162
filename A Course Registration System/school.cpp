@@ -719,7 +719,7 @@ void saveSemester_toFile(Semester*&s){
 	string path="SchoolYear/";
 	for(int i=0;i<strlen(s->schoolYear);++i)path+=s->schoolYear[i];
 	path+="/Semester "+to_string(s->ordinalSemester);
-	//cerr<<path<<endl;
+	cerr<<path<<endl;
 	//mkdir(converToChar(path), 0777);/// tạo folder
 	make_directory(converToChar(path));
 	path+="/Information.txt";
